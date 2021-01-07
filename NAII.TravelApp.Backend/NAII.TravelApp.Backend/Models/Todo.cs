@@ -15,5 +15,15 @@ namespace NAII.TravelApp.Backend.Models
         public long TripId { get; set; }
         public long CategoryId { get; set; }
 
+        protected Todo()
+        {
+
+        }
+        public Todo(string name, Category category)
+        {
+            Name = name;
+            Completed = false;
+            Category = category;
+        }
     }
 }

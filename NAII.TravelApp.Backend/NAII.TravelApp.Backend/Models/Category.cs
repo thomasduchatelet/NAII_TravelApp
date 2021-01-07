@@ -10,5 +10,15 @@ namespace NAII.TravelApp.Backend.Models
         public long Id { get; set; }
 
         public string Name { get; set; }
+
+        public Category(string name)
+        {
+            Name = name;
+        }
+
+        protected Category()
+        {
+
+        }
     }
 }

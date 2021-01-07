@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using NAII.TravelApp.Backend.Models;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace NAII.TravelApp.Backend.Data
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext
     {
         public DbSet<Trip> Trips { get; set; }
         public DbSet<Itinerary> Itineraries { get; set; }
@@ -15,6 +16,12 @@ namespace NAII.TravelApp.Backend.Data
         public DbSet<Location> Locations { get; set; }
         public DbSet<Todo> Todos { get; set; }
         public DbSet<Item> Items { get; set; }
+        public DbSet<User> User { get; set; }
+
+        public AppDbContext(DbContextOptions options) : base(options)
+        {
+
+        }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -47,6 +54,11 @@ namespace NAII.TravelApp.Backend.Data
                 .HasMany(i => i.Locations)
                 .WithOne()
                 .HasForeignKey(l => l.ItineraryId);
+
+            builder.Entity<User>()
+                .HasMany(u => u.Trips)
+                .WithOne()
+                .HasForeignKey(t => t.UserId);
 
         }
     }
