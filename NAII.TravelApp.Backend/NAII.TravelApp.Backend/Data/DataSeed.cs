@@ -61,7 +61,12 @@ namespace NAII.TravelApp.Backend.Data
                 {
                     UserName = "jdoe",
                     Email = "jdoe@mail.com",
-                    Trips = new List<Trip> { trip}
+                    Trips = new List<Trip> { trip},
+                    Items = items,
+                    Todos = todos,
+                    Itineraries = new List<Itinerary> { itinerary },
+                    Locations = new List<Location> {ghent, berlin, prague },
+                    Categories = new List<Category> { clothes, toiletries, miscellaneous, tickets, research}
                 };
 
 

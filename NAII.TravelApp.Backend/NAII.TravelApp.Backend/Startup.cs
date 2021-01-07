@@ -49,9 +49,9 @@ namespace NAII.TravelApp.Backend
             services.AddScoped<ICrudRepository<Location, LocationFilter>, CrudRepository<Location, LocationFilter>>();
 
             services.AddIdentity<User, IdentityRole>(cfg => cfg.User.RequireUniqueEmail = true).AddEntityFrameworkStores<AppDbContext>();
-            services.AddSwaggerDocument(c =>
+            services.AddOpenApiDocument(c =>
             {
-                c.DocumentName = "v1";
+                c.DocumentName = "apidocs";
                 c.Title = "TravelApi";
                 c.Version = "v1";
                 c.Description = "The TravelApp documentation description.";
@@ -120,8 +120,10 @@ namespace NAII.TravelApp.Backend
 
             app.UseAuthorization();
             app.UseAuthentication();
-
-            app.UseSwaggerUi3(c => c.SwaggerRoutes.Add(new SwaggerUi3Route("v1","/v1.json")));
+            app.UseOpenApi();
+            app.UseSwaggerUi3(c => {
+                c.SwaggerRoutes.Add(new SwaggerUi3Route("v1", "swagger/apidocs/swagger.json"));                
+            });
 
             seed.InitializeData().Wait();
 

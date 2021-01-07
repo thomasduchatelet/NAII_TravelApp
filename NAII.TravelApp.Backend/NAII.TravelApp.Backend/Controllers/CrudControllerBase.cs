@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 
 namespace NAII.TravelApp.Backend.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class CrudControllerBase<T, I> : ControllerBase where T : TravelAppClass where I : IFilter<T>
     {
         protected readonly ICrudRepository<T, I> _repository;
@@ -20,23 +22,24 @@ namespace NAII.TravelApp.Backend.Controllers
             _repository = repository;
             _userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
         }
-
-        [HttpGet]
-        public virtual IEnumerable<T> GetAll(I filter)
+        [HttpGet("GetAll")]
+        public virtual IEnumerable<T> GetAll([FromQuery] I filter)
         {
             return _repository.GetAll(filter, _userId);
         }
-        [HttpPost]
+        [HttpPut("Create")]
         public virtual T Create(T input)
         {
             return _repository.Create(input, _userId);
         }
-        [HttpPost]
+        [HttpPut("Update")]
+
         public virtual T Update(T input)
         {
             return _repository.Update(input, _userId);
         }
-        [HttpPost]
+        [HttpPost("Delete")]
+
         public virtual void Delete(long id)
         {
             _repository.Delete(id, _userId);

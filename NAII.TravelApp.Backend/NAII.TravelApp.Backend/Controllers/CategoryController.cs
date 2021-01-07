@@ -10,8 +10,7 @@ using System.Threading.Tasks;
 
 namespace NAII.TravelApp.Backend.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+
     public class CategoryController : CrudControllerBase<Category, CategoryFilter>
     {
         public CategoryController(ICrudRepository<Category, CategoryFilter> repository, IHttpContextAccessor httpContextAccessor) : base(repository, httpContextAccessor)
