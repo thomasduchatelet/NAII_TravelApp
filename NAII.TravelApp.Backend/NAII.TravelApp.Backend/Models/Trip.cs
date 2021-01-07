@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace NAII.TravelApp.Backend.Models
 {
-    public class Trip
+    public class Trip : TravelAppClass
     {
-        public long Id { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate {get; set; }
         public string Title { get; set; }
@@ -15,7 +14,6 @@ namespace NAII.TravelApp.Backend.Models
         public List<Item> Items { get; set; }
         public List<Todo> Todos { get; set; }
 
-        public string UserId { get; set; }
 
         public Trip()
         {

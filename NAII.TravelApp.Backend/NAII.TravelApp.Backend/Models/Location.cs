@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace NAII.TravelApp.Backend.Models
 {
-    public class Location
+    public class Location : TravelAppClass
     {
-        public long Id { get; set; }
         public double Order { get; set; }
         public string Name { get; set; }
         public double Latitude { get; set; }

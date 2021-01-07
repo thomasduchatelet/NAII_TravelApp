@@ -5,15 +5,8 @@ using System.Threading.Tasks;
 
 namespace NAII.TravelApp.Backend.Models
 {
-    public class Todo
+    public class Todo : TodoItemBase
     {
-        public long Id { get; set; }
-
-        public string Name { get; set; }
-        public bool Completed { get; set; }
-        public Category Category { get; set; }
-        public long TripId { get; set; }
-        public long CategoryId { get; set; }
 
         protected Todo()
         {

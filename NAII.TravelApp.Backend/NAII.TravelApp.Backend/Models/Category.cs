@@ -5,11 +5,10 @@ using System.Threading.Tasks;
 
 namespace NAII.TravelApp.Backend.Models
 {
-    public class Category
+    public class Category : TravelAppClass
     {
-        public long Id { get; set; }
-
         public string Name { get; set; }
+
 
         public Category(string name)
         {

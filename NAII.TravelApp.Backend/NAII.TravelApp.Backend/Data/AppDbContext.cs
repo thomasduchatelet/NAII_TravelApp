@@ -16,7 +16,7 @@ namespace NAII.TravelApp.Backend.Data
         public DbSet<Location> Locations { get; set; }
         public DbSet<Todo> Todos { get; set; }
         public DbSet<Item> Items { get; set; }
-        public DbSet<User> User { get; set; }
+        public DbSet<User> Users { get; set; }
 
         public AppDbContext(DbContextOptions options) : base(options)
         {
@@ -57,6 +57,26 @@ namespace NAII.TravelApp.Backend.Data
 
             builder.Entity<User>()
                 .HasMany(u => u.Trips)
+                .WithOne()
+                .HasForeignKey(t => t.UserId);
+            builder.Entity<User>()
+                .HasMany(u => u.Categories)
+                .WithOne()
+                .HasForeignKey(t => t.UserId);
+            builder.Entity<User>()
+                .HasMany(u => u.Items)
+                .WithOne()
+                .HasForeignKey(t => t.UserId);
+            builder.Entity<User>()
+                .HasMany(u => u.Itineraries)
+                .WithOne()
+                .HasForeignKey(t => t.UserId);
+            builder.Entity<User>()
+                .HasMany(u => u.Todos)
+                .WithOne()
+                .HasForeignKey(t => t.UserId);
+            builder.Entity<User>()
+                .HasMany(u => u.Locations)
                 .WithOne()
                 .HasForeignKey(t => t.UserId);
 
