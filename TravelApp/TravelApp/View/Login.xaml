@@ -1,0 +1,21 @@
+﻿<Page
+    x:Class="TravelApp.View.Login"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TravelApp.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Button Click="Login_Click" Content="Login" Style="{StaticResource AccentButtonStyle}" Margin="671,542,0,0" VerticalAlignment="Top" Width="79"></Button>
+        <Button Click="Register_Click" Content="Registreren" Margin="782,542,0,0" VerticalAlignment="Top" Width="79"></Button>
+
+        <TextBox x:Name="txtUsername"  HorizontalAlignment="Left" Margin="671,449,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190"/>
+        <PasswordBox x:Name="txtPassword" HorizontalAlignment="Left" Margin="671,505,0,0" VerticalAlignment="Top" Width="190"/>
+        <TextBlock HorizontalAlignment="Left" Margin="671,430,0,0" Text="Gebruikersnaam" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="672,481,0,0" Text="Wachtwoord" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="Login" Style="{StaticResource Title}" TextWrapping="Wrap" VerticalAlignment="Top"/>
+    </Grid>
+</Page>
