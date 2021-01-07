@@ -16,7 +16,7 @@ namespace NAII.TravelApp.Backend.Data
         public DbSet<Location> Locations { get; set; }
         public DbSet<Todo> Todos { get; set; }
         public DbSet<Item> Items { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<User> AppUsers { get; set; }
 
         public AppDbContext(DbContextOptions options) : base(options)
         {

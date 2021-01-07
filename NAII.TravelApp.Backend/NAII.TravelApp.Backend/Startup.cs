@@ -16,6 +16,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using NAII.TravelApp.Backend.Models;
+using NAII.TravelApp.Backend.Data.Repositories.Implementations;
+using NAII.TravelApp.Backend.Data.Repositories.Interfaces;
+using NAII.TravelApp.Backend.Data.Repositories.Implementations.Filters;
+using NSwag.AspNetCore;
 
 namespace NAII.TravelApp.Backend
 {
@@ -37,12 +41,17 @@ namespace NAII.TravelApp.Backend
                 options.UseSqlServer(Configuration.GetConnectionString("Default")));
 
             services.AddScoped<DataSeed>();
-
+            services.AddScoped<ICrudRepository<Category,CategoryFilter>, CrudRepository<Category, CategoryFilter>>();
+            services.AddScoped<ICrudRepository<Trip, TripFilter>, CrudRepository<Trip, TripFilter>> ();
+            services.AddScoped<ICrudRepository<Item, ItemTodoFilter<Item>>, CrudRepository<Item, ItemTodoFilter<Item>>>();
+            services.AddScoped<ICrudRepository<Todo, ItemTodoFilter<Todo>>, CrudRepository<Todo, ItemTodoFilter<Todo>>>();
+            services.AddScoped<ICrudRepository<Itinerary, ItineraryFilter>, CrudRepository<Itinerary, ItineraryFilter>>();
+            services.AddScoped<ICrudRepository<Location, LocationFilter>, CrudRepository<Location, LocationFilter>>();
 
             services.AddIdentity<User, IdentityRole>(cfg => cfg.User.RequireUniqueEmail = true).AddEntityFrameworkStores<AppDbContext>();
-            services.AddOpenApiDocument(c =>
+            services.AddSwaggerDocument(c =>
             {
-                c.DocumentName = "apidocs";
+                c.DocumentName = "v1";
                 c.Title = "TravelApi";
                 c.Version = "v1";
                 c.Description = "The TravelApp documentation description.";
@@ -112,8 +121,7 @@ namespace NAII.TravelApp.Backend
             app.UseAuthorization();
             app.UseAuthentication();
 
-            app.UseSwaggerUi3();
-            app.UseOpenApi();
+            app.UseSwaggerUi3(c => c.SwaggerRoutes.Add(new SwaggerUi3Route("v1","/v1.json")));
 
             seed.InitializeData().Wait();
 
