@@ -20,6 +20,7 @@ using NAII.TravelApp.Backend.Data.Repositories.Implementations;
 using NAII.TravelApp.Backend.Data.Repositories.Interfaces;
 using NAII.TravelApp.Backend.Data.Repositories.Implementations.Filters;
 using NSwag.AspNetCore;
+using Microsoft.AspNetCore.Http;
 
 namespace NAII.TravelApp.Backend
 {
@@ -35,8 +36,7 @@ namespace NAII.TravelApp.Backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-
+            services.AddMvcCore().AddApiExplorer();
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Default")));
 
@@ -47,6 +47,7 @@ namespace NAII.TravelApp.Backend
             services.AddScoped<ICrudRepository<Todo, ItemTodoFilter<Todo>>, CrudRepository<Todo, ItemTodoFilter<Todo>>>();
             services.AddScoped<ICrudRepository<Itinerary, ItineraryFilter>, CrudRepository<Itinerary, ItineraryFilter>>();
             services.AddScoped<ICrudRepository<Location, LocationFilter>, CrudRepository<Location, LocationFilter>>();
+            services.AddHttpContextAccessor();
 
             services.AddIdentity<User, IdentityRole>(cfg => cfg.User.RequireUniqueEmail = true).AddEntityFrameworkStores<AppDbContext>();
             services.AddOpenApiDocument(c =>
@@ -55,15 +56,16 @@ namespace NAII.TravelApp.Backend
                 c.Title = "TravelApi";
                 c.Version = "v1";
                 c.Description = "The TravelApp documentation description.";
-                c.DocumentProcessors.Add(new SecurityDefinitionAppender("JWT Token", new NSwag.OpenApiSecurityScheme
+                c.DocumentProcessors.Add(new SecurityDefinitionAppender("JWT", new NSwag.OpenApiSecurityScheme
                 {
                     Type = NSwag.OpenApiSecuritySchemeType.ApiKey,
                     Name = "Authorization",
                     In = NSwag.OpenApiSecurityApiKeyLocation.Header,
                     Description = "Copy 'Bearer' + valid JWT token into field."
                 }));
-                c.OperationProcessors.Add(new OperationSecurityScopeProcessor("JWT Token"));
+                c.OperationProcessors.Add(new OperationSecurityScopeProcessor("JWT"));
             });
+
 
             services.AddAuthentication(x =>
             {
@@ -113,13 +115,20 @@ namespace NAII.TravelApp.Backend
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseHsts();
+            }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
 
-            app.UseAuthorization();
             app.UseAuthentication();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
             app.UseOpenApi();
             app.UseSwaggerUi3(c => {
                 c.SwaggerRoutes.Add(new SwaggerUi3Route("v1", "swagger/apidocs/swagger.json"));                

@@ -11,7 +11,7 @@ namespace NAII.TravelApp.Backend.Data.Repositories.Interfaces
         IEnumerable<T> GetAll(I filter, string userId);
         T Create(T input, string userId);
         T Update(T input, string userId);
-        void Delete(long id, string userId);
+        bool Delete(long id, string userId);
 
     }
 }

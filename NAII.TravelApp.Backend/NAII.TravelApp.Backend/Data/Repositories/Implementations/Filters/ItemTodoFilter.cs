@@ -25,7 +25,7 @@ namespace NAII.TravelApp.Backend.Data.Repositories.Implementations.Filters
                 input = input.Where(i => i.TripId == TripId.Value);
             if (Categories.Count > 0)
                 input = input.Where(i => Categories.Contains(i.Category.Name));
-            if (Name != null || Name != "")
+            if (Name != null && Name != "")
                 input = input.Where(i => i.Name.Contains(Name));
             if (Completed != null)
                 input = input.Where(i => i.Completed == Completed.Value);

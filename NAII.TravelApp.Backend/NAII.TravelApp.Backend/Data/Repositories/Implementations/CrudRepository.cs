@@ -25,11 +25,14 @@ namespace NAII.TravelApp.Backend.Data.Repositories.Implementations
             return input;
         }
 
-        public virtual void Delete(long id, string userId)
+        public virtual bool Delete(long id, string userId)
         {
             var t = _dbSet.SingleOrDefault(c => c.Id == id && c.UserId == userId);
+            if (t == null)
+                return false;
             _dbSet.Remove(t);
             _context.SaveChanges();
+            return true;
         }
 
         public virtual IEnumerable<T> GetAll(I filter, string userId)

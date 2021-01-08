@@ -14,7 +14,7 @@ namespace NAII.TravelApp.Backend.Data.Repositories.Implementations.Filters
         public IEnumerable<Category> Filter(IEnumerable<Category> input, string userId)
         {
             input = input.Where(i => i.UserId == userId);
-            if (Name != "" || Name != null)
+            if (Name != "" && Name != null)
                 input = input.Where(i => i.Name.Contains(Name));
 
             return input;

@@ -23,26 +23,28 @@ namespace NAII.TravelApp.Backend.Controllers
             _userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
         }
         [HttpGet("GetAll")]
-        public virtual IEnumerable<T> GetAll([FromQuery] I filter)
+        public virtual ActionResult<IEnumerable<T>> GetAll([FromQuery] I filter)
         {
-            return _repository.GetAll(filter, _userId);
+            return Ok(_repository.GetAll(filter, _userId));
         }
         [HttpPut("Create")]
-        public virtual T Create(T input)
+        public virtual ActionResult<T> Create(T input)
         {
-            return _repository.Create(input, _userId);
+            return Ok(_repository.Create(input, _userId));
         }
         [HttpPut("Update")]
 
-        public virtual T Update(T input)
+        public virtual ActionResult<T> Update(T input)
         {
-            return _repository.Update(input, _userId);
+            return Ok(_repository.Update(input, _userId));
         }
         [HttpPost("Delete")]
 
-        public virtual void Delete(long id)
+        public virtual ActionResult Delete(long id)
         {
-            _repository.Delete(id, _userId);
+            if (_repository.Delete(id, _userId))
+                return Ok();
+            return NotFound();
         }
 
 

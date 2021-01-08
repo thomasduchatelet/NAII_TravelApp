@@ -14,7 +14,7 @@ namespace NAII.TravelApp.Backend.Data.Repositories.Implementations.Filters
         public DateTime? StartsBefore { get; set; }
         public override IEnumerable<Trip> FilterAfterUsersFiltered(IEnumerable<Trip> input)
         {
-            if (Title != null || Title != "")
+            if (Title != null && Title != "")
                 input = input.Where(t => t.Title.Contains(Title));
             if (StartsAfter.HasValue)
                 input = input.Where(t => t.StartDate.Ticks >= StartsAfter.Value.Ticks);

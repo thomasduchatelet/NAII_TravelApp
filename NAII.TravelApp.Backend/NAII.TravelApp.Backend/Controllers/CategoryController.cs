@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace NAII.TravelApp.Backend.Controllers
 {
-
     public class CategoryController : CrudControllerBase<Category, CategoryFilter>
     {
-        public CategoryController(ICrudRepository<Category, CategoryFilter> repository, IHttpContextAccessor httpContextAccessor) : base(repository, httpContextAccessor)
+
+        public CategoryController(ICrudRepository<Category, CategoryFilter> repository, IHttpContextAccessor httpContextAccessor) : base(repository,httpContextAccessor)
         {
         }
     }
