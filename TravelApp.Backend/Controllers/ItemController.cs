@@ -12,9 +12,9 @@ using TravelApp.Shared.Dto;
 namespace TravelApp.Backend.Controllers
 {
 
-    public class ItemController : CrudControllerBase<Item, ItemTodoFilter<Item>, ItemDto>
+    public class ItemController : CrudControllerBase<Item, ItemFilter, ItemDto>
     {
-        public ItemController(ICrudRepository<Item, ItemTodoFilter<Item>> repository, IHttpContextAccessor httpContextAccessor) : base(repository, httpContextAccessor)
+        public ItemController(ICrudRepository<Item, ItemFilter> repository, IHttpContextAccessor httpContextAccessor) : base(repository, httpContextAccessor)
         {
         }
     }

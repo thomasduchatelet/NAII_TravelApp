@@ -11,11 +11,10 @@ using TravelApp.Shared.Dto;
 
 namespace TravelApp.Backend.Controllers
 {
-    public class TripController : CrudControllerBase<Trip, TripFilter, TripDto>
+    public class TripController : CrudControllerBase<Trip, TripFilter, GetTripDto, TripDto>
     {
         public TripController(ICrudRepository<Trip, TripFilter> repository, IHttpContextAccessor httpContextAccessor) : base(repository, httpContextAccessor)
         {
         }
-
     }
 }

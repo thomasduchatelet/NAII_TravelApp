@@ -12,9 +12,9 @@ using TravelApp.Shared.Dto;
 namespace TravelApp.Backend.Controllers
 {
 
-    public class TodoController : CrudControllerBase<Todo, ItemTodoFilter<Todo>, TodoDto>
+    public class TodoController : CrudControllerBase<Todo, TodoFilter, TodoDto>
     {
-        public TodoController(ICrudRepository<Todo, ItemTodoFilter<Todo>> repository, IHttpContextAccessor httpContextAccessor) : base(repository, httpContextAccessor)
+        public TodoController(ICrudRepository<Todo, TodoFilter> repository, IHttpContextAccessor httpContextAccessor) : base(repository, httpContextAccessor)
         {
         }
     }
