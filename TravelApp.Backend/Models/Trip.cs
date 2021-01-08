@@ -10,9 +10,9 @@ namespace TravelApp.Backend.Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate {get; set; }
         public string Title { get; set; }
-        public Itinerary Itinerary { get; set; }
-        public List<Item> Items { get; set; }
-        public List<Todo> Todos { get; set; }
+        public virtual Itinerary Itinerary { get; set; }
+        public virtual List<Item> Items { get; set; }
+        public virtual List<Todo> Todos { get; set; }
 
 
         public Trip()

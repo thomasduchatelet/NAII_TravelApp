@@ -24,29 +24,34 @@ namespace TravelApp.Backend.Controllers
         {
             _repository = repository;
             _userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            _mapper = new MapperConfiguration(cfg => cfg.CreateMap<T, D>()).CreateMapper();
+            _mapper = new MapperConfiguration(
+                cfg =>
+                {
+                    cfg.CreateMap<T, D>();
+                    cfg.CreateMap<D, T>();
+                }).CreateMapper();
             }
         [HttpGet("GetAll")]
-        public virtual ActionResult<IEnumerable<T>> GetAll([FromQuery] I filter)
+        public virtual ActionResult<IEnumerable<D>> GetAll([FromQuery] I filter)
         {
             return Ok(_repository.GetAll(filter, _userId));
         }
 
         [HttpGet("GetAllEager")]
-        public virtual ActionResult<IEnumerable<T>> GetAllEager([FromQuery] I filter)
+        public virtual ActionResult<IEnumerable<D>> GetAllEager([FromQuery] I filter)
         {
             return Ok(_repository.GetAllEager(filter, _userId));
         }
         [HttpPut("Create")]
-        public virtual ActionResult<T> Create(T input)
+        public virtual ActionResult<D> Create(D input)
         {
-            return Ok(_repository.Create(input, _userId));
+            return Ok(_repository.Create(_mapper.Map<T>(input), _userId));
         }
         [HttpPut("Update")]
 
-        public virtual ActionResult<T> Update(T input)
+        public virtual ActionResult<D> Update(D input)
         {
-            return Ok(_repository.Update(input, _userId));
+            return Ok(_repository.Update(_mapper.Map<T>(input), _userId));
         }
         [HttpPost("Delete")]
 

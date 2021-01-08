@@ -18,7 +18,7 @@ namespace TravelApp.Backend.Controllers
 
         public ActionResult AddLocation(int position, LocationDto location)
         {
-            var itinerary = _repository.GetAll(new ItineraryFilter() { Id = location.ItineraryId }, _userId).FirstOrDefault();
+            var itinerary = _repository.GetAllEager(new ItineraryFilter() { Id = location.ItineraryId }, _userId).FirstOrDefault();
             if (itinerary == null) return NotFound();
             itinerary.AddLocation(_mapper.Map<Location>(location), position);
             _repository.SaveChanges();
