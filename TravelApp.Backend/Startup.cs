@@ -36,6 +36,7 @@ namespace TravelApp.Backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthorization();
             services.AddMvcCore().AddApiExplorer();
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Default")));
@@ -43,12 +44,11 @@ namespace TravelApp.Backend
             services.AddScoped<DataSeed>();
             services.AddScoped<ICrudRepository<Category,CategoryFilter>, CrudRepository<Category, CategoryFilter>>();
             services.AddScoped<ICrudRepository<Trip, TripFilter>, CrudRepository<Trip, TripFilter>> ();
-            services.AddScoped<ICrudRepository<Item, ItemTodoFilter<Item>>, CrudRepository<Item, ItemTodoFilter<Item>>>();
-            services.AddScoped<ICrudRepository<Todo, ItemTodoFilter<Todo>>, CrudRepository<Todo, ItemTodoFilter<Todo>>>();
+            services.AddScoped<ICrudRepository<Item, ItemFilter>, CrudRepository<Item, ItemFilter>>();
+            services.AddScoped<ICrudRepository<Todo, TodoFilter>, CrudRepository<Todo, TodoFilter>>();
             services.AddScoped<ICrudRepository<Itinerary, ItineraryFilter>, CrudRepository<Itinerary, ItineraryFilter>>();
             services.AddScoped<ICrudRepository<Location, LocationFilter>, CrudRepository<Location, LocationFilter>>();
             services.AddHttpContextAccessor();
-
             services.AddIdentity<User, IdentityRole>(cfg => cfg.User.RequireUniqueEmail = true).AddEntityFrameworkStores<AppDbContext>();
             services.AddOpenApiDocument(c =>
             {
@@ -122,8 +122,8 @@ namespace TravelApp.Backend
 
             app.UseHttpsRedirection();
             app.UseRouting();
-
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

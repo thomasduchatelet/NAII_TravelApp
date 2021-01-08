@@ -35,7 +35,7 @@ namespace TravelApp.Backend.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<ActionResult<String>> CreateToken(LoginDto model)
+        public async Task<ActionResult<string>> CreateToken(LoginDto model)
         {
             var user = await _userManager.FindByNameAsync(model.Email); if (user != null)
             {
@@ -48,7 +48,7 @@ namespace TravelApp.Backend.Controllers
             return BadRequest();
         }
 
-        private String GetToken(User user)
+        private string GetToken(User user)
         {      // Createthetoken
             var claims = new[]{
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id),

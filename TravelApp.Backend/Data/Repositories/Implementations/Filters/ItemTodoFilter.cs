@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TravelApp.Backend.Data.Repositories.Implementations.Filters
 {
-    public class ItemTodoFilter<T> : FilterBase<T> where T : TodoItemBase
+    public abstract class ItemTodoFilter<T> : FilterBase<T> where T : TodoItemBase
     {
         public List<string> Categories { get; set; }
         public string Name { get; set; }
@@ -27,9 +27,27 @@ namespace TravelApp.Backend.Data.Repositories.Implementations.Filters
                 input = input.Where(i => Categories.Contains(i.Category.Name));
             if (Name != null && Name != "")
                 input = input.Where(i => i.Name.Contains(Name));
-            if (Completed != null)
-                input = input.Where(i => i.Completed == Completed.Value);
+            if (Completed.HasValue)
+                input = CheckCompleted(input, Completed.Value);
             return input;
+        }
+
+        protected abstract IEnumerable<T> CheckCompleted(IEnumerable<T> input, bool completed);
+    }
+
+    public class ItemFilter : ItemTodoFilter<Item>
+    {
+        protected override IEnumerable<Item> CheckCompleted(IEnumerable<Item> input, bool completed)
+        {
+            return input.Where(i => i.IsCompleted() == completed);
+        }
+    }
+
+    public class TodoFilter : ItemTodoFilter<Todo>
+    {
+        protected override IEnumerable<Todo> CheckCompleted(IEnumerable<Todo> input, bool completed)
+        {
+            return input.Where(i => i.Completed == completed);
         }
     }
 }
