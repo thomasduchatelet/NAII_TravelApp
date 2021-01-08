@@ -7,7 +7,7 @@ namespace TravelApp.Backend.Models
 {
     public abstract class TodoItemBase : TravelAppClass
     {
-        public Category Category { get; set; }
+        public virtual Category Category { get; set; }
         public string Name { get; set; }
         public long TripId { get; set; }
         public long CategoryId { get; set; }

@@ -7,11 +7,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TravelApp.Shared.Dto;
 
 namespace TravelApp.Backend.Controllers
 {
 
-    public class TodoController : CrudControllerBase<Todo, ItemTodoFilter<Todo>>
+    public class TodoController : CrudControllerBase<Todo, ItemTodoFilter<Todo>, TodoDto>
     {
         public TodoController(ICrudRepository<Todo, ItemTodoFilter<Todo>> repository, IHttpContextAccessor httpContextAccessor) : base(repository, httpContextAccessor)
         {

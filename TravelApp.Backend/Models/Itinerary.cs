@@ -9,7 +9,7 @@ namespace TravelApp.Backend.Models
     public class Itinerary : TravelAppClass
     {
         public string Name { get; set; }
-        public List<Location> Locations { get; set; }
+        public virtual List<Location> Locations { get; set; }
         public long TripId { get; set; }
 
         protected Itinerary()
