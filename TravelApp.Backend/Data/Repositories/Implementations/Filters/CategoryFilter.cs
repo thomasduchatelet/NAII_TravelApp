@@ -15,7 +15,7 @@ namespace TravelApp.Backend.Data.Repositories.Implementations.Filters
         {
             input = input.Where(i => i.UserId == userId);
             if (Name != "" && Name != null)
-                input = input.Where(i => i.Name.Contains(Name));
+                input = input.Where(i => i.Name.ToLower().Contains(Name.ToLower()));
 
             return input;
         }

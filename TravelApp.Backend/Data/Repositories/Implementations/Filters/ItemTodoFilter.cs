@@ -26,7 +26,7 @@ namespace TravelApp.Backend.Data.Repositories.Implementations.Filters
             if (Categories.Count > 0)
                 input = input.Where(i => Categories.Contains(i.Category.Name));
             if (Name != null && Name != "")
-                input = input.Where(i => i.Name.Contains(Name));
+                input = input.Where(i => i.Name.ToLower().Contains(Name.ToLower()));
             if (Completed.HasValue)
                 input = CheckCompleted(input, Completed.Value);
             return input;

@@ -11,10 +11,11 @@ using Windows.Web.Http;
 using TravelApp.Models;
 using TravelApp.Shared.Dto;
 using System.Net.Http.Headers;
+using System.Web;
 
 namespace TravelApp.UwpApp.Models
 {
-    class ApiMethods
+    public static class ApiMethods
     {
         private static readonly string baseUrl = "https://localhost:44372/api";
         private static HttpClient client;
@@ -65,13 +66,23 @@ namespace TravelApp.UwpApp.Models
             }
             return token != null;
         }
-        public static async Task<List<TripDto>> GetTrips()
+        public static async Task<List<TripDto>> GetTrips(string titleFilter = null, DateTime? startsAfter = null, DateTime? startsBefore = null, long? id = null)
         {
-            Uri uri = new Uri($"{baseUrl}/Trip/GetAll");
+            var uriBuilder = new UriBuilder($"{baseUrl}/Trip/GetAll");
+            var query = HttpUtility.ParseQueryString(uriBuilder.Query);
+            if(titleFilter != null && titleFilter != "")
+                query["Title"] = titleFilter;
+            if (startsAfter.HasValue)
+                query["Startsafter"] = startsAfter.Value.ToString();
+            if (startsBefore.HasValue)
+                query["StartsBefore"] = startsBefore.Value.ToString();
+            if (id.HasValue)
+                query["Id"] = id.Value.ToString();
+            uriBuilder.Query = query.ToString();
             List<TripDto> trips = new List<TripDto>();
             try
             {
-                HttpResponseMessage httpResponse = await client.GetAsync(uri);
+                HttpResponseMessage httpResponse = await client.GetAsync(uriBuilder.Uri);
                 httpResponse.EnsureSuccessStatusCode();
                 trips = JsonConvert.DeserializeObject<List<TripDto>>(httpResponse.Content.ToString());
             }

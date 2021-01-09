@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using TravelApp.UwpApp.ViewModels;
+using TravelApp.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -16,24 +16,19 @@ using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace TravelApp.UwpApp.View
+namespace TravelApp.View
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class TripsOverview : Page
+    public sealed partial class TripDetails : Page
     {
-        public TripsOverviewViewModel TripsOverviewViewModel = new TripsOverviewViewModel();
-        public TripsOverview()
-        {
-            TripsOverviewViewModel.GetTrips();
-            this.InitializeComponent();
-        }
+        public TripDetailsViewModel ViewModel = new TripDetailsViewModel();
 
-        private async void Trip_Click(object sender, RoutedEventArgs e)
+        public TripDetails(long id)
         {
-            if (await ApiMethods.AuthenticateUser(txtUsername.Text, txtPassword.Password))
-                Frame.Navigate(typeof(TripsOverview));
+            ViewModel.GetTrip(id);
+            this.InitializeComponent();
         }
     }
 }

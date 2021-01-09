@@ -15,7 +15,7 @@ namespace TravelApp.Backend.Data.Repositories.Implementations.Filters
         public override IEnumerable<Trip> FilterAfterUsersFiltered(IEnumerable<Trip> input)
         {
             if (Title != null && Title != "")
-                input = input.Where(t => t.Title.Contains(Title));
+                input = input.Where(t => t.Title.ToLower().Contains(Title.ToLower()));
             if (StartsAfter.HasValue)
                 input = input.Where(t => t.StartDate.Ticks >= StartsAfter.Value.Ticks);
             if (StartsBefore.HasValue)
