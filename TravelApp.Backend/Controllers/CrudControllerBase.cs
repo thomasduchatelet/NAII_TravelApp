@@ -22,24 +22,24 @@ namespace TravelApp.Backend.Controllers
         [HttpGet("GetAll")]
         public virtual ActionResult<IEnumerable<D>> GetAll([FromQuery] I filter)
         {
-            return Ok(_repository.GetAll(filter, _userId));
+            return Ok(_mapper.Map<D>(_repository.GetAll(filter, _userId)));
         }
 
         [HttpGet("GetAllEager")]
         public virtual ActionResult<IEnumerable<D>> GetAllEager([FromQuery] I filter)
         {
-            return Ok(_repository.GetAllEager(filter, _userId));
+            return Ok(_mapper.Map<D>(_repository.GetAllEager(filter, _userId)));
         }
         [HttpPut("Create")]
         public virtual ActionResult<D> Create(D input)
         {
-            return Ok(_repository.Create(_mapper.Map<T>(input), _userId));
+            return Ok(_mapper.Map<D>(_repository.Create(_mapper.Map<T>(input), _userId)));
         }
         [HttpPut("Update")]
 
         public virtual ActionResult<D> Update(D input)
         {
-            return Ok(_repository.Update(_mapper.Map<T>(input), _userId));
+            return Ok(_mapper.Map<D>(_repository.Update(_mapper.Map<T>(input), _userId)));
         }
         [HttpPost("Delete")]
 
@@ -64,24 +64,24 @@ namespace TravelApp.Backend.Controllers
         [HttpGet("GetAll")]
         public virtual ActionResult<IEnumerable<GetDto>> GetAll([FromQuery] I filter)
         {
-            return Ok(_repository.GetAll(filter, _userId));
+            return Ok(_mapper.Map<IEnumerable<GetDto>>(_repository.GetAll(filter, _userId)));
         }
 
         [HttpGet("GetAllEager")]
         public virtual ActionResult<IEnumerable<GetDto>> GetAllEager([FromQuery] I filter)
         {
-            return Ok(_repository.GetAllEager(filter, _userId));
+            return Ok(_mapper.Map<IEnumerable<GetDto>>(_repository.GetAllEager(filter, _userId)));
         }
         [HttpPut("Create")]
         public virtual ActionResult<CreateOrUpdateDto> Create(CreateOrUpdateDto input)
         {
-            return Ok(_repository.Create(_mapper.Map<T>(input), _userId));
+            return Ok(_mapper.Map<CreateOrUpdateDto>(_repository.Create(_mapper.Map<T>(input), _userId)));
         }
         [HttpPut("Update")]
 
         public virtual ActionResult<CreateOrUpdateDto> Update(CreateOrUpdateDto input)
         {
-            return Ok(_repository.Update(_mapper.Map<T>(input), _userId));
+            return Ok(_mapper.Map<CreateOrUpdateDto>(_repository.Update(_mapper.Map<T>(input), _userId)));
         }
         [HttpPost("Delete")]
 
