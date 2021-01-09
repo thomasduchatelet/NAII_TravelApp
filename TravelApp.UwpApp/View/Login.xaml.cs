@@ -30,13 +30,13 @@ namespace TravelApp.UwpApp.View
 
         private async void Login_Click(object sender, RoutedEventArgs e)
         {
-            //await ApiMethods.AuthenticateUser(txtUsername.Text, txtPassword.Password);
-            Frame.Navigate(typeof(Navigation));
+            if (await ApiMethods.AuthenticateUser(txtUsername.Text, txtPassword.Password))
+            Frame.Navigate(typeof(TripsOverview));
         }
 
         private async void Register_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(Navigation));
+            Frame.Navigate(typeof(TripsOverview));
         }
     }
 }

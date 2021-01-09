@@ -4,14 +4,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TravelApp.Models;
+using Windows.Storage;
 using Windows.System;
 using Windows.Web.Http;
+using TravelApp.Models;
+using TravelApp.Shared.Dto;
+using System.Net.Http.Headers;
 
 namespace TravelApp.UwpApp.Models
 {
     class ApiMethods
     {
-        private static readonly string baseUrl = "http://10.0.0.25:45456/";
+        private static readonly string baseUrl = "https://localhost:44372/api";
         private static HttpClient client;
 
         public static async Task<T> ApiCall<T>(string uri, HttpClient client) where T : new()
@@ -36,31 +41,45 @@ namespace TravelApp.UwpApp.Models
             return localObject;
         }
 
-        public static async Task<String> AuthenticateUser(string username, string password)
+        public static async Task<Boolean> AuthenticateUser(string username, string password)
         {
             client = new HttpClient();
-
+            string token;
             try
             {
-                 var Body = new
+                Uri uri = new Uri($"{baseUrl}/Account");
+
+                var Body = new
                     {
                         email = username,
                         password = password
                     };
-
-                var jsonBody = JsonConvert.SerializeObject(Body);
-
-                HttpStringContent content = new HttpStringContent(jsonBody, encoding: Windows.Storage.Streams.UnicodeEncoding.Utf8, mediaType: "application/json");
-
-                Uri uri = new Uri($"{baseUrl}"); //url aanvullen
-                var response = await client.PostAsync(uri, content);
+               
+                var response = await client.PostAsync(uri, JsonHelpers.ObjectToHttpContent(Body));
+                token = await response.Content.ReadAsStringAsync();
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
             }
             catch (Exception)
             {
                 throw;
             }
-            return "Token";
-
+            return token != null;
+        }
+        public static async Task<List<TripDto>> GetTrips()
+        {
+            Uri uri = new Uri($"{baseUrl}/Trip/GetAll");
+            List<TripDto> trips = new List<TripDto>();
+            try
+            {
+                HttpResponseMessage httpResponse = await client.GetAsync(uri);
+                httpResponse.EnsureSuccessStatusCode();
+                trips = JsonConvert.DeserializeObject<List<TripDto>>(httpResponse.Content.ToString());
+            }
+            catch (Exception ex)
+            {
+                
+            }
+            return trips;
         }
     }
 }

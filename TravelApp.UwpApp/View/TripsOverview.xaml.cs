@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using TravelApp.UwpApp.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -22,8 +23,10 @@ namespace TravelApp.UwpApp.View
     /// </summary>
     public sealed partial class TripsOverview : Page
     {
+        public TripsOverviewViewModel tripsOverviewViewModel = new TripsOverviewViewModel();
         public TripsOverview()
         {
+            tripsOverviewViewModel.getTrips();
             this.InitializeComponent();
         }
     }

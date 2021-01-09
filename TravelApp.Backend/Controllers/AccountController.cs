@@ -37,7 +37,7 @@ namespace TravelApp.Backend.Controllers
         [HttpPost]
         public async Task<ActionResult<string>> CreateToken(LoginDto model)
         {
-            var user = await _userManager.FindByNameAsync(model.Email); if (user != null)
+            var user = await _userManager.FindByEmailAsync(model.Email); if (user != null)
             {
                 var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false); if (result.Succeeded)
                 {
