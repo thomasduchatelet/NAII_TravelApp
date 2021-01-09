@@ -29,13 +29,9 @@ namespace TravelApp.UwpApp.View
             TripsOverviewViewModel.GetTrips();
             this.InitializeComponent();
         }
-<<<<<<< HEAD
-
         private async void Trip_Click(object sender, RoutedEventArgs e)
         {
                 Frame.Navigate(typeof(TripsOverview));
-        }
-=======
->>>>>>> 374cb8992c54bbf8ff0222aaa5087b3782b8ab5f
+        }    
     }
 }
