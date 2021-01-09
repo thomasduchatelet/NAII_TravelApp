@@ -18,7 +18,7 @@ namespace TravelApp.UwpApp.Models
     public static class ApiMethods
     {
         private static readonly string baseUrl = "https://localhost:44372/api";
-        private static HttpClient client;
+        private static HttpClient client = new HttpClient();
 
         public static async Task<T> ApiCall<T>(string uri, HttpClient client) where T : new()
         {
@@ -42,18 +42,17 @@ namespace TravelApp.UwpApp.Models
             return localObject;
         }
 
-        public static async Task<Boolean> AuthenticateUser(string username, string password)
+        public static async Task<Boolean> AuthenticateUser(string email, string password)
         {
-            client = new HttpClient();
             string token;
             try
             {
                 Uri uri = new Uri($"{baseUrl}/Account");
 
-                var Body = new
+                LoginDto Body = new LoginDto
                     {
-                        email = username,
-                        password = password
+                        Email = email,
+                        Password = password
                     };
                
                 var response = await client.PostAsync(uri, JsonHelpers.ObjectToHttpContent(Body));
@@ -65,6 +64,29 @@ namespace TravelApp.UwpApp.Models
                 throw;
             }
             return token != null;
+        }
+
+        public static async Task<Boolean> RegisterUser(string username, string email, string password)
+        {
+            try
+            {
+                Uri uri = new Uri($"{baseUrl}/Account/Register");
+
+                RegisterDto body = new RegisterDto
+                {
+                    Username = username,
+                    Email = email,
+                    Password = password
+                };
+
+                var response = await client.PostAsync(uri, JsonHelpers.ObjectToHttpContent(body));
+                response.EnsureSuccessStatusCode();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return true;
         }
         public static async Task<List<TripDto>> GetTrips(string titleFilter = null, DateTime? startsAfter = null, DateTime? startsBefore = null, long? id = null)
         {

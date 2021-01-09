@@ -48,6 +48,23 @@ namespace TravelApp.Backend.Controllers
             return BadRequest();
         }
 
+        [AllowAnonymous]
+        [HttpPost("Register")]
+        public async Task<ActionResult> Register(RegisterDto model)
+        {
+            if (await _userManager.FindByEmailAsync(model.Email) != null)
+            {
+                return BadRequest();
+            }
+            User user = new User
+                {
+                    UserName = model.Username,
+                    Email = model.Email
+                };
+            await _userManager.CreateAsync(user, model.Password);
+            return Ok();
+        }
+
         private string GetToken(User user)
         {      // Createthetoken
             var claims = new[]{
