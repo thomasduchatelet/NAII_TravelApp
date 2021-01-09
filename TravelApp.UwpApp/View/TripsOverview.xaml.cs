@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using TravelApp.UwpApp.ViewModels;
+using TravelApp.View;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -29,9 +30,10 @@ namespace TravelApp.UwpApp.View
             TripsOverviewViewModel.GetTrips();
             this.InitializeComponent();
         }
-        private async void Trip_Click(object sender, RoutedEventArgs e)
+        private void StackPanel_Tapped(object sender, TappedRoutedEventArgs e)
         {
-                Frame.Navigate(typeof(TripsOverview));
-        }    
+            Frame.Navigate(typeof(TripDetails), sender);
+            
+        }
     }
 }

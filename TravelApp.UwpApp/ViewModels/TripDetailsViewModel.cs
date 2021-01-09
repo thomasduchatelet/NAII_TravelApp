@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TravelApp.Shared.Dto;
+using TravelApp.Shared.Dto.FilterDto;
 using TravelApp.UwpApp.Models;
 
 namespace TravelApp.ViewModels
@@ -15,7 +16,7 @@ namespace TravelApp.ViewModels
         
         public void GetTrip(long id)
         {
-            Trip = ApiMethods.GetTrips(id: id).Result.FirstOrDefault();
+            Trip = ApiMethods.GetTrips(new TripFilterDto() { Id = id }).Result.FirstOrDefault();
         }
     }
 }

@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using TravelApp.Shared.Dto;
 using TravelApp.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -25,10 +27,16 @@ namespace TravelApp.View
     {
         public TripDetailsViewModel ViewModel = new TripDetailsViewModel();
 
-        public TripDetails(long id)
+        public TripDetails()
         {
-            ViewModel.GetTrip(id);
-            this.InitializeComponent();
+            InitializeComponent();
+        }
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            var stackpanel = (StackPanel) e.Parameter;
+            TripDto dto = (TripDto) stackpanel.DataContext;
+            ViewModel.Trip = dto;
+            base.OnNavigatedTo(e);
         }
     }
 }

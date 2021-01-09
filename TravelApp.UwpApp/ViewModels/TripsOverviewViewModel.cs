@@ -13,13 +13,15 @@ namespace TravelApp.UwpApp.ViewModels
 {
     public class TripsOverviewViewModel : BindableBase
     {
-        public ObservableCollection<TripDto> Trips { get; set; }
+        private ObservableCollection<TripDto> _trips;
+        public ObservableCollection<TripDto> Trips { get { return _trips; }  set { _trips = value; OnPropertyChanged(); } }
         public TripsOverviewViewModel()
         {
         }
         public async void GetTrips()
         {
             Trips = new ObservableCollection<TripDto>(await ApiMethods.GetTrips());
+            
         }
     }
 }

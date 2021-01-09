@@ -8,10 +8,10 @@ using TravelApp.Models;
 using Windows.Storage;
 using Windows.System;
 using Windows.Web.Http;
-using TravelApp.Models;
 using TravelApp.Shared.Dto;
 using System.Net.Http.Headers;
 using System.Web;
+using TravelApp.Shared.Dto.FilterDto;
 
 namespace TravelApp.UwpApp.Models
 {
@@ -88,31 +88,24 @@ namespace TravelApp.UwpApp.Models
             }
             return true;
         }
-        public static async Task<List<TripDto>> GetTrips(string titleFilter = null, DateTime? startsAfter = null, DateTime? startsBefore = null, long? id = null)
+        public static async Task<List<TripDto>> GetTrips(TripFilterDto filter = null)
         {
             var uriBuilder = new UriBuilder($"{baseUrl}/Trip/GetAll");
-            var query = HttpUtility.ParseQueryString(uriBuilder.Query);
-            if(titleFilter != null && titleFilter != "")
-                query["Title"] = titleFilter;
-            if (startsAfter.HasValue)
-                query["Startsafter"] = startsAfter.Value.ToString();
-            if (startsBefore.HasValue)
-                query["StartsBefore"] = startsBefore.Value.ToString();
-            if (id.HasValue)
-                query["Id"] = id.Value.ToString();
-            uriBuilder.Query = query.ToString();
-            List<TripDto> trips = new List<TripDto>();
+            if(filter != null) uriBuilder.Query = filter.ParseQuery();
             try
             {
+                List<TripDto> trips = new List<TripDto>();
+
                 HttpResponseMessage httpResponse = await client.GetAsync(uriBuilder.Uri);
                 httpResponse.EnsureSuccessStatusCode();
                 trips = JsonConvert.DeserializeObject<List<TripDto>>(httpResponse.Content.ToString());
+                return trips;
+
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                
+                throw;
             }
-            return trips;
         }
     }
 }

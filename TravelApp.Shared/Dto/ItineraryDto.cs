@@ -6,8 +6,10 @@ namespace TravelApp.Shared.Dto
 {
     public class ItineraryDto : BaseDto
     {
-        public string Name { get; set; }
-        public List<LocationDto> Locations { get; set; }
+        private string _name;
+        private List<LocationDto> _locations;
+        public string Name { get { return _name; } set { _name = value; NotifyPropertyChanged(); } }
+        public List<LocationDto> Locations { get { return _locations; } set { _locations = value; NotifyPropertyChanged(); } }
     }
 
     public class CreateItineraryDto : ItineraryDto

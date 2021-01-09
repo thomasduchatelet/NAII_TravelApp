@@ -21,7 +21,7 @@
         <ListView Grid.Row="1" Grid.Column="1" ItemsSource="{x:Bind TripsOverviewViewModel.Trips,  Mode=OneWay}" CanDragItems="True" CanReorderItems="True" AllowDrop="True" SelectionMode="Single">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="models:TripDto">
-                    <StackPanel>
+                    <StackPanel Tapped="StackPanel_Tapped">
                         <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{x:Bind Title}" FontSize="50"></TextBlock>
                     </StackPanel>
                 </DataTemplate>
