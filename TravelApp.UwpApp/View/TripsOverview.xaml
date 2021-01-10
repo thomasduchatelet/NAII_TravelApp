@@ -23,6 +23,8 @@
                 <DataTemplate x:DataType="models:TripDto">
                     <StackPanel Tapped="StackPanel_Tapped">
                         <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{x:Bind Title}" FontSize="50"></TextBlock>
+                        <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{x:Bind StartDate}" FontSize="15"></TextBlock>
+                        <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{x:Bind EndDate}" FontSize="15"></TextBlock>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

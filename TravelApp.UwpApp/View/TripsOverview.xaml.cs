@@ -32,7 +32,7 @@ namespace TravelApp.UwpApp.View
         }
         private void StackPanel_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            Frame.Navigate(typeof(TripDetails), sender);
+            Frame.Navigate(typeof(Navigation), sender);
             
         }
     }

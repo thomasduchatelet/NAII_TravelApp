@@ -30,13 +30,15 @@ namespace TravelApp.View
         public TripDetails()
         {
             InitializeComponent();
+
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var stackpanel = (StackPanel) e.Parameter;
-            TripDto dto = (TripDto) stackpanel.DataContext;
+            var stackpanel = (StackPanel)e.Parameter;
+            TripDto dto = (TripDto)stackpanel.DataContext;
             ViewModel.Trip = dto;
-            base.OnNavigatedTo(e);
+            //ViewModel.getItems(); Mapping error
+            base.OnNavigatedTo(e); 
         }
     }
 }

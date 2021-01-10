@@ -107,5 +107,25 @@ namespace TravelApp.UwpApp.Models
                 throw;
             }
         }
+
+        public static async Task<List<ItemDto>> GetItems(ItemTodoFilterDto filter = null)
+        {
+            var uriBuilder = new UriBuilder($"{baseUrl}/Item/GetAll");
+            if (filter != null) uriBuilder.Query = filter.ParseQuery();
+            try
+            {
+                List<ItemDto> items = new List<ItemDto>();
+
+                HttpResponseMessage httpResponse = await client.GetAsync(uriBuilder.Uri);
+                httpResponse.EnsureSuccessStatusCode();
+                items = JsonConvert.DeserializeObject<List<ItemDto>>(httpResponse.Content.ToString());
+                return items;
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

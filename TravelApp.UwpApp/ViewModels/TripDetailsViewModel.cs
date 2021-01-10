@@ -13,10 +13,19 @@ namespace TravelApp.ViewModels
     public class TripDetailsViewModel : BindableBase
     {
         public TripDto Trip { get; set; }
-        
+        public ObservableCollection<ItemDto> Items { get; set; }
+
+
         public void GetTrip(long id)
         {
             Trip = ApiMethods.GetTrips(new TripFilterDto() { Id = id }).Result.FirstOrDefault();
         }
+
+        public async void getItems()
+        {
+            Items = new ObservableCollection<ItemDto>(await ApiMethods.GetItems());
+        }
+
+
     }
 }
