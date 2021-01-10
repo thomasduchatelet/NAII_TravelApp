@@ -22,13 +22,13 @@ namespace TravelApp.Backend.Controllers
         [HttpGet("GetAll")]
         public virtual ActionResult<IEnumerable<D>> GetAll([FromQuery] I filter)
         {
-            return Ok(_mapper.Map<D>(_repository.GetAll(filter, _userId)));
+            return Ok(_mapper.Map<IEnumerable<D>>(_repository.GetAll(filter, _userId)));
         }
 
         [HttpGet("GetAllEager")]
         public virtual ActionResult<IEnumerable<D>> GetAllEager([FromQuery] I filter)
         {
-            return Ok(_mapper.Map<D>(_repository.GetAllEager(filter, _userId)));
+            return Ok(_mapper.Map<IEnumerable<D>>(_repository.GetAllEager(filter, _userId)));
         }
         [HttpPut("Create")]
         public virtual ActionResult<D> Create(D input)
