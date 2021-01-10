@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using TravelApp.Shared.Dto;
+using TravelApp.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -22,9 +24,23 @@ namespace TravelApp.UwpApp.View
     /// </summary>
     public sealed partial class PackingList : Page
     {
+        public PackingListViewModel ViewModel = new PackingListViewModel();
+
         public PackingList()
         {
             this.InitializeComponent();
+        }
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            var stackpanel = (StackPanel)e.Parameter;
+            TripDto dto = (TripDto)stackpanel.DataContext;
+            ViewModel.GetItems((long) e.Parameter);
+            base.OnNavigatedTo(e);
+        }
+
+        private void cboCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ViewModel.FilterCategory(e.AddedItems);
         }
     }
 }

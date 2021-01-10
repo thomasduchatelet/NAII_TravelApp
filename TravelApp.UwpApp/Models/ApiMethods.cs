@@ -12,34 +12,33 @@ using TravelApp.Shared.Dto;
 using System.Net.Http.Headers;
 using System.Web;
 using TravelApp.Shared.Dto.FilterDto;
+using Windows.Web.Http.Headers;
 
 namespace TravelApp.UwpApp.Models
 {
     public static class ApiMethods
     {
-        private static readonly string baseUrl = "https://localhost:44372/api";
+        private static readonly string baseUrl = "https://travelapi.azurewebsites.net/api";
         private static HttpClient client = new HttpClient();
 
-        public static async Task<T> ApiCall<T>(string uri, HttpClient client) where T : new()
+        public static async Task<T> ApiCall<T>(string uri, BaseFilterDto filter = null)
         {
-            Uri requestUri = new Uri(uri);
-            T localObject = default(T);
-            HttpResponseMessage httpResponse = new HttpResponseMessage();
-            string httpResponseBody = "";
-
+            var uriBuilder = new UriBuilder(baseUrl + uri);
+            if (filter != null) uriBuilder.Query = filter.ParseQuery();
             try
             {
-                httpResponse = await client.GetAsync(requestUri);
+                T result;
+
+                HttpResponseMessage httpResponse = await client.GetAsync(uriBuilder.Uri);
                 httpResponse.EnsureSuccessStatusCode();
-                httpResponseBody = await httpResponse.Content.ReadAsStringAsync();
-                localObject = JsonConvert.DeserializeObject<T>(httpResponseBody);
+                result = JsonConvert.DeserializeObject<T>(httpResponse.Content.ToString());
+                return result;
+
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                httpResponseBody = "Error: " + ex.HResult.ToString("X") + " Message: " + ex.Message;
-                throw new Exception(httpResponseBody);
+                throw;
             }
-            return localObject;
         }
 
         public static async Task<Boolean> AuthenticateUser(string email, string password)
@@ -57,7 +56,7 @@ namespace TravelApp.UwpApp.Models
                
                 var response = await client.PostAsync(uri, JsonHelpers.ObjectToHttpContent(Body));
                 token = await response.Content.ReadAsStringAsync();
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+                client.DefaultRequestHeaders.Authorization = new HttpCredentialsHeaderValue("Bearer", token);
             }
             catch (Exception)
             {
@@ -108,24 +107,9 @@ namespace TravelApp.UwpApp.Models
             }
         }
 
-        public static async Task<List<ItemDto>> GetItems(ItemTodoFilterDto filter = null)
+        public static async Task<List<ItemDto>> GetItemsEager(ItemTodoFilterDto filter = null)
         {
-            var uriBuilder = new UriBuilder($"{baseUrl}/Item/GetAll");
-            if (filter != null) uriBuilder.Query = filter.ParseQuery();
-            try
-            {
-                List<ItemDto> items = new List<ItemDto>();
-
-                HttpResponseMessage httpResponse = await client.GetAsync(uriBuilder.Uri);
-                httpResponse.EnsureSuccessStatusCode();
-                items = JsonConvert.DeserializeObject<List<ItemDto>>(httpResponse.Content.ToString());
-                return items;
-
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return await ApiCall<List<ItemDto>>("/Item/GetAllEager", filter);
         }
     }
 }

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
+using TravelApp.Shared.Dto;
 using TravelApp.View;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -24,6 +25,7 @@ namespace TravelApp.UwpApp.View
     /// </summary>
     public sealed partial class Navigation : Page
     {
+        public long CurrentTripId { get; set; }
         public Navigation()
         {
             this.InitializeComponent();
@@ -31,6 +33,9 @@ namespace TravelApp.UwpApp.View
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            var stackpanel = (StackPanel)e.Parameter;
+            TripDto dto = (TripDto)stackpanel.DataContext;
+            CurrentTripId = dto.Id;
             contentFrame.Navigate(typeof(TripDetails), e.Parameter);
         }
 
@@ -38,14 +43,14 @@ namespace TravelApp.UwpApp.View
         {         
             var label = args.InvokedItem as string;
             var pageType =
-                label == "Packing List" ? typeof(Register) :
+                label == "Packing List" ? typeof(PackingList) :
                 label == "ToDo List" ? typeof(Login) :
                 label == "Itinerary" ? typeof(Register) : 
                 label == "Categorieën" ? typeof(Login) : null; 
             
             if (pageType != null && pageType != contentFrame.CurrentSourcePageType)
             {
-                contentFrame.Navigate(pageType);
+                contentFrame.Navigate(pageType, CurrentTripId);
             }
         }
 

@@ -21,6 +21,7 @@ using TravelApp.Backend.Data.Repositories.Interfaces;
 using TravelApp.Backend.Data.Repositories.Implementations.Filters;
 using NSwag.AspNetCore;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Rewrite;
 
 namespace TravelApp.Backend
 {
@@ -119,6 +120,9 @@ namespace TravelApp.Backend
             {
                 app.UseHsts();
             }
+            var option = new RewriteOptions();
+            option.AddRedirect("^$", "swagger");
+            app.UseRewriter(option);
 
             app.UseHttpsRedirection();
             app.UseRouting();
@@ -134,7 +138,7 @@ namespace TravelApp.Backend
                 c.SwaggerRoutes.Add(new SwaggerUi3Route("v1", "swagger/apidocs/swagger.json"));                
             });
 
-            seed.InitializeData().Wait();
+           // seed.InitializeData().Wait();
 
         }
     }
