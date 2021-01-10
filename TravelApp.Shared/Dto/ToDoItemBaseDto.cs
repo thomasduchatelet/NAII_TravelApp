@@ -15,5 +15,7 @@ namespace TravelApp.Shared.Dto
         public bool Completed { get { return _completed; } set { _completed = value; NotifyPropertyChanged(); } }
         public long TripId { get { return _tripId; } set { _tripId = value; NotifyPropertyChanged(); } }
 
+        public long CategoryId { get; set; }
+
     }
 }
