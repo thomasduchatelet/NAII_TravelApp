@@ -134,6 +134,7 @@
     </Compile>
     <Compile Include="View\Itinerary.xaml.cs">
       <DependentUpon>Itinerary.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Categories.xaml.cs">
       <DependentUpon>Categories.xaml</DependentUpon>
     </Compile>
@@ -197,7 +198,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Itinerary.xaml">
     <Page Include="View\Categories.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
