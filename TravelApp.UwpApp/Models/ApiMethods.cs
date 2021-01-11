@@ -13,6 +13,7 @@ using System.Net.Http.Headers;
 using System.Web;
 using TravelApp.Shared.Dto.FilterDto;
 using Windows.Web.Http.Headers;
+using TravelApp.Shared;
 
 namespace TravelApp.UwpApp.Models
 {
@@ -23,7 +24,7 @@ namespace TravelApp.UwpApp.Models
 
         public static async Task<T> ApiCall<T>(string uri, BaseFilterDto filter = null)
         {
-            var uriBuilder = new UriBuilder(baseUrl + uri);
+            var uriBuilder = new UriBuilder(uri);
             if (filter != null) uriBuilder.Query = filter.ParseQuery();
             try
             {
@@ -41,6 +42,11 @@ namespace TravelApp.UwpApp.Models
             }
         }
 
+        public static async Task<List<CountryCovidResult>> GetCountryCovidData(CountryDto countryDto)
+        {
+            return await ApiCall<List<CountryCovidResult>>("https://api.covid19api.com/total/dayone/country/" + countryDto.Slug);
+        }
+
         public static async Task<T> PutObject<T>(String uri, T body)
         {
             T result;
@@ -56,7 +62,6 @@ namespace TravelApp.UwpApp.Models
             }
             return result;
         }
-
 
         public static async Task<Boolean> AuthenticateUser(string email, string password)
         {
@@ -124,7 +129,12 @@ namespace TravelApp.UwpApp.Models
 
         public static async Task<List<ItemDto>> GetItemsEager(ItemTodoFilterDto filter = null)
         {
-            return await ApiCall<List<ItemDto>>("/Item/GetAllEager", filter);
+            return await ApiCall<List<ItemDto>>($"{baseUrl}/Item/GetAllEager", filter);
+        }
+
+        public static async Task<List<CountryDto>> GetAllCountries()
+        {
+           return await ApiCall<List<CountryDto>>("https://api.covid19api.com/countries");
         }
 
         public static async Task<List<ItemDto>> GetToDosEager(ItemTodoFilterDto filter = null)

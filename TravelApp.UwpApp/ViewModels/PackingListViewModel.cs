@@ -20,6 +20,8 @@ namespace TravelApp.ViewModels
         private ObservableCollection<CategoryDto> _categories;
         public ObservableCollection<CategoryDto> Categories { get { return _categories; } set { _categories = value; OnPropertyChanged(); } }
 
+
+
         public async void GetItems(long tripId)
         {
             _allItems = await ApiMethods.GetItemsEager(new ItemTodoFilterDto { TripId = tripId });
