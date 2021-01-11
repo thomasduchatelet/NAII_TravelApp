@@ -35,5 +35,13 @@ namespace TravelApp.ViewModels
             List<CategoryDto> categories = addedItems.Cast<CategoryDto>().ToList();
             Items = new ObservableCollection<ItemDto>(_allItems.Where(i => categories.Contains(i.Category)));
         }
+
+        public void UpdateItem(ItemDto item)
+        {
+            var index = Items.IndexOf(item);
+            Items[index] = item;
+            ApiMethods.UpdateItem(item);
+
+        }
     }
 }

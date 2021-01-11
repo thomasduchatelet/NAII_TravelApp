@@ -63,6 +63,13 @@ namespace TravelApp.UwpApp.Models
             return result;
         }
 
+        public static Task<ItemDto> UpdateItem(ItemDto item)
+        {
+            item.Category = null;
+            
+            return PutObject("/Item/Update", item);
+        }
+
         public static async Task<Boolean> AuthenticateUser(string email, string password)
         {
             string token;
