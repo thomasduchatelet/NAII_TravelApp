@@ -19,7 +19,7 @@ namespace TravelApp.UwpApp.Models
 {
     public static class ApiMethods
     {
-        private static readonly string baseUrl = "https://localhost:44372/api";
+        private static readonly string baseUrl = "https://travelapi.azurewebsites.net/api";
         private static HttpClient client = new HttpClient();
 
         public static async Task<T> ApiCall<T>(string uri, BaseFilterDto filter = null)
@@ -123,7 +123,7 @@ namespace TravelApp.UwpApp.Models
         }
         public static async Task<List<TripDto>> GetTrips(TripFilterDto filter = null)
         {        
-            return await ApiCall<List<TripDto>>("/Trip/GetAll", filter);
+            return await ApiCall<List<TripDto>>(baseUrl + "/Trip/GetAll", filter);
 
         }
 
@@ -139,12 +139,12 @@ namespace TravelApp.UwpApp.Models
 
         public static async Task<List<ItemDto>> GetToDosEager(ItemTodoFilterDto filter = null)
         {
-            return await ApiCall<List<ItemDto>>("/ToDo/GetAllEager", filter);
+            return await ApiCall<List<ItemDto>>(baseUrl + "/ToDo/GetAllEager", filter);
         }
 
         public static async Task<List<CategoryDto>> GetCategories(CategoryFilterDto filter = null)
         {
-            return await ApiCall<List<CategoryDto>>("/Category/GetAll", filter);
+            return await ApiCall<List<CategoryDto>>(baseUrl + "/Category/GetAll", filter);
         }
     }
 }
