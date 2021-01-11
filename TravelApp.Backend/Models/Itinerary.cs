@@ -29,7 +29,7 @@ namespace TravelApp.Backend.Models
             if (Locations.Count == 0)
                 location.Order = 10;
             else if (position <= 0)
-                location.Order = Locations[position].Order / 2;
+                location.Order = Locations[0].Order / 2;
             else if (position >= Locations.Count)
                 location.Order = Locations.Max(l => l.Order) + 10;
             else
@@ -40,5 +40,6 @@ namespace TravelApp.Backend.Models
             for (int i = 0; i < Locations.Count; i++)
                 Locations[i].Order = 10 * (i + 1);
         }
+        
     }
 }

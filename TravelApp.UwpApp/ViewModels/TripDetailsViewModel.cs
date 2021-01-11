@@ -25,6 +25,10 @@ namespace TravelApp.ViewModels
         public ObservableCollection<CountryDto> Countries { get { return _countries; } set { _countries = value; OnPropertyChanged(); } }
         public ObservableCollection<CountryCovidResult> CountryCovidResults { get; set; }
 
+        private List<double> confirmed = new List<double>();
+          private List<double> deaths = new List<double>();
+          private List<double> deathsTotal = new List<double>();
+          private List<string>  dates = new List<string>();
         public void GetTrip(long id)
         {
             Trip = ApiMethods.GetTrips(new TripFilterDto() { Id = id }).Result.FirstOrDefault();
@@ -48,10 +52,10 @@ namespace TravelApp.ViewModels
            if(CountryCovidResults != null)
             {
 
-           var confirmed = new List<double>();
-           var deaths = new List<double>();
-           var deathsTotal = new List<double>();
-            var dates = new List<string>();
+           confirmed = new List<double>();
+           deaths = new List<double>();
+           deathsTotal = new List<double>();
+            dates = new List<string>();
             var previousresult = new CountryCovidResult() { Cases = 0 , Recovered = 0, Deaths = 0, Confirmed = 0};
             foreach (var result in CountryCovidResults)
             {
@@ -62,7 +66,24 @@ namespace TravelApp.ViewModels
             }
 
             deathsTotal = CountryCovidResults.Select(c => (double) c.Deaths).ToList();
-                SeriesCollection = new SeriesCollection
+                RefreshChart();
+            XCollection[0].ShowLabels = true;
+            XCollection[0].Title = "Dates";
+            XCollection[0].Labels = dates;
+            XCollection[0].LabelsRotation = 40;
+            XCollection[0].Separator = new Separator // force the separator step to 1, so it always display all labels
+            {
+                Step = dates.Count / 27,
+                IsEnabled = false //disable it to make it invisible.
+            };
+
+            }
+
+        }
+
+        private void RefreshChart()
+        {
+            SeriesCollection = new SeriesCollection
             {
                 new LineSeries
                 {
@@ -96,26 +117,9 @@ namespace TravelApp.ViewModels
 
 
                 }
-               // new LineSeries
-               // {
-               //     Values = new ChartValues<double>(recoveredTotal),
-               //     Title = "Total Recovered"
-
-               // }
             };
-            XCollection[0].ShowLabels = true;
-            XCollection[0].Title = "Dates";
-            XCollection[0].Labels = dates;
-            XCollection[0].LabelsRotation = 40;
-            XCollection[0].Separator = new Separator // force the separator step to 1, so it always display all labels
-            {
-                Step = dates.Count / 27,
-                IsEnabled = false //disable it to make it invisible.
-            };
-
-            }
-
         }
+
         private bool _casesSeriesVisibility = true;
         private bool _deathsSeriesVisibility = true;
         private bool _totalDeathsSeriesVisibility = true;
@@ -126,7 +130,7 @@ namespace TravelApp.ViewModels
             {
                 _casesSeriesVisibility = value;
                 OnPropertyChanged();
-                InitializeChart();
+                RefreshChart();
 
             }
         }
@@ -138,7 +142,7 @@ namespace TravelApp.ViewModels
             {
                 _deathsSeriesVisibility = value;
                 OnPropertyChanged();
-                InitializeChart();
+                RefreshChart();
 
             }
         }
@@ -150,7 +154,7 @@ namespace TravelApp.ViewModels
             {
                 _totalDeathsSeriesVisibility = value;
                 OnPropertyChanged();
-                InitializeChart();
+                RefreshChart();
             }
         }
 
