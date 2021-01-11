@@ -47,7 +47,7 @@ namespace TravelApp.UwpApp.View
                  tag == "trip" ? typeof(TripDetails) :
                 tag == "packingList" ? typeof(PackingList) :
                 tag == "todoList" ? typeof(ToDoList) :
-                tag == "itinerary" ? typeof(Itinierary) : null;
+                tag == "itinerary" ? typeof(Itinerary) : null;
             
             if (pageType != null && pageType != contentFrame.CurrentSourcePageType)
             {

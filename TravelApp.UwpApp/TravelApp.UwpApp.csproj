@@ -141,8 +141,8 @@
     <Compile Include="View\CovidOverview.xaml.cs">
       <DependentUpon>CovidOverview.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Itinierary.xaml.cs">
-      <DependentUpon>Itinierary.xaml</DependentUpon>
+    <Compile Include="View\Itinerary.xaml.cs">
+      <DependentUpon>Itinerary.xaml</DependentUpon>
 
     </Compile>
     <Compile Include="View\Login.xaml.cs">
@@ -206,7 +206,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Itinierary.xaml">
+    <Page Include="View\Itinerary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

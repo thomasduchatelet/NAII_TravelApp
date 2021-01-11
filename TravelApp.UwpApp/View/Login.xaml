@@ -9,24 +9,11 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Grid>
+        <!--<Grid>
 
             <Image Loaded="Image_Loaded"/>
-        </Grid>
+        </Grid>-->
         <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="2*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="2*" />
-        </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="Login" Style="{StaticResource Title}" TextWrapping="Wrap" VerticalAlignment="Top" Margin="10" Height="40"/>
-        <TextBlock Grid.Row="0" Grid.Column="1" Text="Welcome" Style="{StaticResource Title}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" Height="40"/>
-        <Grid Grid.Row="1" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -39,23 +26,37 @@
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Grid.Column="0" Text="Login" Style="{StaticResource Title}" TextWrapping="Wrap" VerticalAlignment="Top" Margin="10" Height="40"/>
             <TextBlock Grid.Row="0" Grid.Column="1" Text="Welcome" Style="{StaticResource Title}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" Height="40"/>
-
             <Grid Grid.Row="1" Grid.Column="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="2*" />
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="2*" />
                 </Grid.RowDefinitions>
-                <TextBox x:Name="txtUsername" Text="jdoe@mail.com" Grid.Row="0" Grid.Column="1" Height="32"/>
-                <PasswordBox x:Name="txtPassword" Password="123aze"  Grid.Row="1" Grid.Column="1" Height="32"/>
-                <TextBlock Text="Gebruikersnaam" TextWrapping="Wrap" VerticalAlignment="Center"  HorizontalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
-                <TextBlock Text="Wachtwoord" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
-                <Button Click="Login_Click" Content="Login" Style="{StaticResource AccentButtonStyle}" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" Height="40" Margin="10"></Button>
-                <Button Click="Register_Click" Content="Registreren" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" Height="40" Margin="10"></Button>
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Login" Style="{StaticResource Title}" TextWrapping="Wrap" VerticalAlignment="Top" Margin="10" Height="40"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="Welcome" Style="{StaticResource Title}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" Height="40"/>
+
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBox x:Name="txtUsername" Text="jdoe@mail.com" Grid.Row="0" Grid.Column="1" Height="32"/>
+                    <PasswordBox x:Name="txtPassword" Password="123aze"  Grid.Row="1" Grid.Column="1" Height="32"/>
+                    <TextBlock Text="Gebruikersnaam" TextWrapping="Wrap" VerticalAlignment="Center"  HorizontalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
+                    <TextBlock Text="Wachtwoord" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
+                    <Button Click="Login_Click" Content="Login" Style="{StaticResource AccentButtonStyle}" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" Height="40" Margin="10"></Button>
+                    <Button Click="Register_Click" Content="Registreren" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" Height="40" Margin="10"></Button>
+                </Grid>
             </Grid>
         </Grid>
     </Grid>
