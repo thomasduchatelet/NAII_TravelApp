@@ -11,23 +11,13 @@
     <Grid>
         <ComboBox x:Name="cboCategory" ItemsSource="{x:Bind ViewModel.Categories}"  SelectionChanged="cboCategory_SelectionChanged">
             <ComboBox.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="models:CategoryDto">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{x:Bind Name}" />
                     </StackPanel>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <ListView Grid.Row="1" Grid.Column="1" ItemsSource="{x:Bind ViewModel.Items,  Mode=OneWay}" CanDragItems="True" CanReorderItems="True" AllowDrop="True" SelectionMode="Single">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="models:ItemDto">
-                    <StackPanel Tapped="StackPanel_Tapped">
-                        <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{x:Bind Name}" FontSize="50"></TextBlock>
-                        <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{x:Bind Count.ToString()}" FontSize="15"></TextBlock>
-                        <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{x:Bind PackedCount.ToString()}" FontSize="15"></TextBlock>
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        
     </Grid>
 </Page>

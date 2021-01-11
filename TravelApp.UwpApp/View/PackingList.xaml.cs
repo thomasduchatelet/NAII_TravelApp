@@ -29,6 +29,7 @@ namespace TravelApp.UwpApp.View
         public PackingList()
         {
             this.InitializeComponent();
+
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {

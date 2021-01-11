@@ -1,4 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using LiveCharts;
+using LiveCharts.Defaults;
+using LiveCharts.Uwp;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,20 +28,29 @@ namespace TravelApp.View
     /// </summary>
     public sealed partial class TripDetails : Page
     {
+        
         public TripDetailsViewModel ViewModel = new TripDetailsViewModel();
+        private CountryDto _selectedCountry;
 
         public TripDetails()
         {
             InitializeComponent();
-
+            ViewModel.GetCountries();
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var stackpanel = (StackPanel)e.Parameter;
             TripDto dto = (TripDto)stackpanel.DataContext;
             ViewModel.Trip = dto;
-            //ViewModel.getItems(); Mapping error
+            
             base.OnNavigatedTo(e); 
         }
+
+        private void CboCountry_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _selectedCountry = (CountryDto)e.AddedItems[0];
+            ViewModel.GetCountryCovidData(_selectedCountry);
+        }
     }
+    
 }
