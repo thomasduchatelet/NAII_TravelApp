@@ -38,7 +38,12 @@ namespace TravelApp.UwpApp.View
         private async void Login_Click(object sender, RoutedEventArgs e)
         {
             if (await ApiMethods.AuthenticateUser(txtUsername.Text, txtPassword.Password))
-            Frame.Navigate(typeof(TripsOverview));
+            Frame.Navigate(typeof(MainNavigation));
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            ApiMethods.LogOut();
         }
 
         private void Register_Click(object sender, RoutedEventArgs e)

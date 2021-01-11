@@ -1,0 +1,45 @@
+﻿<Page
+    x:Class="TravelApp.View.CovidOverview"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TravelApp.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:models="using:TravelApp.Shared.Dto" xmlns:lvc="using:LiveCharts.Uwp"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.05*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
+            <ComboBox x:Name="cboCountry" ItemsSource="{x:Bind ViewModel.Countries, Mode=OneWay}"  SelectionChanged="CboCountry_SelectionChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate x:DataType="models:CountryDto">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="{x:Bind Country}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <CheckBox IsChecked="{x:Bind ViewModel.CasesSeriesVisibility, Mode=TwoWay}">
+                Case Series
+            </CheckBox>
+            <CheckBox IsChecked="{x:Bind ViewModel.DeathsSeriesVisibility, Mode=TwoWay}">
+                Death Series
+            </CheckBox>
+            <CheckBox IsChecked="{x:Bind ViewModel.TotalDeathsSeriesVisibility, Mode=TwoWay}">
+                Total Deaths Series
+            </CheckBox>
+            
+        </StackPanel>
+        <lvc:CartesianChart Grid.Row="1" Grid.Column="0" Series="{x:Bind ViewModel.SeriesCollection, Mode=OneWay}" AxisX="{x:Bind ViewModel.XCollection, Mode=OneWay}">
+
+        </lvc:CartesianChart>
+
+    </Grid>
+</Page>

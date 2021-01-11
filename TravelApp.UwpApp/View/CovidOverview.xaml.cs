@@ -1,8 +1,4 @@
-﻿using LiveCharts;
-using LiveCharts.Defaults;
-using LiveCharts.Uwp;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -26,28 +22,21 @@ namespace TravelApp.View
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class TripDetails : Page
+    public sealed partial class CovidOverview : Page
     {
-        
-        public TripDetailsViewModel ViewModel = new TripDetailsViewModel();
+        public CovidOverviewViewModel ViewModel = new CovidOverviewViewModel();
         private CountryDto _selectedCountry;
 
-        public TripDetails()
+        public CovidOverview()
         {
+            this.InitializeComponent();
             InitializeComponent();
             ViewModel.GetCountries();
         }
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            ViewModel.Trip = (TripDto)e.Parameter;
-            base.OnNavigatedTo(e); 
-        }
-
         private void CboCountry_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _selectedCountry = (CountryDto)e.AddedItems[0];
             ViewModel.GetCountryCovidData(_selectedCountry);
         }
     }
-    
 }

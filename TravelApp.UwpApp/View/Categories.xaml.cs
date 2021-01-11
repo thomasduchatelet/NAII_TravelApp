@@ -23,36 +23,22 @@ namespace TravelApp.View
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class AddPackingItem : Page
+    public sealed partial class Categories : Page
     {
-        private long currentTripId;
-        private CategoryDto selectedCategory;
-        public AddPackingItemViewModel ViewModel = new AddPackingItemViewModel();
-        public AddPackingItem()
+        public CategoriesViewModel ViewModel = new CategoriesViewModel();
+        public Categories()
         {
             this.InitializeComponent();
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            currentTripId = (long)e.Parameter;
             ViewModel.GetAllCategories();
             base.OnNavigatedTo(e);
         }
 
-        private async void AddItem_Click(object sender, RoutedEventArgs e)
+        private async void AddCategory_Click(object sender, RoutedEventArgs e)
         {
-            await ApiMethods.AddItem(currentTripId, txtItemName.Text, int.Parse(txtItemCount.Text), selectedCategory.Id);
-        }
-
-        private void TextBox_OnBeforeTextChanging(TextBox sender,
-                                          TextBoxBeforeTextChangingEventArgs args)
-        {
-            args.Cancel = args.NewText.Any(c => !char.IsDigit(c));
-        }
-
-        private void cboCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            selectedCategory = (CategoryDto)e.AddedItems.First();
+            ViewModel.Categories.Add(await ApiMethods.AddCategory(txtCategoryName.Text));
         }
     }
 }
