@@ -50,5 +50,29 @@ namespace TravelApp.UwpApp.View
         {
             Frame.Navigate(typeof(AddPackingItem), currentTripId);
         }
+
+        private void IncreaseCount_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = (Button)sender;
+            var item = (ItemDto)btn.DataContext;
+            if (item.PackedCount < item.Count)
+                item.PackedCount++;
+            else
+                item.Completed = true;
+            ViewModel.UpdateItem(item);
+
+            
+        }
+
+        private void DecreaseCount_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = (Button)sender;
+            var item = (ItemDto)btn.DataContext;
+            if (item.PackedCount > 0)
+                item.PackedCount--;
+            ViewModel.UpdateItem(item);
+
+
+        }
     }
 }

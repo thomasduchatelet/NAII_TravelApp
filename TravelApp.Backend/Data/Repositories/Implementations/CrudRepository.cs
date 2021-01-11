@@ -49,14 +49,9 @@ namespace TravelApp.Backend.Data.Repositories.Implementations
         public virtual T Update(T input, string userId)
         {
             input.UserId = userId;
-            var t = _dbSet.SingleOrDefault(c => c.UserId == userId && c.Id == input.Id);
-            if (t != null)
-            {
                 _dbSet.Update(input);
                 SaveChanges();
                 return input;
-            }
-            return null;
         }
 
         public virtual void SaveChanges()

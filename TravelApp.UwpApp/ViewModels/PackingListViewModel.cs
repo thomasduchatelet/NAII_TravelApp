@@ -12,8 +12,11 @@ namespace TravelApp.ViewModels
 {
     public class PackingListViewModel : BindableBase
     {
+        private bool _completedFilter = false;
+        public bool CompletedFilter { get { return _completedFilter;} set { _completedFilter = value; FilterCategory(new List<object>() { _currentCategory }); } }
         private List<ItemDto> _allItems;
         private ObservableCollection<ItemDto> _items;
+        private CategoryDto _currentCategory;
         public ObservableCollection<ItemDto> Items { get { return _items; } 
             set { _items = value; OnPropertyChanged(); } }
 
@@ -25,15 +28,35 @@ namespace TravelApp.ViewModels
         public async void GetItems(long tripId)
         {
             _allItems = await ApiMethods.GetItemsEager(new ItemTodoFilterDto { TripId = tripId });
-            Items = new ObservableCollection<ItemDto>(_allItems);
+            _allItems.ForEach(i => { if (i.PackedCount >= i.Count) i.Completed = true; });
+            Items = new ObservableCollection<ItemDto>(_allItems.OrderBy(i => i.CategoryId));
             Categories = new ObservableCollection<CategoryDto>(Items.Select(i => i.Category).GroupBy(i => i.Name).Select(g => g.First()).ToList());
+            _currentCategory = new CategoryDto { Id = -1, Name = "---" };
+            Categories.Add(_currentCategory);
+            Categories = new ObservableCollection<CategoryDto>(Categories.OrderBy(c => c.Name));
+            CompletedFilter = _completedFilter;
         }
 
 
         public void FilterCategory(IList<object> addedItems)
         {
+            
             List<CategoryDto> categories = addedItems.Cast<CategoryDto>().ToList();
-            Items = new ObservableCollection<ItemDto>(_allItems.Where(i => categories.Contains(i.Category)));
+            _currentCategory = categories[0];
+            var items = new List<ItemDto>();
+            if (categories[0].Id == -1)
+                 items = _allItems;
+            else
+                items = _allItems.Where(i => categories[0].Id == i.CategoryId).ToList();
+            Items = new ObservableCollection<ItemDto>(items.Where(i => i.Completed != _completedFilter || i.Completed == false).OrderBy(i => i.CategoryId));
+        }
+
+        public void UpdateItem(ItemDto item)
+        {
+            var index = Items.IndexOf(item);
+            Items[index] = item;
+            ApiMethods.UpdateItem(item);
+
         }
     }
 }
