@@ -70,6 +70,29 @@ namespace TravelApp.UwpApp.Models
             return PutObject("/Item/Update", item);
         }
 
+        public static async Task<ItineraryDto> GetItinerary(long tripId)
+        {
+            var itineraries = await ApiCall<IEnumerable<ItineraryDto>>(baseUrl + "/Itinerary/GetAllEager", new ItineraryFilter() { TripId = tripId });
+            return itineraries.FirstOrDefault();
+        }
+
+        public static async Task<IEnumerable<LocationDto>> ChangeLocationPosition(int position, LocationDto dto)
+        {
+            IEnumerable<LocationDto> result;
+            dto.Order = position;
+            try
+            {
+                var uriBuilder = new UriBuilder(baseUrl + "/Itinerary/LocationChangeOrder");
+                var response = await client.PostAsync(uriBuilder.Uri, JsonHelpers.ObjectToHttpContent(dto));
+                result = JsonConvert.DeserializeObject<IEnumerable<LocationDto>>(await response.Content.ReadAsStringAsync());
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return result;
+        }
+
         public static async Task<Boolean> AuthenticateUser(string email, string password)
         {
             string token;
@@ -152,6 +175,25 @@ namespace TravelApp.UwpApp.Models
         public static async Task<List<CategoryDto>> GetCategories(CategoryFilterDto filter = null)
         {
             return await ApiCall<List<CategoryDto>>(baseUrl + "/Category/GetAll", filter);
+        }
+
+        public static async Task<UnsplashResult> GetImageUrl(string keyword)
+        {
+            var uriBuilder = new UriBuilder("https://api.unsplash.com/search/photos/?client_id=dMXHbxgeklD_WMu1ANAR6r3549ln6W8iNuzQp4Ms_rs&query=" + keyword);
+            try
+            {
+                UnsplashResult result;
+                HttpClient unsplashClient = new HttpClient();
+                HttpResponseMessage httpResponse = await unsplashClient.GetAsync(uriBuilder.Uri);
+                httpResponse.EnsureSuccessStatusCode();
+                result = JsonConvert.DeserializeObject<UnsplashResult>(httpResponse.Content.ToString());
+                return result;
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

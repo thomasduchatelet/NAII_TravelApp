@@ -45,7 +45,7 @@ namespace TravelApp.UwpApp.View
             var pageType =
                 label == "Packing List" ? typeof(PackingList) :
                 label == "ToDo List" ? typeof(Login) :
-                label == "Itinerary" ? typeof(Register) : 
+                label == "Itinerary" ? typeof(Itinerary) : 
                 label == "Categorieën" ? typeof(Login) : null; 
             
             if (pageType != null && pageType != contentFrame.CurrentSourcePageType)
