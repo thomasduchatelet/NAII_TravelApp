@@ -13,7 +13,6 @@
 
             <Image Loaded="Image_Loaded"/>
         </Grid>-->
-        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -56,7 +55,7 @@
                     <TextBlock Text="Wachtwoord" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
                     <Button Click="Login_Click" Content="Login" Style="{StaticResource AccentButtonStyle}" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" Height="40" Margin="10"></Button>
                     <Button Click="Register_Click" Content="Registreren" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" Height="40" Margin="10"></Button>
-                </Grid>
+                
             </Grid>
         </Grid>
     </Grid>

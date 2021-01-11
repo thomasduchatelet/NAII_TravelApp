@@ -33,7 +33,8 @@ namespace TravelApp.View
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            currentTripId = (long)e.Parameter;
+            var dto = (TripDto)e.Parameter;
+            currentTripId = dto.Id;
             ViewModel.GetItinerary(currentTripId);
             base.OnNavigatedTo(e);
         }
