@@ -35,17 +35,28 @@
             <TextBlock  x:Name="lblTitle" Text="{x:Bind ViewModel.Trip.Title}" Grid.Row="0" Grid.Column="1"/>
             <TextBlock x:Name="lblStartDate" Text="{x:Bind ViewModel.Trip.StartDate.ToString()}" Grid.Row="1" Grid.Column="1"/>
             <TextBlock x:Name="lblEndDate" Text="{x:Bind ViewModel.Trip.EndDate.ToString()}" Grid.Row="2" Grid.Column="1"/>
-        <ComboBox Grid.Row="2" Grid.Column="1" x:Name="cboCountry" ItemsSource="{x:Bind ViewModel.Countries, Mode=OneWay}"  SelectionChanged="CboCountry_SelectionChanged">
-            <ComboBox.ItemTemplate>
-                <DataTemplate x:DataType="models:CountryDto">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{x:Bind Country}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
+        
         </Grid>
-
+        <StackPanel Orientation="Horizontal">
+            <ComboBox x:Name="cboCountry" ItemsSource="{x:Bind ViewModel.Countries, Mode=OneWay}"  SelectionChanged="CboCountry_SelectionChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate x:DataType="models:CountryDto">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{x:Bind Country}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <CheckBox IsChecked="{x:Bind ViewModel.CasesSeriesVisibility, Mode=TwoWay}">
+                Case Series
+            </CheckBox>
+            <CheckBox IsChecked="{x:Bind ViewModel.DeathsSeriesVisibility, Mode=TwoWay}">
+                Death Series
+            </CheckBox>
+            <CheckBox IsChecked="{x:Bind ViewModel.TotalDeathsSeriesVisibility, Mode=TwoWay}">
+                Total Deaths Series
+            </CheckBox>
+        </StackPanel>
         <lvc:CartesianChart Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Series="{x:Bind ViewModel.SeriesCollection, Mode=OneWay}" AxisX="{x:Bind ViewModel.XCollection, Mode=OneWay}">
 
         </lvc:CartesianChart>

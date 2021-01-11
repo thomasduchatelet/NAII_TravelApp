@@ -10,6 +10,7 @@ using TravelApp.Shared;
 using TravelApp.Shared.Dto;
 using TravelApp.Shared.Dto.FilterDto;
 using TravelApp.UwpApp.Models;
+using Windows.UI.Xaml;
 
 namespace TravelApp.ViewModels
 {
@@ -61,17 +62,23 @@ namespace TravelApp.ViewModels
             }
 
             deathsTotal = CountryCovidResults.Select(c => (double) c.Deaths).ToList();
-            SeriesCollection = new SeriesCollection
+                SeriesCollection = new SeriesCollection
             {
                 new LineSeries
                 {
                     Values = new ChartValues<double>(confirmed),
-                    Title = "Cases"
+                    Title = "Cases",
+                    PointGeometry = null,
+                    Visibility = CasesSeriesVisibility ? Visibility.Visible : Visibility.Collapsed
+
                 },
                 new LineSeries
                 {
                     Values = new ChartValues<double>(deaths),
-                    Title = "Deaths"
+                    Title = "Deaths",
+                    PointGeometry = null,
+                    Visibility = DeathsSeriesVisibility ? Visibility.Visible : Visibility.Collapsed
+
 
                 },
                 //new LineSeries
@@ -83,7 +90,10 @@ namespace TravelApp.ViewModels
                 new LineSeries
                 {
                     Values = new ChartValues<double>(deathsTotal),
-                    Title = "Total Deaths"
+                    Title = "Total Deaths",
+                    PointGeometry = null,
+                    Visibility = TotalDeathsSeriesVisibility ? Visibility.Visible : Visibility.Collapsed
+
 
                 }
                // new LineSeries
@@ -106,7 +116,43 @@ namespace TravelApp.ViewModels
             }
 
         }
+        private bool _casesSeriesVisibility = true;;
+        private bool _deathsSeriesVisibility = true;;
+        private bool _totalDeathsSeriesVisibility = true;;
+        public bool CasesSeriesVisibility
+        {
+            get { return _casesSeriesVisibility; }
+            set
+            {
+                _casesSeriesVisibility = value;
+                OnPropertyChanged();
+                InitializeChart();
 
+            }
+        }
+
+        public bool DeathsSeriesVisibility
+        {
+            get { return _deathsSeriesVisibility; }
+            set
+            {
+                _deathsSeriesVisibility = value;
+                OnPropertyChanged();
+                InitializeChart();
+
+            }
+        }
+
+        public bool TotalDeathsSeriesVisibility
+        {
+            get { return _totalDeathsSeriesVisibility; }
+            set
+            {
+                _totalDeathsSeriesVisibility = value;
+                OnPropertyChanged();
+                InitializeChart();
+            }
+        }
 
 
     }
