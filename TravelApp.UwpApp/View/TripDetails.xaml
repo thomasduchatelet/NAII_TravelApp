@@ -29,23 +29,9 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Button x:Name="btnPackingList" Content="Packing list" Grid.Row="0" Grid.Column="0"/>
-            <Button x:Name="btnTodoList" Content="To Do" Grid.Row="1" Grid.Column="0" />
-            <Button x:Name="btnItinerary" Content="Itinerary" Grid.Row="2" Grid.Column="0"/>
             <TextBlock  x:Name="lblTitle" Text="{x:Bind ViewModel.Trip.Title}" Grid.Row="0" Grid.Column="1"/>
             <TextBlock x:Name="lblStartDate" Text="{x:Bind ViewModel.Trip.StartDate.ToString()}" Grid.Row="1" Grid.Column="1"/>
             <TextBlock x:Name="lblEndDate" Text="{x:Bind ViewModel.Trip.EndDate.ToString()}" Grid.Row="2" Grid.Column="1"/>
         </Grid>
-        <ListView Grid.Row="0" Grid.Column="1" ItemsSource="{x:Bind ViewModel.Items,  Mode=OneWay}" CanDragItems="True" CanReorderItems="True" AllowDrop="True" SelectionMode="Single">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="models:ItemDto">
-                    <StackPanel>
-                        <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{x:Bind Name}" FontSize="50"></TextBlock>
-                        <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{x:Bind PackedCount}" FontSize="15"></TextBlock>
-                        <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{x:Bind TripId}" FontSize="15"></TextBlock>
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
     </Grid>
 </Page>

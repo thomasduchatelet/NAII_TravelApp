@@ -14,6 +14,7 @@ namespace TravelApp.Shared.Dto.FilterDto
             var properties = GetType().GetProperties();
 
             foreach (var property in properties)
+                if (property.GetValue(this) != null)
                 query[property.Name] = property.GetValue(this).ToString();
 
             return query.ToString();

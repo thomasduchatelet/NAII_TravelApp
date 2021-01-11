@@ -8,26 +8,88 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    
     <Grid>
-        <ComboBox x:Name="cboCategory" ItemsSource="{x:Bind ViewModel.Categories}"  SelectionChanged="cboCategory_SelectionChanged">
+        <VisualStateManager.VisualStateGroups>
+
+            <VisualStateGroup x:Name="VisualStateGroup">
+                <VisualState x:Name="VisualStateMobile">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="lblWelcome.Text" Value="mobile device">
+                        </Setter>
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="VisualStateTablet">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="600"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="lblWelcome.Text" Value="tablet">
+                        </Setter>
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="VisualStateDesktop">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="800"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="lblWelcome.Text" Value="desktop">
+                        </Setter>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="0.1*" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Packing List" Style="{StaticResource Title}" TextWrapping="Wrap" VerticalAlignment="Top" Margin="10" Height="40"/>
+
+        <TextBlock x:Name="lblWelcome" Grid.Row="0" Text="Something wrong" Grid.Column="0" Style="{StaticResource Title}" TextWrapping="Wrap" VerticalAlignment="Bottom" Margin="10" Height="40"/>
+        
+        <ComboBox Grid.Row="0" Grid.Column="1" x:Name="cboCategory" ItemsSource="{x:Bind ViewModel.Categories,  Mode=OneWay}"  SelectionChanged="cboCategory_SelectionChanged" VerticalAlignment="Bottom">
             <ComboBox.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="models:CategoryDto">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{x:Bind Name}" />
                     </StackPanel>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <ListView Grid.Row="1" Grid.Column="1" ItemsSource="{x:Bind ViewModel.Items,  Mode=OneWay}" CanDragItems="True" CanReorderItems="True" AllowDrop="True" SelectionMode="Single">
+        <ListView Grid.Row="1" x:Name="listItems" Grid.Column="1" ItemsSource="{x:Bind ViewModel.Items,  Mode=OneWay}" CanDragItems="True" CanReorderItems="True" AllowDrop="True" SelectionMode="Single">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="models:ItemDto">
-                    <StackPanel Tapped="StackPanel_Tapped">
-                        <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{x:Bind Name}" FontSize="50"></TextBlock>
-                        <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{x:Bind Count.ToString()}" FontSize="15"></TextBlock>
-                        <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{x:Bind PackedCount.ToString()}" FontSize="15"></TextBlock>
-                    </StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{x:Bind Name}" FontSize="20" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch"></TextBlock>
+                        <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{x:Bind Count}" FontSize="15" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center"></TextBlock>
+                        <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{x:Bind PackedCount}" FontSize="15" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center"></TextBlock>
+                        <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{x:Bind Category.Name}" FontSize="15" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center"></TextBlock>
+                    </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <Button Click="NewItem_Click" Content="Nieuw item" Grid.Row="2" Grid.Column="1" VerticalAlignment="top"></Button>
     </Grid>
 </Page>
