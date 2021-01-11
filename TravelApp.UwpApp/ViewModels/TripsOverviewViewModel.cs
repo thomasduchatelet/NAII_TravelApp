@@ -21,7 +21,6 @@ namespace TravelApp.UwpApp.ViewModels
         public async void GetTrips()
         {
             Trips = new ObservableCollection<TripDto>(await ApiMethods.GetTrips());
-            
         }
     }
 }

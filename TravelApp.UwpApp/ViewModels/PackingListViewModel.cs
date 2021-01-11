@@ -14,7 +14,8 @@ namespace TravelApp.ViewModels
     {
         private List<ItemDto> _allItems;
         private ObservableCollection<ItemDto> _items;
-        public ObservableCollection<ItemDto> Items { get { return _items; } set { _items = value; OnPropertyChanged(); } }
+        public ObservableCollection<ItemDto> Items { get { return _items; } 
+            set { _items = value; OnPropertyChanged(); } }
 
         private ObservableCollection<CategoryDto> _categories;
         public ObservableCollection<CategoryDto> Categories { get { return _categories; } set { _categories = value; OnPropertyChanged(); } }
@@ -25,15 +26,13 @@ namespace TravelApp.ViewModels
         {
             _allItems = await ApiMethods.GetItemsEager(new ItemTodoFilterDto { TripId = tripId });
             Items = new ObservableCollection<ItemDto>(_allItems);
-
-           Categories = new ObservableCollection<CategoryDto>(Items.Select(i => i.Category).Distinct());
-
+            Categories = new ObservableCollection<CategoryDto>(Items.Select(i => i.Category).GroupBy(i => i.Name).Select(g => g.First()).ToList());
         }
 
 
         public void FilterCategory(IList<object> addedItems)
         {
-            var categories = (List<CategoryDto>)addedItems;
+            List<CategoryDto> categories = addedItems.Cast<CategoryDto>().ToList();
             Items = new ObservableCollection<ItemDto>(_allItems.Where(i => categories.Contains(i.Category)));
         }
     }

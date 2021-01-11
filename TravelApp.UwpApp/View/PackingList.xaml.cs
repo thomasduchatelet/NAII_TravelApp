@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using TravelApp.Shared.Dto;
+using TravelApp.View;
 using TravelApp.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -24,6 +25,7 @@ namespace TravelApp.UwpApp.View
     /// </summary>
     public sealed partial class PackingList : Page
     {
+        private long currentTripId;
         public PackingListViewModel ViewModel = new PackingListViewModel();
 
         public PackingList()
@@ -33,15 +35,19 @@ namespace TravelApp.UwpApp.View
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var stackpanel = (StackPanel)e.Parameter;
-            TripDto dto = (TripDto)stackpanel.DataContext;
-            ViewModel.GetItems((long) e.Parameter);
+            currentTripId = (long)e.Parameter;
+            ViewModel.GetItems(currentTripId);
             base.OnNavigatedTo(e);
         }
 
         private void cboCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ViewModel.FilterCategory(e.AddedItems);
+        }
+
+    private void NewItem_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(AddPackingItem), currentTripId);
         }
     }
 }

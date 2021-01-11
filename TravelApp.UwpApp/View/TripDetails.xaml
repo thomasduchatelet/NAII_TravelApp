@@ -29,9 +29,6 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Button x:Name="btnPackingList" Content="Packing list" Grid.Row="0" Grid.Column="0"/>
-            <Button x:Name="btnTodoList" Content="To Do" Grid.Row="1" Grid.Column="0" />
-            <Button x:Name="btnItinerary" Content="Itinerary" Grid.Row="2" Grid.Column="0"/>
             <TextBlock  x:Name="lblTitle" Text="{x:Bind ViewModel.Trip.Title}" Grid.Row="0" Grid.Column="1"/>
             <TextBlock x:Name="lblStartDate" Text="{x:Bind ViewModel.Trip.StartDate.ToString()}" Grid.Row="1" Grid.Column="1"/>
             <TextBlock x:Name="lblEndDate" Text="{x:Bind ViewModel.Trip.EndDate.ToString()}" Grid.Row="2" Grid.Column="1"/>

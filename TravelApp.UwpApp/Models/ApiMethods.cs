@@ -19,7 +19,7 @@ namespace TravelApp.UwpApp.Models
 {
     public static class ApiMethods
     {
-        private static readonly string baseUrl = "https://travelapi.azurewebsites.net/api";
+        private static readonly string baseUrl = "https://localhost:44372/api";
         private static HttpClient client = new HttpClient();
 
         public static async Task<T> ApiCall<T>(string uri, BaseFilterDto filter = null)
@@ -47,6 +47,22 @@ namespace TravelApp.UwpApp.Models
             return await ApiCall<List<CountryCovidResult>>("https://api.covid19api.com/total/dayone/country/" + countryDto.Slug);
         }
 
+        public static async Task<T> PutObject<T>(String uri, T body)
+        {
+            T result;
+            try
+            {
+                var uriBuilder = new UriBuilder(baseUrl + uri);
+                var response = await client.PutAsync(uriBuilder.Uri, JsonHelpers.ObjectToHttpContent(body));
+                result = JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return result;
+        }
+
         public static async Task<Boolean> AuthenticateUser(string email, string password)
         {
             string token;
@@ -65,10 +81,22 @@ namespace TravelApp.UwpApp.Models
                 client.DefaultRequestHeaders.Authorization = new HttpCredentialsHeaderValue("Bearer", token);
             }
             catch (Exception)
-            {
+            {  
                 throw;
             }
             return token != null;
+        }
+
+        public static async Task<ItemDto> AddItem(long tripId, string name, int count, long categoryId)
+        {
+                ItemDto item = new ItemDto
+                {
+                    TripId = tripId,
+                    Name = name,
+                    Count = count,
+                    CategoryId = categoryId
+                };
+            return await PutObject("/Item/Create", item);
         }
 
         public static async Task<Boolean> RegisterUser(string username, string email, string password)
@@ -94,23 +122,9 @@ namespace TravelApp.UwpApp.Models
             return true;
         }
         public static async Task<List<TripDto>> GetTrips(TripFilterDto filter = null)
-        {
-            var uriBuilder = new UriBuilder($"{baseUrl}/Trip/GetAll");
-            if(filter != null) uriBuilder.Query = filter.ParseQuery();
-            try
-            {
-                List<TripDto> trips = new List<TripDto>();
+        {        
+            return await ApiCall<List<TripDto>>("/Trip/GetAll", filter);
 
-                HttpResponseMessage httpResponse = await client.GetAsync(uriBuilder.Uri);
-                httpResponse.EnsureSuccessStatusCode();
-                trips = JsonConvert.DeserializeObject<List<TripDto>>(httpResponse.Content.ToString());
-                return trips;
-
-            }
-            catch (Exception)
-            {
-                throw;
-            }
         }
 
         public static async Task<List<ItemDto>> GetItemsEager(ItemTodoFilterDto filter = null)
@@ -121,6 +135,16 @@ namespace TravelApp.UwpApp.Models
         public static async Task<List<CountryDto>> GetAllCountries()
         {
            return await ApiCall<List<CountryDto>>("https://api.covid19api.com/countries");
+        }
+
+        public static async Task<List<ItemDto>> GetToDosEager(ItemTodoFilterDto filter = null)
+        {
+            return await ApiCall<List<ItemDto>>("/ToDo/GetAllEager", filter);
+        }
+
+        public static async Task<List<CategoryDto>> GetCategories(CategoryFilterDto filter = null)
+        {
+            return await ApiCall<List<CategoryDto>>("/Category/GetAll", filter);
         }
     }
 }

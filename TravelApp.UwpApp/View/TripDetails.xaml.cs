@@ -42,7 +42,6 @@ namespace TravelApp.View
             var stackpanel = (StackPanel)e.Parameter;
             TripDto dto = (TripDto)stackpanel.DataContext;
             ViewModel.Trip = dto;
-            
             base.OnNavigatedTo(e); 
         }
 
