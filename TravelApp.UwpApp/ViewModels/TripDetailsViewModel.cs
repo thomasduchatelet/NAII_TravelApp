@@ -116,9 +116,9 @@ namespace TravelApp.ViewModels
             }
 
         }
-        private bool _casesSeriesVisibility = true;;
-        private bool _deathsSeriesVisibility = true;;
-        private bool _totalDeathsSeriesVisibility = true;;
+        private bool _casesSeriesVisibility = true;
+        private bool _deathsSeriesVisibility = true;
+        private bool _totalDeathsSeriesVisibility = true;
         public bool CasesSeriesVisibility
         {
             get { return _casesSeriesVisibility; }
