@@ -25,7 +25,7 @@ namespace TravelApp.UwpApp.View
     /// </summary>
     public sealed partial class Navigation : Page
     {
-        public long CurrentTripId { get; set; }
+        private TripDto CurrentTrip { get; set; }
         public Navigation()
         {
             this.InitializeComponent();
@@ -34,23 +34,24 @@ namespace TravelApp.UwpApp.View
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var stackpanel = (StackPanel)e.Parameter;
-            TripDto dto = (TripDto)stackpanel.DataContext;
-            CurrentTripId = dto.Id;
-            contentFrame.Navigate(typeof(TripDetails), e.Parameter);
+            CurrentTrip = (TripDto)stackpanel.DataContext;
+            contentFrame.Navigate(typeof(TripDetails), CurrentTrip);
         }
 
         private void NavViewItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
-        {         
-            var label = args.InvokedItem as string;
+        {
+            NavigationViewItem selectedItem = (NavigationViewItem)args.InvokedItemContainer;
+
+            var tag = selectedItem.Tag as string;
             var pageType =
-                label == "Packing List" ? typeof(PackingList) :
-                label == "ToDo List" ? typeof(Login) :
-                label == "Itinerary" ? typeof(Register) : 
-                label == "Categorieën" ? typeof(Login) : null; 
+                 tag == "trip" ? typeof(TripDetails) :
+                tag == "packingList" ? typeof(PackingList) :
+                tag == "todoList" ? typeof(ToDoList) :
+                tag == "itinerary" ? typeof(Itinierary) : null;
             
             if (pageType != null && pageType != contentFrame.CurrentSourcePageType)
             {
-                contentFrame.Navigate(pageType, CurrentTripId);
+                contentFrame.Navigate(pageType, CurrentTrip);
             }
         }
 

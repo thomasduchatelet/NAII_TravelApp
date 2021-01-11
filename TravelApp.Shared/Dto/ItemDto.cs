@@ -6,7 +6,6 @@ namespace TravelApp.Shared.Dto
 {
     public class ItemDto : ToDoItemBaseDto
     {
-        private string _name;
         private int _count;
         private int _packedCount;
         public int Count { get { return _count; } set { _count = value; NotifyPropertyChanged(); } }

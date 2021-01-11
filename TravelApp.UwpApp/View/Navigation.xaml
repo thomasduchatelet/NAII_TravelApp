@@ -8,12 +8,12 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <NavigationView x:Name="nvSample" IsBackEnabled="True" BackRequested="On_BackRequested" ItemInvoked="NavViewItemInvoked">
+    <NavigationView x:Name="nvTripNav" IsSettingsVisible="False" IsBackEnabled="True" BackRequested="On_BackRequested" ItemInvoked="NavViewItemInvoked">
         <NavigationView.MenuItems>
-            <NavigationViewItem Icon="AllApps" Content="Packing List" x:Name="PackingListNav" />
-            <NavigationViewItem Icon="AllApps" Content="ToDo List" x:Name="ToDoListNav" />
-            <NavigationViewItem Icon="AllApps" Content="Categorieën" x:Name="CategoryNav" />
-            <NavigationViewItem Icon="World" Content="Itinerary" x:Name="ItineraryNav" />
+            <NavigationViewItem Icon="AllApps" Content="Trip" Tag="trip" x:Name="tripNav"/>
+            <NavigationViewItem Icon="AllApps" Content="Packing List" Tag="packingList" x:Name="PackingListNav"/>
+            <NavigationViewItem Icon="AllApps" Content="ToDo List" Tag="todoList" x:Name="ToDoListNav" />
+            <NavigationViewItem Icon="World" Content="Itinerary" Tag="itinerary" x:Name="ItineraryNav" />
         </NavigationView.MenuItems>
         <Frame x:Name="contentFrame"/>
     </NavigationView>

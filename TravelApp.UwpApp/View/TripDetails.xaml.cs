@@ -39,9 +39,7 @@ namespace TravelApp.View
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var stackpanel = (StackPanel)e.Parameter;
-            TripDto dto = (TripDto)stackpanel.DataContext;
-            ViewModel.Trip = dto;
+            ViewModel.Trip = (TripDto)e.Parameter;
             base.OnNavigatedTo(e); 
         }
 

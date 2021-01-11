@@ -122,14 +122,28 @@
     <Compile Include="UwpApp\App.xaml.cs" />
     <Compile Include="ViewModels\AddPackingItemViewModel.cs" />
     <Compile Include="ViewModels\BindableBase.cs" />
+    <Compile Include="ViewModels\CategoriesViewModel.cs" />
+    <Compile Include="ViewModels\CovidOverviewViewModel.cs" />
     <Compile Include="ViewModels\PackingListViewModel.cs" />
     <Compile Include="ViewModels\TripDetailsViewModel.cs" />
     <Compile Include="ViewModels\TripsOverviewViewModel.cs" />
     <Compile Include="View\AddPackingItem.xaml.cs">
       <DependentUpon>AddPackingItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Categories.xaml.cs">
+      <DependentUpon>Categories.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CovidOverview.xaml.cs">
+      <DependentUpon>CovidOverview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Itinierary.xaml.cs">
+      <DependentUpon>Itinierary.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainNavigation.xaml.cs">
+      <DependentUpon>MainNavigation.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Navigation.xaml.cs">
       <DependentUpon>Navigation.xaml</DependentUpon>
@@ -139,6 +153,9 @@
     </Compile>
     <Compile Include="View\Register.xaml.cs">
       <DependentUpon>Register.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ToDoList.xaml.cs">
+      <DependentUpon>ToDoList.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TripDetails.xaml.cs">
       <DependentUpon>TripDetails.xaml</DependentUpon>
@@ -175,7 +192,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Categories.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CovidOverview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Itinierary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainNavigation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -188,6 +221,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Register.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ToDoList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

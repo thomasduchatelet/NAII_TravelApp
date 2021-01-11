@@ -87,6 +87,11 @@ namespace TravelApp.UwpApp.Models
             return token != null;
         }
 
+        public static void LogOut()
+        {
+            client.DefaultRequestHeaders.Remove("Bearer"); //TODO tijdelijke logout X D 
+        }
+
         public static async Task<ItemDto> AddItem(long tripId, string name, int count, long categoryId)
         {
                 ItemDto item = new ItemDto
@@ -97,6 +102,15 @@ namespace TravelApp.UwpApp.Models
                     CategoryId = categoryId
                 };
             return await PutObject("/Item/Create", item);
+        }
+        public static async Task<CategoryDto> AddCategory(string name)
+        {
+            CategoryDto category = new CategoryDto
+            {
+                Name = name
+            };
+            return await PutObject<CategoryDto>("/Category/Create", category);
+
         }
 
         public static async Task<Boolean> RegisterUser(string username, string email, string password)

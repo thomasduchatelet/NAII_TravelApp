@@ -1,0 +1,38 @@
+﻿<Page
+    x:Class="TravelApp.View.MainNavigation"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TravelApp.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <NavigationView x:Name="nvMainNav" PaneDisplayMode="Top" IsBackButtonVisible="Collapsed" IsSettingsVisible="False" ItemInvoked="NavViewItemInvoked">
+            <NavigationView.MenuItems>
+                <NavigationViewItem  Content="Trips" x:Name="nvItemTrips" Tag="trips" >
+                <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEC40;"/>
+                </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem  Content="Categorieën" x:Name="nvItemCategories" Tag="categories">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE728;"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem Content="Covid info" x:Name="nvItemcovidInfo" Tag="covid">
+                <NavigationViewItem.Icon>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE9D2;"/>
+                </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem Content="Logout" x:Name="nvItemlogout" Tag="logout">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF3B1;"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.MenuItems>
+            <Frame x:Name="contentFrame"/>
+        </NavigationView>
+    </Grid>
+</Page>

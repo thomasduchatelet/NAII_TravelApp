@@ -35,7 +35,8 @@ namespace TravelApp.UwpApp.View
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            currentTripId = (long)e.Parameter;
+            TripDto trip = (TripDto)e.Parameter;
+            currentTripId = trip.Id;
             ViewModel.GetItems(currentTripId);
             base.OnNavigatedTo(e);
         }

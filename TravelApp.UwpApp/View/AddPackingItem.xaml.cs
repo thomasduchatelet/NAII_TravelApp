@@ -41,13 +41,6 @@ namespace TravelApp.View
 
         private async void AddItem_Click(object sender, RoutedEventArgs e)
         {
-            ItemDto item = new ItemDto
-            {
-                TripId = currentTripId,
-                Name = txtItemName.Text,
-                Count = int.Parse(txtItemCount.Text),
-                CategoryId = selectedCategory.Id
-            };
             await ApiMethods.AddItem(currentTripId, txtItemName.Text, int.Parse(txtItemCount.Text), selectedCategory.Id);
         }
 
