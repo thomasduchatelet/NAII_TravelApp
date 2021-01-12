@@ -61,7 +61,9 @@ namespace TravelApp.ViewModels
         public void UpdateItem(ItemDto item)
         {
             var index = Items.IndexOf(item);
+            var category = Items[index].Category;
             Items[index] = item;
+            Items[index].Category = category;
             ApiMethods.UpdateItem(item);
 
         }

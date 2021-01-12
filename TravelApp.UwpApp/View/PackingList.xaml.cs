@@ -75,6 +75,8 @@ namespace TravelApp.UwpApp.View
             var item = (ItemDto)btn.DataContext;
             if (item.PackedCount > 0)
                 item.PackedCount--;
+            if (item.PackedCount < item.Count)
+                item.Completed = false;
             ViewModel.UpdateItem(item);
         }
     }
