@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using TravelApp.Shared.Dto;
 using TravelApp.UwpApp.Models;
+using TravelApp.UwpApp.View;
 using TravelApp.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -23,28 +24,23 @@ namespace TravelApp.View
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class Categories : Page
+    public sealed partial class AddTrip : Page
     {
-        public CategoriesViewModel ViewModel = new CategoriesViewModel();
-        public Categories()
-        {
-            this.InitializeComponent();
+        public AddTripViewModel ViewModel = new AddTripViewModel();
+        public AddTrip()
+        {          
+           this.InitializeComponent();
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            ViewModel.GetAllCategories();
             base.OnNavigatedTo(e);
         }
 
-        private async void AddCategory_Click(object sender, RoutedEventArgs e)
+        private async void AddTrip_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.Categories.Add(await ApiMethods.AddCategory(txtCategoryName.Text));
-        }
-        private void deleteCategory_Click(object sender, RoutedEventArgs e)
-        {
-            var btn = (Button)sender;
-            var item = (CategoryDto)btn.DataContext;
-            ViewModel.DeleteItem(item);
+            await ApiMethods.AddTrip(txtTripTitel.Text,dpStartDate.SelectedDate.Value.DateTime, dpEndDate.SelectedDate.Value.DateTime);
+            Frame.Navigate(typeof(TripsOverview));
+
         }
     }
 }

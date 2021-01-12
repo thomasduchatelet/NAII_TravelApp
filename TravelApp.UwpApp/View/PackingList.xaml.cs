@@ -59,9 +59,7 @@ namespace TravelApp.UwpApp.View
                 item.PackedCount++;
             else
                 item.Completed = true;
-            ViewModel.UpdateItem(item);
-
-            
+            ViewModel.UpdateItem(item);       
         }
 
         private void DecreaseCount_Click(object sender, RoutedEventArgs e)
@@ -71,8 +69,6 @@ namespace TravelApp.UwpApp.View
             if (item.PackedCount > 0)
                 item.PackedCount--;
             ViewModel.UpdateItem(item);
-
-
         }
     }
 }

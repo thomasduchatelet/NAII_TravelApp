@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using TravelApp.UwpApp.ViewModels;
 using TravelApp.View;
+using TravelApp.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -13,6 +14,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -25,6 +27,7 @@ namespace TravelApp.UwpApp.View
     public sealed partial class TripsOverview : Page
     {
         public TripsOverviewViewModel TripsOverviewViewModel = new TripsOverviewViewModel();
+        public ImageViewModel imageViewModel = new ImageViewModel();
         public TripsOverview()
         {
             TripsOverviewViewModel.GetTrips();
@@ -34,6 +37,23 @@ namespace TravelApp.UwpApp.View
         {
             Frame.Navigate(typeof(Navigation), sender);
             
+        }
+
+        private void NewTrip_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(AddTrip));
+        }
+        public async void Image_Loaded(object sender, RoutedEventArgs e)
+        {
+            Image img = sender as Image;
+            var query = img.Tag.ToString();
+            if (img != null)
+            {
+                BitmapImage bitmapImage = new BitmapImage();
+                img.Width = bitmapImage.DecodePixelWidth = 280;
+                bitmapImage.UriSource = new Uri(await imageViewModel.ImageFrom(query));
+                img.Source = bitmapImage;
+            }
         }
     }
 }

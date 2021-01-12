@@ -26,7 +26,7 @@ namespace TravelApp.UwpApp.View
     /// </summary>
     public sealed partial class Login : Page
     {
-        public BackgroundViewModel ViewModel = new BackgroundViewModel();
+        public ImageViewModel ViewModel = new ImageViewModel();
        
         public Login()
         {

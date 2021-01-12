@@ -9,9 +9,9 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="0.5*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -22,14 +22,25 @@
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="models:TripDto">
                     <StackPanel Tapped="StackPanel_Tapped">
-                        <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{x:Bind Title}" FontSize="50"></TextBlock>
-                        <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{x:Bind StartDate}" FontSize="15"></TextBlock>
-                        <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{x:Bind EndDate}" FontSize="15"></TextBlock>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Image Loaded="Image_Loaded" Tag="{x:Bind Title}" Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="200"/>
+                            <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{x:Bind Title}" FontSize="50" Grid.Row="0" Grid.Column="1"></TextBlock>
+                            <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{x:Bind StartDate}" FontSize="15" Grid.Row="1" Grid.Column="1"></TextBlock>
+                            <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{x:Bind EndDate}" FontSize="15" Grid.Row="2" Grid.Column="1"></TextBlock>
+                        </Grid>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <Button Click="NewTrip_Click" Content="Toevoegen" Style="{StaticResource AccentButtonStyle}" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" Height="40" Margin="10"></Button>
     </Grid>
-
-
 </Page>

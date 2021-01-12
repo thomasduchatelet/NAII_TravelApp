@@ -17,5 +17,12 @@ namespace TravelApp.ViewModels
             {
                 Categories = new ObservableCollection<CategoryDto>(await ApiMethods.GetCategories());
             }
+
+        public async void DeleteItem(CategoryDto category)
+        {
+            Categories.Remove(category);
+            await ApiMethods.DeleteCategory(category.Id);
+
         }
+    }
 }

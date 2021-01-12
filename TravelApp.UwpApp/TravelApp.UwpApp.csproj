@@ -120,8 +120,9 @@
     <Compile Include="Models\JsonHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UwpApp\App.xaml.cs" />
+    <Compile Include="ViewModels\AddTripViewModel.cs" />
     <Compile Include="ViewModels\AddPackingItemViewModel.cs" />
-    <Compile Include="ViewModels\BackgroundViewModel.cs" />
+    <Compile Include="ViewModels\ImageViewModel.cs" />
     <Compile Include="ViewModels\BindableBase.cs" />
     <Compile Include="ViewModels\ItineraryViewModel.cs" />
     <Compile Include="ViewModels\CategoriesViewModel.cs" />
@@ -129,6 +130,9 @@
     <Compile Include="ViewModels\PackingListViewModel.cs" />
     <Compile Include="ViewModels\TripDetailsViewModel.cs" />
     <Compile Include="ViewModels\TripsOverviewViewModel.cs" />
+    <Compile Include="View\AddTrip.xaml.cs">
+      <DependentUpon>AddTrip.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\AddPackingItem.xaml.cs">
       <DependentUpon>AddPackingItem.xaml</DependentUpon>
     </Compile>
@@ -143,7 +147,6 @@
     </Compile>
     <Compile Include="View\Itinerary.xaml.cs">
       <DependentUpon>Itinerary.xaml</DependentUpon>
-
     </Compile>
     <Compile Include="View\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
@@ -193,6 +196,10 @@
     <Page Include="ResourceDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AddTrip.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\AddPackingItem.xaml">
       <SubType>Designer</SubType>

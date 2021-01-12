@@ -63,6 +63,25 @@ namespace TravelApp.UwpApp.Models
             return result;
         }
 
+        public static async Task<T> PostObject<T>(String uri, T body)
+        {
+            T result;
+            try
+            {
+                var uriBuilder = new UriBuilder(baseUrl + uri);
+                HttpStringContent temp = JsonHelpers.ObjectToHttpContent(body);
+                var response = await client.PostAsync(uriBuilder.Uri, JsonHelpers.ObjectToHttpContent(body));
+                result = JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return result;
+        }
+
+        
+
         public static Task<ItemDto> UpdateItem(ItemDto item)
         {
             item.Category = null;
@@ -133,6 +152,18 @@ namespace TravelApp.UwpApp.Models
                 };
             return await PutObject("/Item/Create", item);
         }
+
+        public static async Task<TripDto> AddTrip(string title, DateTime startDate, DateTime endDate)
+        {
+            TripDto trip = new TripDto
+            {
+                Title = title,
+                StartDate=startDate,
+                EndDate = endDate
+            };
+            return await PutObject("/Trip/Create", trip);
+        }
+
         public static async Task<CategoryDto> AddCategory(string name)
         {
             CategoryDto category = new CategoryDto
@@ -189,6 +220,11 @@ namespace TravelApp.UwpApp.Models
         public static async Task<List<CategoryDto>> GetCategories(CategoryFilterDto filter = null)
         {
             return await ApiCall<List<CategoryDto>>(baseUrl + "/Category/GetAll", filter);
+        }
+
+        public static async Task<long> DeleteCategory(long id)
+        {
+            return await PostObject("/Category/Delete", id);
         }
 
         public static async Task<UnsplashResult> GetImageUrl(string keyword)
