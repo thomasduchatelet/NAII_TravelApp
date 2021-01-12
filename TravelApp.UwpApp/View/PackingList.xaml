@@ -72,10 +72,7 @@
         <CheckBox  Grid.Row="0" Grid.Column="2" IsChecked="{x:Bind ViewModel.CompletedFilter, Mode=TwoWay}">
             Hide completed items
         </CheckBox>
-        <ListView Grid.Row="1" x:Name="listItems" Grid.Column="1" ItemsSource="{x:Bind ViewModel.Items,  Mode=OneWay}" CanDragItems="false" CanReorderItems="false" AllowDrop="False" SelectionMode="Single">
-            <Style TargetType="ListViewItem">
-                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-            </Style>
+        <ListView ItemContainerStyle="{StaticResource BorderedItem}" Grid.Row="1"  x:Name="listItems" Grid.Column="1" ItemsSource="{x:Bind ViewModel.Items,  Mode=OneWay}" CanDragItems="false" CanReorderItems="false" AllowDrop="False" SelectionMode="Single">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="models:ItemDto">
                     <Grid Margin="5">

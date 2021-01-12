@@ -22,7 +22,7 @@
         <TextBlock Grid.Row="0" Grid.Column="0" Text="Categorieën" Style="{StaticResource Title}" TextWrapping="Wrap" VerticalAlignment="Top" Margin="10" Height="40"/>
         <TextBox x:Name="txtCategoryName" Grid.Row="0" Grid.Column="1"/>
         <Button Click="AddCategory_Click" Style="{StaticResource AccentButtonStyle}" Content="Add"  Grid.Row="0" Grid.Column="2"/>
-        <ListView Grid.Row="1" x:Name="listItems" Grid.Column="1" ItemsSource="{x:Bind ViewModel.Categories,  Mode=OneWay}" CanDragItems="True" CanReorderItems="True" AllowDrop="True" SelectionMode="Single">
+        <ListView ItemContainerStyle="{StaticResource BorderedItem}" Grid.Row="1" x:Name="listItems" Grid.Column="1" ItemsSource="{x:Bind ViewModel.Categories,  Mode=OneWay}" CanDragItems="True" CanReorderItems="True" AllowDrop="True" SelectionMode="Single">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="models:CategoryDto">
                     <StackPanel Orientation="Horizontal">

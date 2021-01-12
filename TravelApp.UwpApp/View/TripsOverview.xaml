@@ -19,7 +19,6 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <ListView ItemContainerStyle="{StaticResource BorderedItem}" Grid.Row="1" Grid.Column="1" ItemsSource="{x:Bind ViewModel.Trips,  Mode=OneWay}" CanDragItems="True" CanReorderItems="True" AllowDrop="True" SelectionMode="Single">
-            
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="models:TripDto">
                         <Grid Tapped="Grid_Tapped" HorizontalAlignment="Stretch">
