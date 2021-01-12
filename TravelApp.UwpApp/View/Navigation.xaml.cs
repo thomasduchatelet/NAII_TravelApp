@@ -33,8 +33,8 @@ namespace TravelApp.UwpApp.View
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var stackpanel = (StackPanel)e.Parameter;
-            CurrentTrip = (TripDto)stackpanel.DataContext;
+            var grid = (Grid)e.Parameter;
+            CurrentTrip = (TripDto)grid.DataContext;
             contentFrame.Navigate(typeof(TripDetails), CurrentTrip);
         }
 

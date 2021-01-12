@@ -243,6 +243,21 @@ namespace TravelApp.UwpApp.Models
             return await PostObject("/Category/Delete", category);
         }
 
+        public static async Task<TripDto> DeleteTrip(TripDto trip)
+        {
+            return await PostObject("/Trip/Delete", trip);
+        }
+
+        public static async Task<ItemDto> DeleteItem(ItemDto item)
+        {
+            return await PostObject("/Item/Delete", item);
+        }
+
+        public static async Task<TodoDto> DeleteToDo(TodoDto toDo)
+        {
+            return await PostObject("/ToDo/Delete", toDo);
+        }
+
         public static async Task<UnsplashResult> GetImageUrl(string keyword)
         {
             var uriBuilder = new UriBuilder("https://api.unsplash.com/search/photos/?client_id=dMXHbxgeklD_WMu1ANAR6r3549ln6W8iNuzQp4Ms_rs&query=" + keyword);

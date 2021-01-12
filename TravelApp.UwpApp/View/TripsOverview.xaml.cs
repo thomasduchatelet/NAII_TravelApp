@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using TravelApp.Shared.Dto;
 using TravelApp.UwpApp.ViewModels;
 using TravelApp.View;
 using TravelApp.ViewModels;
@@ -26,14 +27,14 @@ namespace TravelApp.UwpApp.View
     /// </summary>
     public sealed partial class TripsOverview : Page
     {
-        public TripsOverviewViewModel TripsOverviewViewModel = new TripsOverviewViewModel();
+        public TripsOverviewViewModel ViewModel = new TripsOverviewViewModel();
         public ImageViewModel imageViewModel = new ImageViewModel();
         public TripsOverview()
         {
-            TripsOverviewViewModel.GetTrips();
+            ViewModel.GetTrips();
             this.InitializeComponent();
         }
-        private void StackPanel_Tapped(object sender, TappedRoutedEventArgs e)
+        private void Grid_Tapped(object sender, TappedRoutedEventArgs e)
         {
             Frame.Navigate(typeof(Navigation), sender);
             
@@ -54,6 +55,13 @@ namespace TravelApp.UwpApp.View
                 bitmapImage.UriSource = new Uri(await imageViewModel.ImageFrom(query));
                 img.Source = bitmapImage;
             }
+        }
+
+        private void deleteTrip_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = (Button)sender;
+            var trip = (TripDto)btn.DataContext;
+            ViewModel.DeleteTrip(trip);
         }
     }
 }
