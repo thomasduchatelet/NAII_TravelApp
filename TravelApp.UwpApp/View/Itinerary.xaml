@@ -80,6 +80,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Click="Button_Click" Content="Nieuw item" Grid.Row="2" Grid.Column="1" VerticalAlignment="top"></Button>
+        <Button Click="Button_Click" Content="Edit or add itinerary" Grid.Row="2" Grid.Column="1" VerticalAlignment="top"></Button>
     </Grid>
 </Page>

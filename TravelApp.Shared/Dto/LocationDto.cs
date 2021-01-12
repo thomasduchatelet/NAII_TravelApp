@@ -15,5 +15,7 @@ namespace TravelApp.Shared.Dto
         public double Latitude { get { return _latitude; } set { _latitude = value; NotifyPropertyChanged(); } }
         public double Longitude { get { return _longitude; } set { _longitude = value; NotifyPropertyChanged(); } }
         public long ItineraryId { get { return _itineraryId; } set { _itineraryId = value; NotifyPropertyChanged(); } }
+
+        public string Country { get; set; }
     }
 }

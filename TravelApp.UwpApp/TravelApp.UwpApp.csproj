@@ -130,6 +130,9 @@
     <Compile Include="ViewModels\PackingListViewModel.cs" />
     <Compile Include="ViewModels\TripDetailsViewModel.cs" />
     <Compile Include="ViewModels\TripsOverviewViewModel.cs" />
+    <Compile Include="View\AddItinerary.xaml.cs">
+      <DependentUpon>AddItinerary.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\AddTrip.xaml.cs">
       <DependentUpon>AddTrip.xaml</DependentUpon>
     </Compile>
@@ -195,6 +198,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="ResourceDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AddItinerary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
