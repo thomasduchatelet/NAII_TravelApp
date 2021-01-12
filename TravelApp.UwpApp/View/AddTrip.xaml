@@ -37,6 +37,16 @@
             <TextBox x:Name="txtTripTitel" Header="Geef een titel" Text="" Grid.Row="0" Grid.Column="0"/>
             <DatePicker x:Name="dpStartDate" Header="Kies een start datum" Grid.Row="1" Grid.Column="0"/>
             <DatePicker x:Name="dpEndDate" Header="Kies een eind datum" Grid.Row="2" Grid.Column="0"/>
+            <TextBox x:Name="txtCity" Header="Geef een stad" Text="" Grid.Row="0" Grid.Column="1"/>
+            <ComboBox Header="Enter Country" Grid.Row="2" Grid.Column="3" x:Name="cboCountry" ItemsSource="{x:Bind ViewModel.Countries, Mode=OneWay}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate x:DataType="models:CountryDto">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="{x:Bind Country}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
             <Button Click="AddTrip_Click" Content="Toevoegen" Style="{StaticResource AccentButtonStyle}" Grid.ColumnSpan="2" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Stretch" Height="40" Margin="10"></Button>
         </Grid>
 

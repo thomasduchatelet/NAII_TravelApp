@@ -27,7 +27,7 @@ namespace TravelApp.Backend.Data
 
         public async Task InitializeData()
         {
-            //_context.Database.EnsureDeleted();
+            _context.Database.EnsureDeleted();
             if (_context.Database.EnsureCreated())
             {
                 Category clothes = new Category("Clothes");

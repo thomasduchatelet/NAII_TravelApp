@@ -166,15 +166,18 @@ namespace TravelApp.UwpApp.Models
             return await PutObject("/Item/Create", item);
         }
 
-        public static async Task<TripDto> AddTrip(string title, DateTime startDate, DateTime endDate)
+        public static async Task<TripDto> AddTrip(string title, DateTime startDate, DateTime endDate, ItineraryDto itinerary)
         {
             TripDto trip = new TripDto
             {
                 Title = title,
                 StartDate=startDate,
-                EndDate = endDate
+                EndDate = endDate,
             };
-            return await PutObject("/Trip/Create", trip);
+            var result = await PutObject("/Trip/Create", trip);
+            itinerary.TripId = result.Id;
+            await CreateItinerary(itinerary);
+            return result;
         }
 
         public static async Task<CategoryDto> AddCategory(string name)

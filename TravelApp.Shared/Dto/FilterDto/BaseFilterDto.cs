@@ -10,14 +10,14 @@ namespace TravelApp.Shared.Dto.FilterDto
 
         public string ParseQuery()
         {
-            NameValueCollection query = new NameValueCollection();
             var properties = GetType().GetProperties();
+            var query = "";
 
             foreach (var property in properties)
                 if (property.GetValue(this) != null)
-                query[property.Name] = property.GetValue(this).ToString();
-
-            return query.ToString();
+                    if(!(property.Name.Equals("Id") && (long) property.GetValue(this) ==0))
+                        query += property.Name +"=" + property.GetValue(this).ToString() + "&";
+            return query.EndsWith("&") ? query.Substring(0, query.Length - 1) : query;
         }
     }
 }

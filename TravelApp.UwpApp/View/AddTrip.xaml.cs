@@ -34,11 +34,13 @@ namespace TravelApp.View
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            ViewModel.GetCountries();
         }
 
         private async void AddTrip_Click(object sender, RoutedEventArgs e)
         {
-            await ApiMethods.AddTrip(txtTripTitel.Text,dpStartDate.SelectedDate.Value.DateTime, dpEndDate.SelectedDate.Value.DateTime);
+            var country = (CountryDto) cboCountry.SelectedItem;
+            await ApiMethods.AddTrip(txtTripTitel.Text,dpStartDate.SelectedDate.Value.DateTime, dpEndDate.SelectedDate.Value.DateTime, new ItineraryDto() { Name = txtTripTitel.Text + " Route", Locations = new List<LocationDto>() { new LocationDto() { Name = txtCity.Text, Country = country.Country} } });
             Frame.Navigate(typeof(TripsOverview));
 
         }
