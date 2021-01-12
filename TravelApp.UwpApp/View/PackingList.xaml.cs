@@ -51,6 +51,13 @@ namespace TravelApp.UwpApp.View
             Frame.Navigate(typeof(AddPackingItem), currentTripId);
         }
 
+        private void deleteItem_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = (Button)sender;
+            var item = (ItemDto)btn.DataContext;
+            ViewModel.DeleteItem(item);
+        }
+
         private void IncreaseCount_Click(object sender, RoutedEventArgs e)
         {
             var btn = (Button)sender;

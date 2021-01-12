@@ -37,6 +37,13 @@ namespace TravelApp.ViewModels
             CompletedFilter = _completedFilter;
         }
 
+        public async void DeleteItem(ItemDto item)
+        {
+            Items.Remove(item);
+            await ApiMethods.DeleteItem(item);
+
+        }
+
 
         public void FilterCategory(IList<object> addedItems)
         {
