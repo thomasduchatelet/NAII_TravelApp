@@ -27,7 +27,7 @@
                 <DataTemplate x:DataType="models:CategoryDto">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{x:Bind Name}" FontSize="20" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch"></TextBlock>
-                        <Button Click="deleteCategory_Click">
+                        <Button Click="deleteCategory_Click" Background="Transparent">
                             <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE74D;"/>
                         </Button>
                     </StackPanel>

@@ -22,5 +22,12 @@ namespace TravelApp.UwpApp.ViewModels
         {
             Trips = new ObservableCollection<TripDto>(await ApiMethods.GetTrips());
         }
+
+        public async void DeleteTrip(TripDto trip)
+        {
+            Trips.Remove(trip);
+            await ApiMethods.DeleteTrip(trip);
+
+        }
     }
 }
