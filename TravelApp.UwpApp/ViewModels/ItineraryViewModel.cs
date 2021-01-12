@@ -17,6 +17,7 @@ namespace TravelApp.ViewModels
         private ObservableCollection<LocationDto> _locations;
         public ObservableCollection<LocationDto> Locations { get { return _locations; } set { _locations = value; OnPropertyChanged(); } }
 
+
         public async void GetItinerary(long tripid)
         {
 
@@ -29,10 +30,35 @@ namespace TravelApp.ViewModels
             var locations = await ApiMethods.ChangeLocationPosition(Locations.IndexOf(location) -1, location);
             Locations = new ObservableCollection<LocationDto>(locations.OrderBy(l => l.Order));
         }
+
+        public void CreateOrUpdateItinerary()
+        {
+            Itinerary.Locations = Locations.ToList();
+            if (Itinerary.Id == 0)
+                CreateItinerary();
+            else
+                UpdateItinerary();
+        }
+        private async void CreateItinerary()
+        {
+            Itinerary = await ApiMethods.CreateItinerary(Itinerary);
+        }
+
+        private async void UpdateItinerary()
+        {
+            Itinerary = await ApiMethods.UpdateItinerary(Itinerary);
+        }
+
         public async void LocationDown(LocationDto location)
         {
             var locations = await ApiMethods.ChangeLocationPosition(Locations.IndexOf(location) + 2, location);
             Locations = new ObservableCollection<LocationDto>(locations.OrderBy(l => l.Order));
+        }
+
+        public void AddLocation(LocationDto location)
+        {
+            Locations.Add(location);
+            OnPropertyChanged("Locations");
         }
     }
 }

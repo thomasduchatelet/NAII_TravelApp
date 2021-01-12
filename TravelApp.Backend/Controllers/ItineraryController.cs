@@ -50,5 +50,22 @@ namespace TravelApp.Backend.Controllers
             
             return Ok(_mapper.Map<IEnumerable<LocationDto>>(_locationsRepo.GetAll(new LocationFilter() { ItineraryId = dto.ItineraryId }, _userId).OrderBy(l => l.Order)));
         }
+
+        public override ActionResult<ItineraryDto> Update(ItineraryDto input)
+        {
+            var it = _mapper.Map<Itinerary>(input);
+            it.UserId = _userId;
+            if (it.Locations != null)
+                it.Locations.ForEach(l => l.UserId = _userId);
+             return Ok(_mapper.Map<ItineraryDto>(_repository.Update(it, _userId)));
+        }
+        public override ActionResult<ItineraryDto> Create(ItineraryDto input)
+        {
+            var it = _mapper.Map<Itinerary>(input);
+            it.UserId = _userId;
+            if (it.Locations != null)
+                it.Locations.ForEach(l => l.UserId = _userId);
+            return Ok(_mapper.Map<ItineraryDto>(_repository.Update(it, _userId)));
+        }
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TravelApp.Shared.Dto.FilterDto
 {
-    public class ItineraryFilter : BaseFilterDto
+    public class ItineraryFilterDto : BaseFilterDto
     {
         public long? TripId { get; set; }
     }

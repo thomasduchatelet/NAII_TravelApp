@@ -47,6 +47,16 @@ namespace TravelApp.UwpApp.Models
             return await ApiCall<List<CountryCovidResult>>("https://api.covid19api.com/total/dayone/country/" + countryDto.Slug);
         }
 
+        public static Task<ItineraryDto> CreateItinerary(ItineraryDto itinerary)
+        {
+            return PutObject("/Itinerary/Create", itinerary);
+        }
+
+        public static Task<ItineraryDto> UpdateItinerary(ItineraryDto itinerary)
+        {
+            return PutObject("/Itinerary/Update", itinerary);
+        }
+
         public static async Task<T> PutObject<T>(String uri, T body)
         {
             T result;
@@ -91,8 +101,11 @@ namespace TravelApp.UwpApp.Models
 
         public static async Task<ItineraryDto> GetItinerary(long tripId)
         {
-            var itineraries = await ApiCall<IEnumerable<ItineraryDto>>(baseUrl + "/Itinerary/GetAllEager", new ItineraryFilter() { TripId = tripId });
-            return itineraries.FirstOrDefault();
+            var itineraries = await ApiCall<IEnumerable<ItineraryDto>>(baseUrl + "/Itinerary/GetAllEager", new ItineraryFilterDto() { TripId = tripId });
+            var itinerary = itineraries.FirstOrDefault(i => i.TripId == tripId);
+            if (itinerary == null)
+                return new ItineraryDto() { Name = "No itinerary found", Locations = new List<LocationDto>(), TripId = tripId };
+            return itinerary;
         }
 
         public static async Task<IEnumerable<LocationDto>> ChangeLocationPosition(int position, LocationDto dto)

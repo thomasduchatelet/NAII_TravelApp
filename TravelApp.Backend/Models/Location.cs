@@ -13,6 +13,8 @@ namespace TravelApp.Backend.Models
         public double Longitude { get; set; }
         public long ItineraryId { get; set; }
 
+        public string Country { get; set; }
+
         protected Location()
         {
 
