@@ -138,7 +138,7 @@ namespace TravelApp.Backend
                 c.SwaggerRoutes.Add(new SwaggerUi3Route("v1", "swagger/apidocs/swagger.json"));                
             });
 
-           seed.InitializeData().Wait();
+           //seed.InitializeData().Wait();
 
         }
     }
