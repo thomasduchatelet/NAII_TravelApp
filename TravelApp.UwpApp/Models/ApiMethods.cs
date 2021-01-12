@@ -222,9 +222,9 @@ namespace TravelApp.UwpApp.Models
             return await ApiCall<List<CategoryDto>>(baseUrl + "/Category/GetAll", filter);
         }
 
-        public static async Task<long> DeleteCategory(long id)
+        public static async Task<CategoryDto> DeleteCategory(CategoryDto category)
         {
-            return await PostObject("/Category/Delete", id);
+            return await PostObject("/Category/Delete", category);
         }
 
         public static async Task<UnsplashResult> GetImageUrl(string keyword)

@@ -43,9 +43,9 @@ namespace TravelApp.Backend.Controllers
         }
         [HttpPost("Delete")]
 
-        public virtual ActionResult Delete(long id)
+        public virtual ActionResult Delete(D input)
         {
-            if (_repository.Delete(id, _userId))
+            if (_repository.Delete(input.Id, _userId))
                 return Ok();
             return NotFound();
         }
@@ -85,9 +85,9 @@ namespace TravelApp.Backend.Controllers
         }
         [HttpPost("Delete")]
 
-        public virtual ActionResult Delete(long id)
+        public virtual ActionResult Delete(GetDto input)
         {
-            if (_repository.Delete(id, _userId))
+            if (_repository.Delete(input.Id, _userId))
                 return Ok();
             return NotFound();
         }

@@ -21,7 +21,7 @@ namespace TravelApp.ViewModels
         public async void DeleteItem(CategoryDto category)
         {
             Categories.Remove(category);
-            await ApiMethods.DeleteCategory(category.Id);
+            await ApiMethods.DeleteCategory(category);
 
         }
     }
