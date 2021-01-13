@@ -11,17 +11,14 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*" />
+            <RowDefinition Height="3*" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="2*" />
+            <RowDefinition Height="5*" />
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="Trip" Style="{StaticResource Title}" TextWrapping="Wrap" VerticalAlignment="Top" Margin="10" Height="40"/>
-        <Grid Grid.Row="0" Grid.Column="1">
+        <Grid Grid.Row="0" Grid.Column="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -29,13 +26,44 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <TextBlock  x:Name="lblTitle" Text="{x:Bind ViewModel.Trip.Title}" Grid.Row="0" Grid.Column="1"/>
-            <TextBlock x:Name="lblStartDate" Text="{x:Bind ViewModel.Trip.StartDate.ToString()}" Grid.Row="1" Grid.Column="1"/>
-            <TextBlock x:Name="lblEndDate" Text="{x:Bind ViewModel.Trip.EndDate.ToString()}" Grid.Row="2" Grid.Column="1"/>
-        
+            <TextBlock  x:Name="lblTitle" Text="{x:Bind ViewModel.Trip.Title}" Grid.Row="0" Grid.Column="0" FontSize="40" TextAlignment="Center"/>
+            <TextBlock x:Name="lblStartDate" Text="{x:Bind ViewModel.Trip.StartDate.ToString()}" Grid.Row="1" Grid.Column="0" TextAlignment="Center"/>
+            <TextBlock x:Name="lblEndDate" Text="{x:Bind ViewModel.Trip.EndDate.ToString()}" Grid.Row="2" Grid.Column="0" TextAlignment="Center"/>
         </Grid>
-        <StackPanel Orientation="Horizontal">
-            <ComboBox x:Name="cboCountry" ItemsSource="{x:Bind ViewModel.Countries, Mode=OneWay}"  SelectionChanged="CboCountry_SelectionChanged">
+        <Grid Grid.Row="0" Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="*" />
+
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="2*" />
+            </Grid.RowDefinitions>
+            <TextBlock Text="Packing progress" Margin="10" FontSize="18"/>
+            <StackPanel Grid.Row="1" Grid.Column="0">
+                <StackPanel Padding="12" Margin="5">
+                    <TextBlock Text="Total"/>
+                    <ProgressBar Value="20" Maximum="100" Margin="0,12"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Grid.Column="0">
+                <StackPanel Padding="12" Margin="5">
+                    <TextBlock Text="Items packed"/>
+                    <ProgressBar Value="20" Maximum="100" Margin="0,12"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Grid.Row="3" Grid.Column="0">
+                <StackPanel Padding="12" Margin="5">
+                    <TextBlock Text="Tasks completed"/>
+                    <ProgressBar Value="20" Maximum="100" Margin="0,12"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
+            <ComboBox x:Name="cboCountry" ItemsSource="{x:Bind ViewModel.Countries, Mode=OneWay}"  SelectionChanged="CboCountry_SelectionChanged" VerticalAlignment="Center"  Margin="10">
                 <ComboBox.ItemTemplate>
                     <DataTemplate x:DataType="models:CountryDto">
                         <StackPanel Orientation="Horizontal">
@@ -54,7 +82,7 @@
                 Total Deaths Series
             </CheckBox>
         </StackPanel>
-        <lvc:CartesianChart Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Series="{x:Bind ViewModel.SeriesCollection, Mode=OneWay}" AxisX="{x:Bind ViewModel.XCollection, Mode=OneWay}">
+        <lvc:CartesianChart Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Series="{x:Bind ViewModel.SeriesCollection, Mode=OneWay}" AxisX="{x:Bind ViewModel.XCollection, Mode=OneWay}">
 
         </lvc:CartesianChart>
     </Grid>

@@ -12,6 +12,8 @@ namespace TravelApp.ViewModels
 {
     public class PackingListViewModel : BindableBase
     {
+        public int total_items = 0;
+        public int total_packed = 0;
         private bool _completedFilter = false;
         public bool CompletedFilter { get { return _completedFilter;} set { _completedFilter = value; FilterCategory(new List<object>() { _currentCategory }); } }
         private List<ItemDto> _allItems;
@@ -41,9 +43,7 @@ namespace TravelApp.ViewModels
         {
             Items.Remove(item);
             await ApiMethods.DeleteItem(item);
-
         }
-
 
         public void FilterCategory(IList<object> addedItems)
         {
@@ -60,6 +60,7 @@ namespace TravelApp.ViewModels
 
         public void UpdateItem(ItemDto item)
         {
+            total_packed++;
             var index = Items.IndexOf(item);
             var category = Items[index].Category;
             Items[index] = item;
