@@ -26,9 +26,9 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <TextBlock  x:Name="lblTitle" Text="{x:Bind ViewModel.Trip.Title}" Grid.Row="0" Grid.Column="0" FontSize="40" TextAlignment="Center"/>
-            <TextBlock x:Name="lblStartDate" Text="{x:Bind ViewModel.Trip.StartDate.ToString()}" Grid.Row="1" Grid.Column="0" TextAlignment="Center"/>
-            <TextBlock x:Name="lblEndDate" Text="{x:Bind ViewModel.Trip.EndDate.ToString()}" Grid.Row="2" Grid.Column="0" TextAlignment="Center"/>
+            <TextBlock  x:Name="lblTitle" Text="{x:Bind ViewModel.Trip.Title, Mode=OneWay}" Grid.Row="0" Grid.Column="0" FontSize="40" TextAlignment="Center"/>
+            <TextBlock x:Name="lblStartDate" Text="{x:Bind ViewModel.DateLabel, Mode=OneWay}" Grid.Row="1" Grid.Column="0" TextAlignment="Center"/>
+            <TextBlock x:Name="lblCountry" Text="{x:Bind ViewModel.Trip.Country, Mode=OneWay}" Grid.Row="2" Grid.Column="0" TextAlignment="Center"/>
         </Grid>
         <Grid Grid.Row="0" Grid.Column="2">
             <Grid.ColumnDefinitions>
@@ -62,7 +62,8 @@
                 </StackPanel>
             </StackPanel>
         </Grid>
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+
             <ComboBox x:Name="cboCountry" ItemsSource="{x:Bind ViewModel.Countries, Mode=OneWay}"  SelectionChanged="CboCountry_SelectionChanged" VerticalAlignment="Center"  Margin="10">
                 <ComboBox.ItemTemplate>
                     <DataTemplate x:DataType="models:CountryDto">
@@ -73,15 +74,23 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <CheckBox IsChecked="{x:Bind ViewModel.CasesSeriesVisibility, Mode=TwoWay}">
-                Case Series
+                Show Cases
             </CheckBox>
             <CheckBox IsChecked="{x:Bind ViewModel.DeathsSeriesVisibility, Mode=TwoWay}">
-                Death Series
+               Show Deaths
             </CheckBox>
             <CheckBox IsChecked="{x:Bind ViewModel.TotalDeathsSeriesVisibility, Mode=TwoWay}">
-                Total Deaths Series
+               Show Total Deaths
             </CheckBox>
+            
+
         </StackPanel>
+        <StackPanel Grid.Row="3" Grid.Column="0">
+            
+        <TextBlock Text="{x:Bind ViewModel.ChartTitle, Mode=TwoWay}" FontSize="15">
+        </TextBlock>
+        </StackPanel>
+
         <lvc:CartesianChart Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Series="{x:Bind ViewModel.SeriesCollection, Mode=OneWay}" AxisX="{x:Bind ViewModel.XCollection, Mode=OneWay}">
 
         </lvc:CartesianChart>

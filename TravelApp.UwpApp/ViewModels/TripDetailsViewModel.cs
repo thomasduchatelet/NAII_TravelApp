@@ -25,6 +25,12 @@ namespace TravelApp.ViewModels
         public ObservableCollection<CountryDto> Countries { get { return _countries; } set { _countries = value; OnPropertyChanged(); } }
         public ObservableCollection<CountryCovidResult> CountryCovidResults { get; set; }
 
+        private string _chartTitle;
+        public string ChartTitle { get { return _chartTitle; } set { _chartTitle = value; OnPropertyChanged(); } }
+
+        private string _dateLabel;
+        public string DateLabel { get { return _dateLabel; } set { _dateLabel = value; OnPropertyChanged(); } }
+
         private List<double> confirmed = new List<double>();
           private List<double> deaths = new List<double>();
           private List<double> deathsTotal = new List<double>();
@@ -38,10 +44,13 @@ namespace TravelApp.ViewModels
         {
             var countries = await ApiMethods.GetAllCountries();
             Countries = new ObservableCollection<CountryDto>(countries.OrderBy(c => c.Country));
+            GetCountryCovidData(countries.FirstOrDefault(c => c.Country == Trip.Country));
         }
 
         public async void GetCountryCovidData(CountryDto countryDto)
         {
+            ChartTitle = "Current Covid-19 situation in " + Trip.Country;
+            DateLabel = Trip.StartDate.ToString("M") + " " + Trip.StartDate.ToString("yyyy") + " - " + Trip.EndDate.ToString("M") + " "  + Trip.EndDate.ToString("yyyy");
             var results = await ApiMethods.GetCountryCovidData(countryDto);
             CountryCovidResults = new ObservableCollection<CountryCovidResult>(results);
             InitializeChart();
