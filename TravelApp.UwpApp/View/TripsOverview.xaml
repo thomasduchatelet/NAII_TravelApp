@@ -23,7 +23,7 @@
                 <DataTemplate x:DataType="models:TripDto">
                         <Grid Tapped="Grid_Tapped" HorizontalAlignment="Stretch">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="4*"/>
                                 <ColumnDefinition Width="4*"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
@@ -31,10 +31,10 @@
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
-                            <Image Loaded="Image_Loaded" Tag="{x:Bind Title}" Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" VerticalAlignment="Stretch"/>
-                        <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{x:Bind Title}" FontSize="50" Grid.Row="0" Grid.Column="1"></TextBlock>
-                        <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{x:Bind StartDate}" FontSize="15" Grid.Row="1" Grid.Column="1"></TextBlock>
-                        <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{x:Bind EndDate}" FontSize="15" Grid.Row="2" Grid.Column="1"></TextBlock>
+                            <Image Loaded="Image_Loaded" Tag="{x:Bind Country}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1" Grid.RowSpan="2" VerticalAlignment="Stretch"/>
+                        <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{x:Bind Title}" FontSize="50" Grid.Row="0" Grid.Column="2"></TextBlock>
+                        <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{x:Bind StartDate}" FontSize="15" Grid.Row="1" Grid.Column="2"></TextBlock>
+                        <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{x:Bind EndDate}" FontSize="15" Grid.Row="2" Grid.Column="2"></TextBlock>
                             <Button Grid.Row="0" Grid.Column="1" Click="deleteTrip_Click" VerticalAlignment="Top" HorizontalAlignment="Right" Background="Transparent" ClickMode="Press">
                                 <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE74D;"/>
                             </Button>

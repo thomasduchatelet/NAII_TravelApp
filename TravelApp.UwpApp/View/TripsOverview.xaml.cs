@@ -47,7 +47,11 @@ namespace TravelApp.UwpApp.View
         public async void Image_Loaded(object sender, RoutedEventArgs e)
         {
             Image img = sender as Image;
-            var query = img.Tag.ToString();
+            var query = "";
+            if (img.Tag == null)
+                query = "Travel";
+            else
+                query = img.Tag.ToString();
             if (img != null)
             {
                 BitmapImage bitmapImage = new BitmapImage();

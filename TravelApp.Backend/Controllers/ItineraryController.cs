@@ -15,7 +15,8 @@ namespace TravelApp.Backend.Controllers
     public class ItineraryController : CrudControllerBase<Itinerary, ItineraryFilter, ItineraryDto>
     {
         private ICrudRepository<Location, LocationFilter> _locationsRepo;
-        public ItineraryController(ICrudRepository<Itinerary, ItineraryFilter> repository, IHttpContextAccessor httpContextAccessor, ICrudRepository<Location, LocationFilter> repo) : base(repository, httpContextAccessor){ _locationsRepo = repo; }
+        private ICrudRepository<Trip, TripFilter> _tripRepo;
+        public ItineraryController(ICrudRepository<Itinerary, ItineraryFilter> repository, IHttpContextAccessor httpContextAccessor, ICrudRepository<Location, LocationFilter> repo, ICrudRepository<Trip, TripFilter> tripRepo) : base(repository, httpContextAccessor){ _locationsRepo = repo; _tripRepo = tripRepo; }
         [HttpPost("AddLocation")]
         public ActionResult AddLocation(int position, LocationDto location)
         {
@@ -47,7 +48,10 @@ namespace TravelApp.Backend.Controllers
                 locations[i].Order = 10 * (i + 1);
                 _locationsRepo.Update(location, _userId);
             }
-            
+            var trip = _tripRepo.GetAll(new TripFilter() { Id = itinerary.TripId },_userId).FirstOrDefault();
+            trip.Country = locations.OrderByDescending(l => l.Order).FirstOrDefault().Country;
+            _tripRepo.Update(trip, _userId);
+
             return Ok(_mapper.Map<IEnumerable<LocationDto>>(_locationsRepo.GetAll(new LocationFilter() { ItineraryId = dto.ItineraryId }, _userId).OrderBy(l => l.Order)));
         }
 
@@ -65,6 +69,9 @@ namespace TravelApp.Backend.Controllers
             it.UserId = _userId;
             if (it.Locations != null)
                 it.Locations.ForEach(l => l.UserId = _userId);
+            var trip = _tripRepo.GetAll(new TripFilter() { Id = it.TripId }, _userId).FirstOrDefault();
+            trip.Country = it.Locations.OrderByDescending(l => l.Order).FirstOrDefault().Country;
+            _tripRepo.Update(trip,_userId);
             return Ok(_mapper.Map<ItineraryDto>(_repository.Update(it, _userId)));
         }
     }

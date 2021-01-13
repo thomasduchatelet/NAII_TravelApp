@@ -260,7 +260,7 @@ namespace TravelApp.UwpApp.Models
 
         public static async Task<UnsplashResult> GetImageUrl(string keyword)
         {
-            var uriBuilder = new UriBuilder("https://api.unsplash.com/search/photos/?client_id=dMXHbxgeklD_WMu1ANAR6r3549ln6W8iNuzQp4Ms_rs&query=" + keyword);
+            var uriBuilder = new UriBuilder("https://api.unsplash.com/search/photos/?client_id=dMXHbxgeklD_WMu1ANAR6r3549ln6W8iNuzQp4Ms_rs&orientation=squarish&query=" + keyword);
             try
             {
                 UnsplashResult result;

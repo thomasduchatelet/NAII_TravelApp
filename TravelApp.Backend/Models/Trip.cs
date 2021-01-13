@@ -13,6 +13,7 @@ namespace TravelApp.Backend.Models
         public virtual Itinerary Itinerary { get; set; }
         public virtual List<Item> Items { get; set; }
         public virtual List<Todo> Todos { get; set; }
+        public string Country { get; set; }
 
 
         public Trip()

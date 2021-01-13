@@ -12,6 +12,7 @@ namespace TravelApp.Shared.Dto
         public DateTime StartDate { get { return _startDate; } set { _startDate = value; NotifyPropertyChanged(); } }
         public DateTime EndDate { get { return _endDate; } set { _endDate = value; NotifyPropertyChanged(); } }
         public string Title { get { return _title; } set { _title = value; NotifyPropertyChanged(); } }
+        public string Country { get; set; }
     }
 
     public class GetTripDto : TripDto
