@@ -12,8 +12,10 @@ namespace TravelApp.ViewModels
 {
     public class PackingListViewModel : BindableBase
     {
-        public int total_items = 0;
-        public int total_packed = 0;
+        private int _total_items = 0;
+        private int _total_packed = 0;
+        public int total_items { get { return _total_items; } set { _total_items = value; OnPropertyChanged(); } }
+        public int total_packed { get { return _total_packed; } set { _total_packed = value; OnPropertyChanged(); } }
         private bool _completedFilter = false;
         public bool CompletedFilter { get { return _completedFilter;} set { _completedFilter = value; FilterCategory(new List<object>() { _currentCategory }); } }
         private List<ItemDto> _allItems;
@@ -37,6 +39,9 @@ namespace TravelApp.ViewModels
             Categories.Add(_currentCategory);
             Categories = new ObservableCollection<CategoryDto>(Categories.OrderBy(c => c.Name));
             CompletedFilter = _completedFilter;
+            this.total_items = Items.Sum(i => i.Count);
+            this.total_packed = Items.Sum(i => i.PackedCount);
+            this.total_items = Items.Sum(i => i.Count);
         }
 
         public async void DeleteItem(ItemDto item)
@@ -56,16 +61,44 @@ namespace TravelApp.ViewModels
             else
                 items = _allItems.Where(i => categories[0].Id == i.CategoryId).ToList();
             Items = new ObservableCollection<ItemDto>(items.Where(i => i.Completed != _completedFilter || i.Completed == false).OrderBy(i => i.CategoryId));
+            this.total_items = Items.Sum(i => i.Count);
+            this.total_packed = Items.Sum(i => i.PackedCount);
+
         }
 
-        public void UpdateItem(ItemDto item)
+        public void UpdateItem(ItemDto item, Boolean increase)
         {
-            total_packed++;
             var index = Items.IndexOf(item);
-            var category = Items[index].Category;
+            var category = Categories.Where(i => i.Id == item.CategoryId).FirstOrDefault();
             Items[index] = item;
             Items[index].Category = category;
-            ApiMethods.UpdateItem(item);
+            if (increase)
+            {
+                if (item.PackedCount < item.Count)
+                {
+                    item.PackedCount++;
+                    total_packed++;
+                    item.Completed = item.PackedCount >= item.Count;
+                    if (item.Completed && CompletedFilter)
+                    {
+                        Items.Remove(item);
+                    }
+                    ApiMethods.UpdateItem(item);
+                }              
+            }
+            else
+            {
+                if (item.PackedCount > 0)
+                {
+                    item.PackedCount--;
+                    total_packed--;
+                    item.Completed = item.PackedCount >= item.Count;
+                    ApiMethods.UpdateItem(item);
+                }
+
+            }
+
+
 
         }
     }

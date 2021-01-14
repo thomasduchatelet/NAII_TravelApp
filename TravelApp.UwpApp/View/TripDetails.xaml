@@ -8,6 +8,52 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Grid>
+        <VisualStateManager.VisualStateGroups>
+
+            <VisualStateGroup x:Name="VisualStateGroup">
+                <VisualState x:Name="VisualStateMobile">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="progressGrid.Grid.Column" Value="0">
+                        </Setter>
+                        <Setter Target="progressGrid.Grid.Row" Value="1">
+                        </Setter>
+                        <Setter Target="progressGrid.Grid.RowSpan" Value="3">
+                        </Setter>
+                        <Setter Target="progressGrid.Grid.ColumnSpan" Value="2">
+                        </Setter>
+                        <Setter Target="descriptionGrid.Grid.ColumnSpan" Value="2">
+                        </Setter>
+                        <Setter Target="covidChart.Visibility" Value="Collapsed">
+                        </Setter>
+                        <Setter Target="chartControls.Visibility" Value="Collapsed">
+                        </Setter>
+                        <Setter Target="chartTitle.Visibility" Value="Collapsed">
+                        </Setter>
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="VisualStateTablet">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="600"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="VisualStateDesktop">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="800"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
@@ -17,7 +63,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="5*" />
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Grid.Column="0">
+        <Grid x:Name="descriptionGrid" Grid.Row="0" Grid.Column="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
@@ -30,7 +76,7 @@
             <TextBlock x:Name="lblStartDate" Text="{x:Bind ViewModel.DateLabel, Mode=OneWay}" Grid.Row="1" Grid.Column="0" TextAlignment="Center"/>
             <TextBlock x:Name="lblCountry" Text="{x:Bind ViewModel.Trip.Country, Mode=OneWay}" Grid.Row="2" Grid.Column="0" TextAlignment="Center"/>
         </Grid>
-        <Grid Grid.Row="0" Grid.Column="2">
+        <Grid x:Name="progressGrid" Grid.Row="0" Grid.Column="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*" />
                 <ColumnDefinition Width="*" />
@@ -46,23 +92,23 @@
             <StackPanel Grid.Row="1" Grid.Column="0">
                 <StackPanel Padding="12" Margin="5">
                     <TextBlock Text="Total"/>
-                    <ProgressBar Value="20" Maximum="100" Margin="0,12"/>
+                    <ProgressBar Value="{x:Bind ViewModel.total_finished, Mode=OneWay}" Maximum="{x:Bind ViewModel.total, Mode=OneWay}" Margin="0,12"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Grid.Row="2" Grid.Column="0">
                 <StackPanel Padding="12" Margin="5">
                     <TextBlock Text="Items packed"/>
-                    <ProgressBar Value="20" Maximum="100" Margin="0,12"/>
+                    <ProgressBar Value="{x:Bind ViewModel.total_items_packed, Mode=OneWay}" Maximum="{x:Bind ViewModel.total_items, Mode=OneWay}" Margin="0,12"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Grid.Row="3" Grid.Column="0">
                 <StackPanel Padding="12" Margin="5">
                     <TextBlock Text="Tasks completed"/>
-                    <ProgressBar Value="20" Maximum="100" Margin="0,12"/>
+                    <ProgressBar Value="{x:Bind ViewModel.total_todos_completed, Mode=OneWay}" Maximum="{x:Bind ViewModel.total_todos, Mode=OneWay}" Margin="0,12"/>
                 </StackPanel>
             </StackPanel>
         </Grid>
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+        <StackPanel x:Name="chartControls" Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
 
             <ComboBox x:Name="cboCountry" ItemsSource="{x:Bind ViewModel.Countries, Mode=OneWay}"  SelectionChanged="CboCountry_SelectionChanged" VerticalAlignment="Center"  Margin="10">
                 <ComboBox.ItemTemplate>
@@ -87,12 +133,13 @@
         </StackPanel>
         <StackPanel Grid.Row="3" Grid.Column="0">
             
-        <TextBlock Text="{x:Bind ViewModel.ChartTitle, Mode=TwoWay}" FontSize="15">
+        <TextBlock x:Name="chartTitle" Text="{x:Bind ViewModel.ChartTitle, Mode=TwoWay}" FontSize="15">
         </TextBlock>
+            
         </StackPanel>
-
-        <lvc:CartesianChart Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Series="{x:Bind ViewModel.SeriesCollection, Mode=OneWay}" AxisX="{x:Bind ViewModel.XCollection, Mode=OneWay}">
+        <lvc:CartesianChart x:Name="covidChart" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Series="{x:Bind ViewModel.SeriesCollection, Mode=OneWay}" AxisX="{x:Bind ViewModel.XCollection, Mode=OneWay}">
 
         </lvc:CartesianChart>
+
     </Grid>
 </Page>

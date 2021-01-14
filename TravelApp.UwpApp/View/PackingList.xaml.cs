@@ -62,22 +62,16 @@ namespace TravelApp.UwpApp.View
         {
             var btn = (Button)sender;
             var item = (ItemDto)btn.DataContext;
-            if (item.PackedCount < item.Count)
-                item.PackedCount++;
-            else
-                item.Completed = true;
-            ViewModel.UpdateItem(item);       
+            ViewModel.UpdateItem(item, true);
         }
 
         private void DecreaseCount_Click(object sender, RoutedEventArgs e)
         {
             var btn = (Button)sender;
             var item = (ItemDto)btn.DataContext;
-            if (item.PackedCount > 0)
-                item.PackedCount--;
-            if (item.PackedCount < item.Count)
-                item.Completed = false;
-            ViewModel.UpdateItem(item);
+            ViewModel.UpdateItem(item, false);
+            
+
         }
     }
 }

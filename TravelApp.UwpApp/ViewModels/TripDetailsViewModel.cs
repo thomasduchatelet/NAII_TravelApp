@@ -24,6 +24,23 @@ namespace TravelApp.ViewModels
         private ObservableCollection<CountryDto> _countries;
         public ObservableCollection<CountryDto> Countries { get { return _countries; } set { _countries = value; OnPropertyChanged(); } }
         public ObservableCollection<CountryCovidResult> CountryCovidResults { get; set; }
+        private List<ItemDto> items;
+        private List<ItemDto> todos;
+
+        private int _total = 0;
+        private int _total_finished = 0;
+        public int total { get { return _total; } set { _total = value; OnPropertyChanged(); } }
+        public int total_finished { get { return _total_finished; } set { _total_finished = value; OnPropertyChanged(); } }
+
+        private int _total_items = 0;
+        private int _total_items_packed = 0;
+        public int total_items { get { return _total_items; } set { _total_items = value; OnPropertyChanged(); } }
+        public int total_items_packed { get { return _total_items_packed; } set { _total_items_packed = value; OnPropertyChanged(); } }
+
+        private int _total_todos = 0;
+        private int _total_todos_completed = 0;
+        public int total_todos { get { return _total_todos; } set { _total_todos = value; OnPropertyChanged(); } }
+        public int total_todos_completed { get { return _total_todos_completed; } set { _total_todos_completed = value; OnPropertyChanged(); } }
 
         private string _chartTitle;
         public string ChartTitle { get { return _chartTitle; } set { _chartTitle = value; OnPropertyChanged(); } }
@@ -35,16 +52,28 @@ namespace TravelApp.ViewModels
           private List<double> deaths = new List<double>();
           private List<double> deathsTotal = new List<double>();
           private List<string>  dates = new List<string>();
-        public void GetTrip(long id)
-        {
-            Trip = ApiMethods.GetTrips(new TripFilterDto() { Id = id }).Result.FirstOrDefault();
-        }
 
         public async void GetCountries()
         {
             var countries = await ApiMethods.GetAllCountries();
             Countries = new ObservableCollection<CountryDto>(countries.OrderBy(c => c.Country));
             GetCountryCovidData(countries.FirstOrDefault(c => c.Country == Trip.Country));
+        }
+
+        public async void GetPackingData()
+        {
+            items = await ApiMethods.GetItemsEager(new ItemTodoFilterDto { TripId = Trip.Id });
+            total_items = items.Sum(i => i.Count);
+            total_items_packed = items.Sum(i => i.PackedCount);
+
+            items = await ApiMethods.GetItemsEager(new ItemTodoFilterDto { TripId = Trip.Id });
+            total_items = items.Sum(i => i.Count);
+            total_items_packed = items.Sum(i => i.PackedCount);
+
+            total = total_items + total_todos;
+
+            total_finished = total_items_packed + total_todos_completed;
+
         }
 
         public async void GetCountryCovidData(CountryDto countryDto)
