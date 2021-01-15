@@ -12,14 +12,13 @@
     
     <Grid>
         <VisualStateManager.VisualStateGroups>
-
             <VisualStateGroup x:Name="VisualStateGroup">
                 <VisualState x:Name="VisualStateMobile">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="0"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="lblWelcome.Text" Value="mobile device">
+                        <Setter Target="colMiddle.Width" Value="9*">
                         </Setter>
                     </VisualState.Setters>
                 </VisualState>
@@ -29,7 +28,7 @@
                         <AdaptiveTrigger MinWindowWidth="600"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="lblWelcome.Text" Value="tablet">
+                        <Setter Target="colMiddle.Width" Value="6*">
                         </Setter>
                     </VisualState.Setters>
                 </VisualState>
@@ -39,7 +38,7 @@
                         <AdaptiveTrigger MinWindowWidth="800"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="lblWelcome.Text" Value="desktop">
+                        <Setter Target="colMiddle.Width" Value="3*">
                         </Setter>
                     </VisualState.Setters>
                 </VisualState>
@@ -48,38 +47,46 @@
         
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="3" x:Name="colMiddle" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.1*" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="0.1*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="10*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="Packing List" Style="{StaticResource Title}" TextWrapping="Wrap" VerticalAlignment="Top" Margin="10" Height="40"/>
-
-        <TextBlock x:Name="lblWelcome" Grid.Row="0" Text="Something wrong" Grid.Column="0" Style="{StaticResource Title}" TextWrapping="Wrap" VerticalAlignment="Bottom" Margin="10" Height="40"/>
-
-        <StackPanel Grid.Row="1" Grid.Column="0">
+        <StackPanel x:Name="progressPanel" Grid.Row="0" Grid.Column="1">
             <StackPanel Padding="12" Margin="5">
                 <TextBlock Text="Items packed"/>
                 <ProgressBar Value="{x:Bind ViewModel.total_packed, Mode=OneWay}" Maximum="{x:Bind ViewModel.total_items, Mode=OneWay}" Margin="0,12"/>
             </StackPanel>
         </StackPanel>
 
-        <ComboBox Grid.Row="0" Grid.Column="1" x:Name="cboCategory" ItemsSource="{x:Bind ViewModel.Categories,  Mode=OneWay}"  SelectionChanged="cboCategory_SelectionChanged" VerticalAlignment="Bottom">
-            <ComboBox.ItemTemplate>
-                <DataTemplate x:DataType="models:CategoryDto">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{x:Bind Name}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
-        <CheckBox  Grid.Row="0" Grid.Column="2" IsChecked="{x:Bind ViewModel.CompletedFilter, Mode=TwoWay}">
-            Hide completed items
-        </CheckBox>
-        <ListView Style="{StaticResource ListViewStyle}" ItemContainerStyle="{StaticResource BorderedItem}" Grid.Row="1"  x:Name="listItems" Grid.Column="1" ItemsSource="{x:Bind ViewModel.Items,  Mode=OneWay}" CanDragItems="false" CanReorderItems="false" AllowDrop="False" SelectionMode="Single">
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <ComboBox Text="---" Grid.Row="1" Grid.Column="0" x:Name="cboCategory" ItemsSource="{x:Bind ViewModel.Categories,  Mode=OneWay}"  SelectionChanged="cboCategory_SelectionChanged" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate x:DataType="models:CategoryDto">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{x:Bind Name}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <CheckBox  Grid.Row="1" Grid.Column="1" IsChecked="{x:Bind ViewModel.CompletedFilter, Mode=TwoWay}" HorizontalAlignment="Right">
+                Hide completed items
+            </CheckBox>
+        </Grid>
+
+        <ListView Style="{StaticResource ListViewStyle}" ItemContainerStyle="{StaticResource BorderedItem}" Grid.Row="2"  x:Name="listItems" Grid.Column="1" ItemsSource="{x:Bind ViewModel.Items,  Mode=OneWay}" CanDragItems="false" CanReorderItems="false" AllowDrop="False" SelectionMode="Single">
             <ListView.ItemTemplate>
                 <DataTemplate  x:DataType="models:ItemDto">
                     <Grid Margin="5">
@@ -111,7 +118,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Click="NewItem_Click" Content="Nieuw item" Grid.Row="2" Grid.Column="1" VerticalAlignment="top"></Button>
+        <Button Click="NewItem_Click" Content="Nieuw item" Grid.Row="3" Grid.Column="1" VerticalAlignment="top"></Button>
        
 
     </Grid>

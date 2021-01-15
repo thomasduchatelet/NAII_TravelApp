@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using TravelApp.Shared.Dto;
+using TravelApp.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -22,9 +24,47 @@ namespace TravelApp.View
     /// </summary>
     public sealed partial class ToDoList : Page
     {
+        private long currentTripId;
+        public ToDoListViewModel ViewModel = new ToDoListViewModel();
+
         public ToDoList()
         {
             this.InitializeComponent();
+
+        }
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            TripDto trip = (TripDto)e.Parameter;
+            currentTripId = trip.Id;
+            ViewModel.GetToDos(currentTripId);
+            base.OnNavigatedTo(e);
+        }
+
+        private void cboCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ViewModel.FilterCategory(e.AddedItems);
+        }
+
+        private void cbCompleted_Changed(object sender, RoutedEventArgs e)
+        {
+            var cb = (CheckBox)sender;
+            var todo = (TodoDto)cb.DataContext;
+            bool completed = cb.IsChecked != null && (bool)cb.IsChecked;
+            ViewModel.UpdateToDo(todo, completed);
+        }
+
+        private void NewToDo_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(AddPackingToDo), currentTripId);
+        }
+
+        private void DeleteToDo_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = (Button)sender;
+            var todo = (TodoDto)btn.DataContext;
+            ViewModel.DeleteToDo(todo);
+
+
         }
     }
 }

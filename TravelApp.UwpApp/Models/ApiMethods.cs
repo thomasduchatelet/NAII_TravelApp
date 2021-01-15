@@ -47,6 +47,7 @@ namespace TravelApp.UwpApp.Models
             return await ApiCall<List<CountryCovidResult>>("https://api.covid19api.com/total/dayone/country/" + countryDto.Slug);
         }
 
+
         public static Task<ItineraryDto> CreateItinerary(ItineraryDto itinerary)
         {
             return PutObject("/Itinerary/Create", itinerary);
@@ -97,6 +98,13 @@ namespace TravelApp.UwpApp.Models
             item.Category = null;
             
             return PutObject("/Item/Update", item);
+        }
+
+        public static Task<TodoDto> UpdateTodo(TodoDto todo)
+        {
+            todo.Category = null;
+
+            return PutObject("/Todo/Update", todo);
         }
 
         public static async Task<ItineraryDto> GetItinerary(long tripId)
@@ -166,6 +174,19 @@ namespace TravelApp.UwpApp.Models
             return await PutObject("/Item/Create", item);
         }
 
+
+        public static async Task<TodoDto> AddToDo(long tripId, string name, long categoryId)
+        {
+            TodoDto todo = new TodoDto
+            {
+                TripId = tripId,
+                Name = name,
+                Completed = false,
+                CategoryId = categoryId
+            };
+            return await PutObject("/Todo/Create", todo);
+        }
+
         public static async Task<TripDto> AddTrip(string title, DateTime startDate, DateTime endDate, ItineraryDto itinerary)
         {
             TripDto trip = new TripDto
@@ -224,13 +245,13 @@ namespace TravelApp.UwpApp.Models
         }
 
         public static async Task<List<CountryDto>> GetAllCountries()
-        {
+        {   
            return await ApiCall<List<CountryDto>>("https://api.covid19api.com/countries");
         }
 
-        public static async Task<List<ItemDto>> GetToDosEager(ItemTodoFilterDto filter = null)
+        public static async Task<List<TodoDto>> GetToDosEager(ItemTodoFilterDto filter = null)
         {
-            return await ApiCall<List<ItemDto>>(baseUrl + "/ToDo/GetAllEager", filter);
+            return await ApiCall<List<TodoDto>>(baseUrl + "/Todo/GetAllEager", filter);
         }
 
         public static async Task<List<CategoryDto>> GetCategories(CategoryFilterDto filter = null)
@@ -255,7 +276,7 @@ namespace TravelApp.UwpApp.Models
 
         public static async Task<TodoDto> DeleteToDo(TodoDto toDo)
         {
-            return await PostObject("/ToDo/Delete", toDo);
+            return await PostObject("/Todo/Delete", toDo);
         }
 
         public static async Task<UnsplashResult> GetImageUrl(string keyword)

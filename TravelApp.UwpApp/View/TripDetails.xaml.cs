@@ -35,13 +35,12 @@ namespace TravelApp.View
         public TripDetails()
         {
             InitializeComponent();
-            ViewModel.GetCountries();
-
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             ViewModel.Trip = (TripDto)e.Parameter;
             ViewModel.GetPackingData();
+            ViewModel.GetCountries();
             base.OnNavigatedTo(e); 
         }
 
