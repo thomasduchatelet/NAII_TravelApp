@@ -25,7 +25,7 @@ namespace TravelApp.ViewModels
         public ObservableCollection<CountryDto> Countries { get { return _countries; } set { _countries = value; OnPropertyChanged(); } }
         public ObservableCollection<CountryCovidResult> CountryCovidResults { get; set; }
         private List<ItemDto> items;
-        private List<ItemDto> todos;
+        private List<TodoDto> todos;
 
         private int _total = 0;
         private int _total_finished = 0;
@@ -66,9 +66,9 @@ namespace TravelApp.ViewModels
             total_items = items.Sum(i => i.Count);
             total_items_packed = items.Sum(i => i.PackedCount);
 
-            items = await ApiMethods.GetItemsEager(new ItemTodoFilterDto { TripId = Trip.Id });
-            total_items = items.Sum(i => i.Count);
-            total_items_packed = items.Sum(i => i.PackedCount);
+            todos = await ApiMethods.GetToDosEager(new ItemTodoFilterDto { TripId = Trip.Id });
+            total_todos = todos.Count();
+            total_todos_completed = todos.Count(i => i.Completed);
 
             total = total_items + total_todos;
 
