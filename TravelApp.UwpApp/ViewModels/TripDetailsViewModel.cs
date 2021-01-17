@@ -78,7 +78,7 @@ namespace TravelApp.ViewModels
 
         public async void GetCountryCovidData(CountryDto countryDto)
         {
-            ChartTitle = "Current Covid-19 situation in " + Trip.Country;
+            ChartTitle = "Current Covid-19 situation in " + countryDto.Country;
             DateLabel = Trip.StartDate.ToString("M") + " " + Trip.StartDate.ToString("yyyy") + " - " + Trip.EndDate.ToString("M") + " "  + Trip.EndDate.ToString("yyyy");
             var results = await ApiMethods.GetCountryCovidData(countryDto);
             CountryCovidResults = new ObservableCollection<CountryCovidResult>(results);

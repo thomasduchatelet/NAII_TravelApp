@@ -41,7 +41,10 @@ namespace TravelApp.View
 
         private async void AddItem_Click(object sender, RoutedEventArgs e)
         {
+
             await ApiMethods.AddItem(currentTripId, txtItemName.Text, int.Parse(txtItemCount.Text), selectedCategory.Id);
+            Frame.GoBack();
+
         }
 
         private void TextBox_OnBeforeTextChanging(TextBox sender,

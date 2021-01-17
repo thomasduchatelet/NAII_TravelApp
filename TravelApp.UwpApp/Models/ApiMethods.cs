@@ -147,6 +147,8 @@ namespace TravelApp.UwpApp.Models
                     };
                
                 var response = await client.PostAsync(uri, JsonHelpers.ObjectToHttpContent(Body));
+                if (!response.IsSuccessStatusCode)
+                    return false;
                 token = await response.Content.ReadAsStringAsync();
                 client.DefaultRequestHeaders.Authorization = new HttpCredentialsHeaderValue("Bearer", token);
             }

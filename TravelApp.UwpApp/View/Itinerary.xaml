@@ -17,8 +17,6 @@
                         <AdaptiveTrigger MinWindowWidth="0"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="lblWelcome.Text" Value="mobile device">
-                        </Setter>
                     </VisualState.Setters>
                 </VisualState>
 
@@ -27,8 +25,6 @@
                         <AdaptiveTrigger MinWindowWidth="600"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="lblWelcome.Text" Value="tablet">
-                        </Setter>
                     </VisualState.Setters>
                 </VisualState>
 
@@ -37,8 +33,6 @@
                         <AdaptiveTrigger MinWindowWidth="800"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="lblWelcome.Text" Value="desktop">
-                        </Setter>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -54,9 +48,8 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="0.1*" />
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Bind ViewModel.Itinerary.Name,  Mode=OneWay}" Style="{StaticResource Title}" TextWrapping="Wrap" VerticalAlignment="Top" Margin="10" Height="40"/>
 
-        <TextBlock x:Name="lblWelcome" Grid.Row="0" Text="Something wrong" Grid.Column="0" Style="{StaticResource Title}" TextWrapping="Wrap" VerticalAlignment="Bottom" Margin="10" Height="40"/>
+        <TextBlock x:Name="lblWelcome" Grid.Row="0" Text="{x:Bind ViewModel.Itinerary.Name,  Mode=OneWay}" Grid.Column="0" Style="{StaticResource Title}" TextWrapping="Wrap" VerticalAlignment="Bottom" Margin="10" Height="40"/>
 
         <ListView Style="{StaticResource ListViewStyle}" ItemContainerStyle="{StaticResource BorderedItem}" Grid.Row="1" x:Name="listItems" Grid.Column="1" ItemsSource="{x:Bind ViewModel.Locations,  Mode=OneWay}" CanDragItems="False" CanReorderItems="False" AllowDrop="False" SelectionMode="Single">
             <ListView.ItemTemplate>
@@ -66,8 +59,15 @@
                             <RowDefinition Height="*" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{x:Bind Name, Mode=OneWay}" FontSize="20" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Left"></TextBlock>
+                        
+                        <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{x:Bind Name, Mode=OneWay}" FontSize="20" Grid.Column="0" Grid.Row="0"    Grid.ColumnSpan="2" HorizontalAlignment="Left"></TextBlock>
                         <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{x:Bind Country, Mode=OneWay}" FontSize="20" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Left"></TextBlock>
+                        <Button x:Name="BtnIncrease" Grid.Column="3" Grid.Row="0" Click="BtnUp_Click" Background="Transparent" HorizontalAlignment="Right">
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xECC8;"/>
+                        </Button>
+                        <Button x:Name="BtnDecrease" Grid.Column="2" Grid.Row="1" Click="BtnDown_Click" Background="Transparent" HorizontalAlignment="Right">
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xECC9;"/>
+                        </Button>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

@@ -42,6 +42,7 @@ namespace TravelApp.View
         private async void AddToDo_Click(object sender, RoutedEventArgs e)
         {
             await ApiMethods.AddToDo(currentTripId, txtToDoName.Text, selectedCategory.Id);
+            Frame.GoBack();
         }
 
         private void TextBox_OnBeforeTextChanging(TextBox sender,

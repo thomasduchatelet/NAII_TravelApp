@@ -19,7 +19,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="Item toevoegen" Style="{StaticResource Title}" TextWrapping="Wrap" VerticalAlignment="Top" Margin="10" Height="40"/>
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Add Item" Style="{StaticResource Title}" TextWrapping="Wrap" VerticalAlignment="Top" Margin="10" Height="40"/>
 
         <Grid Grid.Row="1" Grid.Column="1">
             <Grid.ColumnDefinitions>
@@ -42,9 +42,9 @@
             </ComboBox>
             <TextBox x:Name="txtItemName" Text="" Grid.Row="0" Grid.Column="1" Height="32"/>
             <TextBox x:Name="txtItemCount" BeforeTextChanging="TextBox_OnBeforeTextChanging" Text=""  Grid.Row="1" Grid.Column="1" Height="32"/>
-            <TextBlock Text="Naam" TextWrapping="Wrap" VerticalAlignment="Center"  HorizontalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
-            <TextBlock Text="Aantal" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
-            <Button Click="AddItem_Click" Content="Toevoegen" Style="{StaticResource AccentButtonStyle}" Grid.ColumnSpan="2" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" Height="40" Margin="10"></Button>
+            <TextBlock Text="Name" TextWrapping="Wrap" VerticalAlignment="Center"  HorizontalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
+            <TextBlock Text="Amount" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
+            <Button Click="AddItem_Click" Content="Add" Style="{StaticResource AccentButtonStyle}" Grid.ColumnSpan="2" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" Height="40" Margin="10"></Button>
        
         </Grid>
 

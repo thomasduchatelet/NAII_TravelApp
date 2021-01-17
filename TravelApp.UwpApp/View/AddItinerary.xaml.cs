@@ -37,8 +37,12 @@ namespace TravelApp.View
         {
             var dto = (ItineraryDto)e.Parameter;
             ViewModel.Itinerary = dto;
-            if (dto.Locations != null)
-                ViewModel.Locations = new ObservableCollection<LocationDto>(dto.Locations);
+            if(dto != null)
+            {
+
+                if (dto.Locations != null)
+                    ViewModel.Locations = new ObservableCollection<LocationDto>(dto.Locations);
+            }
             else
                 ViewModel.Locations = new ObservableCollection<LocationDto>(new List<LocationDto>());
             base.OnNavigatedTo(e);
