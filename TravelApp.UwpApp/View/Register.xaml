@@ -35,9 +35,9 @@
 
             </Grid.RowDefinitions>
             <TextBox x:Name="txtUsername" Text="Username" Grid.Row="0" Grid.Column="1" Height="32"/>
-            <TextBox x:Name="txtEmail" Text="jdoe@mail.com" Grid.Row="1" Grid.Column="1" Height="32"/>
-            <PasswordBox x:Name="txtPassword" Password="123aze"  Grid.Row="2" Grid.Column="1" Height="32"/>
-            <PasswordBox x:Name="txtPasswordConfirmation" Password="123aze"  Grid.Row="3" Grid.Column="1" Height="32"/>
+            <TextBox x:Name="txtEmail" Text="" Grid.Row="1" Grid.Column="1" Height="32"/>
+            <PasswordBox x:Name="txtPassword" Password=""  Grid.Row="2" Grid.Column="1" Height="32"/>
+            <PasswordBox x:Name="txtPasswordConfirmation" Password=""  Grid.Row="3" Grid.Column="1" Height="32"/>
             <TextBlock Text="Gebruikersnaam" TextWrapping="Wrap" VerticalAlignment="Center"  HorizontalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
             <TextBlock Text="Email" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
             <TextBlock Text="Wachtwoord" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="0"/>

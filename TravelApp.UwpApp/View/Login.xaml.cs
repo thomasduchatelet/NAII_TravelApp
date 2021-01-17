@@ -26,11 +26,8 @@ namespace TravelApp.UwpApp.View
     /// </summary>
     public sealed partial class Login : Page
     {
-        public ImageViewModel ViewModel = new ImageViewModel();
-       
         public Login()
         {
-            ViewModel.GetBackground();
             this.InitializeComponent();
         }
         
@@ -49,17 +46,6 @@ namespace TravelApp.UwpApp.View
         private void Register_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(Register));
-        }
-        void Image_Loaded(object sender, RoutedEventArgs e)
-        {
-            Image img = sender as Image;
-            if (img != null)
-            {
-                BitmapImage bitmapImage = new BitmapImage();
-                img.Width = bitmapImage.DecodePixelWidth = 280;
-                bitmapImage.UriSource = new Uri(ViewModel.BackgroundImg);
-                img.Source = bitmapImage;
-            }
         }
     }
 }

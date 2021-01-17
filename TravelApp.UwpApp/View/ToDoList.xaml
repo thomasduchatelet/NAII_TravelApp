@@ -110,7 +110,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Click="NewToDo_Click" Content="Nieuw item" Grid.Row="3" Grid.Column="1" VerticalAlignment="top"></Button>
+        <Button Style="{StaticResource AccentButtonStyle}" Click="NewToDo_Click" Content="Nieuw item" Grid.Row="3" Grid.Column="1" VerticalAlignment="top"></Button>
 
 
         </Grid>
