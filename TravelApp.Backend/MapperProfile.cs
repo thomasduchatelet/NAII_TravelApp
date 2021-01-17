@@ -20,7 +20,7 @@ namespace TravelApp.Backend
                 .ForMember(dst => dst.Itinerary, opt => opt.MapFrom(src => src.Itinerary))
                 .ReverseMap();
 
-            CreateMap<Todo, ItemDto>()
+            CreateMap<Todo, TodoDto>()
                 .ForMember(dst => dst.Category, opt => opt.MapFrom(src => src.Category))
                 .ReverseMap();
 

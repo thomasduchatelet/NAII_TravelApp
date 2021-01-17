@@ -8,12 +8,47 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <NavigationView x:Name="nvSample">
+    <VisualStateManager.VisualStateGroups>
+
+        <VisualStateGroup x:Name="VisualStateGroup">
+            <VisualState x:Name="VisualStateMobile">
+                <VisualState.StateTriggers>
+                    <AdaptiveTrigger MinWindowWidth="0"/>
+                </VisualState.StateTriggers>
+                <VisualState.Setters>
+                    <Setter Target="nvTripNav.IsPaneOpen" Value="false" >
+                    </Setter>
+                </VisualState.Setters>
+            </VisualState>
+
+            <VisualState x:Name="VisualStateTablet">
+                <VisualState.StateTriggers>
+                    <AdaptiveTrigger MinWindowWidth="600"/>
+                </VisualState.StateTriggers>
+                <VisualState.Setters>
+                    <Setter Target="nvTripNav.IsPaneOpen" Value="false" >
+                    </Setter>
+                </VisualState.Setters>
+            </VisualState>
+
+            <VisualState x:Name="VisualStateDesktop">
+                <VisualState.StateTriggers>
+                    <AdaptiveTrigger MinWindowWidth="800"/>
+                </VisualState.StateTriggers>
+                <VisualState.Setters>
+                    <Setter Target="nvTripNav.IsPaneOpen" Value="true" >
+                    </Setter>
+                </VisualState.Setters>
+            </VisualState>
+        </VisualStateGroup>
+    </VisualStateManager.VisualStateGroups>
+    
+    <NavigationView x:Name="nvTripNav" IsPaneOpen="False" IsSettingsVisible="False" IsBackEnabled="True" BackRequested="On_BackRequested" ItemInvoked="NavViewItemInvoked">
         <NavigationView.MenuItems>
-            <NavigationViewItem Icon="Play" Content="Menu Item1" Tag="SamplePage1" />
-            <NavigationViewItem Icon="Save" Content="Menu Item2" Tag="SamplePage2" />
-            <NavigationViewItem Icon="Refresh" Content="Menu Item3" Tag="SamplePage3" />
-            <NavigationViewItem Icon="Download" Content="Menu Item4" Tag="SamplePage4" />
+            <NavigationViewItem Icon="AllApps" Content="Trip" Tag="trip" x:Name="tripNav"/>
+            <NavigationViewItem Icon="AllApps" Content="Packing List" Tag="packingList" x:Name="PackingListNav"/>
+            <NavigationViewItem Icon="AllApps" Content="ToDo List" Tag="todoList" x:Name="ToDoListNav" />
+            <NavigationViewItem Icon="World" Content="Itinerary" Tag="itinerary" x:Name="ItineraryNav" />
         </NavigationView.MenuItems>
         <Frame x:Name="contentFrame"/>
     </NavigationView>

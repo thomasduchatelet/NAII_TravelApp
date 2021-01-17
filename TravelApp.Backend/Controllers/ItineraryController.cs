@@ -14,8 +14,10 @@ namespace TravelApp.Backend.Controllers
 
     public class ItineraryController : CrudControllerBase<Itinerary, ItineraryFilter, ItineraryDto>
     {
-        public ItineraryController(ICrudRepository<Itinerary, ItineraryFilter> repository, IHttpContextAccessor httpContextAccessor) : base(repository, httpContextAccessor){}
-
+        private ICrudRepository<Location, LocationFilter> _locationsRepo;
+        private ICrudRepository<Trip, TripFilter> _tripRepo;
+        public ItineraryController(ICrudRepository<Itinerary, ItineraryFilter> repository, IHttpContextAccessor httpContextAccessor, ICrudRepository<Location, LocationFilter> repo, ICrudRepository<Trip, TripFilter> tripRepo) : base(repository, httpContextAccessor){ _locationsRepo = repo; _tripRepo = tripRepo; }
+        [HttpPost("AddLocation")]
         public ActionResult AddLocation(int position, LocationDto location)
         {
             var itinerary = _repository.GetAllEager(new ItineraryFilter() { Id = location.ItineraryId }, _userId).FirstOrDefault();
@@ -23,6 +25,54 @@ namespace TravelApp.Backend.Controllers
             itinerary.AddLocation(_mapper.Map<Location>(location), position);
             _repository.SaveChanges();
             return Ok();
+        }
+        [HttpPost("LocationChangeOrder")]
+        public ActionResult<IEnumerable<LocationDto>> ChangeLocationPosition(LocationDto dto)
+        {
+            var itinerary = _repository.GetAllEager(new ItineraryFilter() { Id = dto.ItineraryId }, _userId).FirstOrDefault();
+            var position = (int) dto.Order;
+            if (itinerary == null) return NotFound();
+            var location = itinerary.Locations.Where(l => l.Id == dto.Id).FirstOrDefault();
+            var locations = itinerary.Locations.OrderBy(l => l.Order).ToList();
+            if (locations.Count == 0)
+                location.Order = 10;
+            else if (position <= 0)
+                location.Order = locations[0].Order / 2;
+            else if (position >= locations.Count )
+                location.Order = locations.Max(l => l.Order) + 10;
+            else
+                location.Order = (locations[position - 1].Order + locations[position].Order) / 2;
+            locations = locations.OrderBy(l => l.Order).ToList();
+            for (int i = 0; i < locations.Count; i++)
+            {
+                locations[i].Order = 10 * (i + 1);
+                _locationsRepo.Update(location, _userId);
+            }
+            var trip = _tripRepo.GetAll(new TripFilter() { Id = itinerary.TripId },_userId).FirstOrDefault();
+            trip.Country = locations.OrderByDescending(l => l.Order).FirstOrDefault().Country;
+            _tripRepo.Update(trip, _userId);
+
+            return Ok(_mapper.Map<IEnumerable<LocationDto>>(_locationsRepo.GetAll(new LocationFilter() { ItineraryId = dto.ItineraryId }, _userId).OrderBy(l => l.Order)));
+        }
+
+        public override ActionResult<ItineraryDto> Update(ItineraryDto input)
+        {
+            var it = _mapper.Map<Itinerary>(input);
+            it.UserId = _userId;
+            if (it.Locations != null)
+                it.Locations.ForEach(l => l.UserId = _userId);
+             return Ok(_mapper.Map<ItineraryDto>(_repository.Update(it, _userId)));
+        }
+        public override ActionResult<ItineraryDto> Create(ItineraryDto input)
+        {
+            var it = _mapper.Map<Itinerary>(input);
+            it.UserId = _userId;
+            if (it.Locations != null)
+                it.Locations.ForEach(l => l.UserId = _userId);
+            var trip = _tripRepo.GetAll(new TripFilter() { Id = it.TripId }, _userId).FirstOrDefault();
+            trip.Country = it.Locations.OrderByDescending(l => l.Order).FirstOrDefault().Country;
+            _tripRepo.Update(trip,_userId);
+            return Ok(_mapper.Map<ItineraryDto>(_repository.Update(it, _userId)));
         }
     }
 }

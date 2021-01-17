@@ -18,6 +18,7 @@ namespace TravelApp.Backend.Data
         public DbSet<Item> Items { get; set; }
         public DbSet<User> AppUsers { get; set; }
 
+        public DbSet<Country> Countries { get; set; }
         public AppDbContext(DbContextOptions options) : base(options)
         {
 

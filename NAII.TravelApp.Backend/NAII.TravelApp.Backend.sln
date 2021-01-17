@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NAII.TravelApp.Backend", "NAII.TravelApp.Backend\NAII.TravelApp.Backend.csproj", "{0A685B86-7122-424F-865E-B240E00B438A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0A685B86-7122-424F-865E-B240E00B438A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A685B86-7122-424F-865E-B240E00B438A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A685B86-7122-424F-865E-B240E00B438A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A685B86-7122-424F-865E-B240E00B438A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8AF24ED2-973A-4753-91DC-83AD3D4157B6}
+	EndGlobalSection
+EndGlobal

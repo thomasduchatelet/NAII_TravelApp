@@ -8,6 +8,8 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace TravelApp.Backend.Data
 {
@@ -15,6 +17,7 @@ namespace TravelApp.Backend.Data
     {
         private readonly AppDbContext _context;
         private readonly UserManager<User> _userManager;
+
 
         public DataSeed(AppDbContext context, UserManager<User> manager)
         {
@@ -24,7 +27,7 @@ namespace TravelApp.Backend.Data
 
         public async Task InitializeData()
         {
-            _context.Database.EnsureDeleted();
+            //_context.Database.EnsureDeleted();
             if (_context.Database.EnsureCreated())
             {
                 Category clothes = new Category("Clothes");
@@ -73,7 +76,8 @@ namespace TravelApp.Backend.Data
                     Categories = new List<Category> { clothes, toiletries, miscellaneous, tickets, research}
                 };
 
-
+                //var countries = JsonConvert.DeserializeObject<List<Country>>(COUNTRY_JSON);
+                //_context.Countries.AddRange(countries);
                 await _userManager.CreateAsync(user, "123aze");
                 await _context.SaveChangesAsync();
 

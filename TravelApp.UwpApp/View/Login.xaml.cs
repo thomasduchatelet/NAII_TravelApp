@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using TravelApp.UwpApp.Models;
+using TravelApp.View;
+using TravelApp.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -12,6 +14,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -27,16 +30,22 @@ namespace TravelApp.UwpApp.View
         {
             this.InitializeComponent();
         }
+        
 
         private async void Login_Click(object sender, RoutedEventArgs e)
         {
             if (await ApiMethods.AuthenticateUser(txtUsername.Text, txtPassword.Password))
-            Frame.Navigate(typeof(TripsOverview));
+            Frame.Navigate(typeof(MainNavigation));
         }
 
-        private async void Register_Click(object sender, RoutedEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            Frame.Navigate(typeof(TripsOverview));
+            ApiMethods.LogOut();
+        }
+
+        private void Register_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(Register));
         }
     }
 }

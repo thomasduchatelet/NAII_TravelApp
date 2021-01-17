@@ -1,0 +1,75 @@
+﻿<Page
+    x:Class="TravelApp.View.AddItinerary"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TravelApp.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:models="using:TravelApp.Shared.Dto"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Bind ViewModel.Itinerary.Name, Mode=OneWay}" Style="{StaticResource Title}" TextWrapping="Wrap" VerticalAlignment="Top" Margin="10" Height="40"/>
+
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+
+
+            </Grid.RowDefinitions>
+            <TextBox x:Name="txtName" Header="Enter Itinerary name" Text="{x:Bind ViewModel.Itinerary.Name, Mode=TwoWay}" Grid.Row="1" Grid.Column="0"/>
+            <ListView Grid.Row="0" x:Name="listItems" Grid.Column="0" ItemsSource="{x:Bind ViewModel.Locations,  Mode=OneWay}" CanDragItems="True" CanReorderItems="True" AllowDrop="True" SelectionMode="Single">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="models:LocationDto">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{x:Bind Name, Mode=OneWay}" FontSize="20" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch"></TextBlock>
+ 
+
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <TextBox x:Name="txtLocationName" Header="Enter location name" Text="" Grid.Row="2" Grid.Column="0"/>
+            <ComboBox Header="Enter Country" Grid.Row="2" Grid.Column="3" x:Name="cboCountry" ItemsSource="{x:Bind CountryViewModel.Countries, Mode=OneWay}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate x:DataType="models:CountryDto">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="{x:Bind Country}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button Grid.Row="3" Grid.Column="0" x:Name="AddLocationBtn" Click="AddLocationBtn_Click" Content="Add Location" Style="{StaticResource AccentButtonStyle}"  HorizontalAlignment="Stretch" Height="40" Margin="10"></Button>
+
+            <Button Click="Button_Click" Content="Save" Style="{StaticResource AccentButtonStyle}" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Stretch" Height="40" Margin="10"></Button>
+        </Grid>
+
+    </Grid>
+</Page>

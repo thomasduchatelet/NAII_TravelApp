@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
+using TravelApp.Shared.Dto;
+using TravelApp.View;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -22,11 +25,42 @@ namespace TravelApp.UwpApp.View
     /// </summary>
     public sealed partial class Navigation : Page
     {
+        private TripDto CurrentTrip { get; set; }
         public Navigation()
         {
             this.InitializeComponent();
-            contentFrame.Navigate(typeof(TripsOverview));
+        }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            var grid = (Grid)e.Parameter;
+            CurrentTrip = (TripDto)grid.DataContext;
+            contentFrame.Navigate(typeof(TripDetails), CurrentTrip);
+        }
+
+        private void NavViewItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
+        {
+            NavigationViewItem selectedItem = (NavigationViewItem)args.InvokedItemContainer;
+
+            var tag = selectedItem.Tag as string;
+            var pageType =
+                 tag == "trip" ? typeof(TripDetails) :
+                tag == "packingList" ? typeof(PackingList) :
+                tag == "todoList" ? typeof(ToDoList) :
+                tag == "itinerary" ? typeof(Itinerary) : null;
+            
+            if (pageType != null && pageType != contentFrame.CurrentSourcePageType)
+            {
+                contentFrame.Navigate(pageType, CurrentTrip);
+            }
+        }
+
+        private void On_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
+        {
+            if (this.Frame.CanGoBack)
+            {
+                this.Frame.GoBack();
+            }
         }
     }
 }
