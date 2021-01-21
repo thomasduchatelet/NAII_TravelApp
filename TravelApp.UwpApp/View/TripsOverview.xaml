@@ -46,7 +46,7 @@
         
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="2*" x:Name="colMiddle" />
+            <ColumnDefinition Width="3*" x:Name="colMiddle" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>

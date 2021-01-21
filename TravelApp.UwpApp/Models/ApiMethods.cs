@@ -19,7 +19,7 @@ namespace TravelApp.UwpApp.Models
 {
     public static class ApiMethods
     {
-        private static readonly string baseUrl = "https://travelapi.azurewebsites.net/api";
+        private static readonly string baseUrl = "https://websiteeeptpuwn5u6hc.azurewebsites.net/api";
         private static HttpClient client = new HttpClient();
 
         public static async Task<T> ApiCall<T>(string uri, BaseFilterDto filter = null)
@@ -161,7 +161,7 @@ namespace TravelApp.UwpApp.Models
 
         public static void LogOut()
         {
-            client.DefaultRequestHeaders.Remove("Bearer"); //TODO tijdelijke logout X D 
+            client.DefaultRequestHeaders.Remove("Bearer");
         }
 
         public static async Task<ItemDto> AddItem(long tripId, string name, int count, long categoryId)
